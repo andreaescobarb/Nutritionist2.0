@@ -12,6 +12,7 @@ import ProScreen from '../screens/Pro';
 import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
+import FoodsScreen from '../screens/Foods';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -250,6 +251,15 @@ const AppStack = createDrawerNavigator(
          ),
        }),
      },*/
+
+     Foods: {
+      screen: FoodsScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Pro" title="Foods" />
+        ),
+      }),
+    },
   },
 );
 
