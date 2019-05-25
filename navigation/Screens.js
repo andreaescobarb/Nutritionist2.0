@@ -253,7 +253,7 @@ const AppStack = createDrawerNavigator(
   },
 );
 
-export default createSwitchNavigator(
+export default createStackNavigator(
   {
     App: AppStack,
     Home: HomeStack,
