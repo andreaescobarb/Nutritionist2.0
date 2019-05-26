@@ -109,7 +109,8 @@ const ComponentsStack = createStackNavigator({
   Components: {
     screen: ComponentsScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header back title="Diario" navigation={navigation} />,
+      header: null
+      //<Header back title="Diario" navigation={navigation} />,
     })
   },
 }, {
@@ -133,25 +134,28 @@ const HomeStack = createStackNavigator({
   Water: {
     screen: WaterScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header back title="Agua" navigation={navigation} />,
+      header: null 
+      //<Header back title="Agua" navigation={navigation} />,
     })
   },
   Steps: {
     screen: StepsScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header back title="Pasos" navigation={navigation} />,
+      header: null 
+      //<Header back title="Pasos" navigation={navigation} />,
     })
   },
   Weight: {
     screen: WeightScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header back title="Peso" navigation={navigation} />,
+      header: null 
+      //<Header back title="Peso" navigation={navigation} />,
     })
   },
   Hours_Sleep: {
     screen: Hours_SleepScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header back title="Horas de Sueño" navigation={navigation} />,
+      header: null,
     })
   },
   Components: {

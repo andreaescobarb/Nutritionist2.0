@@ -25,7 +25,8 @@ export default class Components extends React.Component {
 
   renderItem = ({ item }) => {
     const { navigate } = this.props.navigation;
-
+  }
+/*
     switch (item.type) {
       case 'switch':
         return (
@@ -53,7 +54,7 @@ export default class Components extends React.Component {
       default:
         break;
     }
-  }
+  }*/
 
   render() {
     const { navigation } = this.props;
