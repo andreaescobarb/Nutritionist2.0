@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -38,51 +38,53 @@ export default class SignUp extends React.Component{
     renderForm=()=>{
         const {navigation}= this.props;
         return(
-            <Block flex style ={styles.group}>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
-            </Block>
-            <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Input right placeholder="Ingrese Nombre" 
-                    placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                    onChangeText={(value) => parameters.name =value}   
-                    style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                />
-            </Block>
+            <KeyboardAvoidingView>
+                <Block flex style ={styles.group}>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Ingrese Nombre" 
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.name =value}   
+                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                    />
+                </Block>
 
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
-            </Block>
-            <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Input right placeholder="Ingrese Apellido" 
-                    placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                    onChangeText={(value) => parameters.lastname =value}   
-                    style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                />
-            </Block>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Correo</Text>
-            </Block>
-            <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Input right placeholder="Correo" 
-                    placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                    onChangeText={(value) => parameters.username =value}   
-                    style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                />
-            </Block>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Ingrese Apellido" 
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.lastname =value}   
+                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                    />
+                </Block>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Correo</Text>
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Correo" 
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.username =value}   
+                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                    />
+                </Block>
 
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Contraseña</Text>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Contraseña</Text>
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Contraseña" 
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.password =value}   
+                        password={true}
+                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                    />
+                </Block>
             </Block>
-            <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Input right placeholder="Contraseña" 
-                    placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                    onChangeText={(value) => parameters.password =value}   
-                    password={true}
-                    style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                />
-            </Block>
-        </Block>
+         </KeyboardAvoidingView>
    
         )
         

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
@@ -47,7 +48,7 @@ export default class Login extends React.Component {
         return (
             <Block flex style={styles.group}>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingresar Username</Text>
+                    <Text >Ingresar Username</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Username"
@@ -58,7 +59,7 @@ export default class Login extends React.Component {
                 </Block>
 
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
+                    <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
@@ -167,5 +168,7 @@ const styles = StyleSheet.create({
     rows: {
         height: theme.SIZES.BASE * 2,
     },
-
+    Text:{
+        fontSize: responsiveFontSize(2)
+      },
 })

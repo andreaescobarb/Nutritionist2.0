@@ -39,6 +39,7 @@ export default class Onboarding extends React.Component {
               <Button onPress={() => navigation.navigate('SignUp')}>
                 Sign Up
               </Button>
+              
             </Block>
           </Block>
         </Block>

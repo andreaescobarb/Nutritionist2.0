@@ -12,6 +12,7 @@ import ProScreen from '../screens/Pro';
 import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
+import FoodsScreen from '../screens/Foods';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -65,13 +66,7 @@ const ProfileStack = createStackNavigator({
     transitionConfig,
   })
 
-const AuthenticationStack = createStackNavigator({
-  SignUp: {
-    screen: SignUpScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: null
-    })
-  },
+const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => ({
@@ -82,7 +77,18 @@ const AuthenticationStack = createStackNavigator({
     cardStyle: { backgroundColor: '#EEEEEE', },
     transitionConfig,
   })
-
+const SignUpStack = createStackNavigator({
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
+}, {
+    cardStyle: { backgroundColor: '#EEEEEE', },
+    transitionConfig,
+  }
+)
 /* const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
@@ -250,6 +256,15 @@ const AppStack = createDrawerNavigator(
          ),
        }),
      },*/
+
+    Foods: {
+      screen: FoodsScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Pro" title="Foods" />
+        ),
+      }),
+    },
   },
 );
 
@@ -257,7 +272,8 @@ export default createStackNavigator(
   {
     App: AppStack,
     Home: HomeStack,
-    Authentication: AuthenticationStack
+    Login: LoginStack,
+    SignUp: SignUpStack
   },
   {
     initialRouteName: 'App',

@@ -7,7 +7,7 @@ import { Icon, Product } from '../components/';
 const { width } = Dimensions.get('screen');
 import products from '../constants/products';
 
-export default class Home extends React.Component {
+export default class Home extends React.Component{
   renderSearch = () => {
     const { navigation } = this.props;
     const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="camera-18" family="GalioExtra" />
