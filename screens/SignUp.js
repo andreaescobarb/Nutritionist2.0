@@ -1,68 +1,84 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
+import axios from 'axios';
+
+import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
+let parameters = {
+    name: '',
+    username: '',
+    password: '',
+    lastname: ''
+};
+
+
+let signUp = async ()  =>{
+    axios.post('https://nutrionist-server.herokuapp.com/users', parameters).then(async function(response) {
+        let data = response.data;
+        if (!data.created) {
+            Alert.alert(
+                'Error al crear usuario'
+            )
+        } else {
+            Alert.alert(
+                'Usuario creado...'
+            )
+        }
+    }).catch(function(error) {
+        console.log(error);
+    });
+};
+
+
 export default class SignUp extends React.Component{
     renderForm=()=>{
         const {navigation}= this.props;
         return(
             <Block flex style ={styles.group}>
-            <Text  size={16}  style={styles.title}>Crear Cuenta</Text>
-            {/*input de nombre*/}
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
             </Block>
             <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Input right placeholder="Ingrese Nombre" 
                     placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                    onChangeText={(value) => parameters.name =value}   
                     style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                 />
             </Block>
 
-            {/*input de Apellido*/}
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
             </Block>
             <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Input right placeholder="Ingrese Apellido" 
                     placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                    onChangeText={(value) => parameters.lastname =value}   
                     style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                 />
             </Block>
-
-            {/*input de username*/}
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre de Usuario</Text>
-            </Block>
-            <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Input right  placeholder="Nombre de Usuario" 
-                    placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                    style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                />
-            </Block>
-
-            {/*input de correo*/}
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Correo</Text>
             </Block>
             <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Input right placeholder="Correo" 
                     placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                    onChangeText={(value) => parameters.username =value}   
                     style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                 />
             </Block>
 
-            {/*input de password*/}
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Contraseña</Text>
             </Block>
             <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Input right placeholder="Contraseña" 
                     placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                    onChangeText={(value) => parameters.password =value}   
+                    password={true}
                     style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                 />
             </Block>
@@ -77,7 +93,7 @@ export default class SignUp extends React.Component{
         <Block flex>
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Block center>
-                    <Button shadowless style={[styles.button, styles.shadow]}>
+                    <Button shadowless style={[styles.button, styles.shadow]} onPress={() => signUp()}>
                         Crear Cuenta
                     </Button>
                 </Block>
@@ -112,6 +128,7 @@ const styles = StyleSheet.create({
     },
     group:{
         paddingTop: theme.SIZES.BASE * 3.75,
+        color: 'black'
     },
     shadow:{
         shadowColor:'black',

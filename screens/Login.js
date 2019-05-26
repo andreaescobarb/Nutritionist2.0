@@ -1,17 +1,51 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
+import axios from 'axios';
+
+
+
+import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
+
+
+let parameters = {
+    username: '',
+    password: ''
+};
+
+let login = async function() {
+    axios.get('https://nutrionist-server.herokuapp.com/users', {
+        username: parameters.username,
+        password: parameters.password
+    }, {
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(async function(response) {
+        let user = response.data[0];
+        if (!user) {
+            Alert.alert(
+                'Usuario no encontrado, favor registrarse.'
+            )
+        } else {
+            const value = await AsyncStorage.setItem('user', user);
+
+            Alert.alert(
+                'Bienvenido...'
+            )
+        }
+    }).catch(function(error) {
+        console.log(error);
+    });
+};
 export default class Login extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
-                <Text size={16} style={styles.title}>Log In</Text>
-                {/*input de username*/}
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingresar Username</Text>
                 </Block>
@@ -19,28 +53,22 @@ export default class Login extends React.Component {
                     <Input right placeholder="Username"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
-                    />
+                        onChangeText={(value) => parameters.username =value}   
+/>
                 </Block>
 
-                {/*input de Contraseña*/}
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                        password={true}
+                        onChangeText={(value) => parameters.password =value}                        s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
-                {/*<Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Block center>
-                        <Button title="Regresar" onpPress={() => this.props.navigation.goBack()}>
-                            Regresar
-                            </Button>
-                    </Block>
-        </Block>}*/}
             </Block>
-
         )
 
     }
@@ -50,8 +78,8 @@ export default class Login extends React.Component {
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button shadowless style={[styles.button, styles.shadow]}>
-                            Crear Cuenta
+                        <Button shadowless style={[styles.button, styles.shadow]} onPress={() => login()}>
+                            Ingresar
                     </Button>
                     </Block>
                 </Block>
