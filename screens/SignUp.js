@@ -41,7 +41,7 @@ export default class SignUp extends React.Component{
             <KeyboardAvoidingView>
                 <Block flex style ={styles.group}>
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Nombre" 
@@ -52,7 +52,7 @@ export default class SignUp extends React.Component{
                 </Block>
 
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Apellido" 
@@ -62,7 +62,7 @@ export default class SignUp extends React.Component{
                     />
                 </Block>
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Correo</Text>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Correo</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Correo" 
@@ -73,7 +73,7 @@ export default class SignUp extends React.Component{
                 </Block>
 
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h3 style ={{marginBottom: theme.SIZES.BASE/2}}>Contraseña</Text>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Contraseña</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Contraseña" 
