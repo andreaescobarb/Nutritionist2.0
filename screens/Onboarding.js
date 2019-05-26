@@ -25,9 +25,9 @@ export default class Onboarding extends React.Component {
                 <Text h1 color="white">Nutricionista</Text>
               </Block>
               <Block row>
-                <Text h1 color="white">Lucia Escobar</Text>
+                <Text h2 color="white">Lucia Escobar</Text>
               </Block>
-              <Text size={16} color='rgba(255,255,255,0.6)'>
+              <Text h4 color='rgba(255,255,255,0.6)'>
                 Cambia tu estilo de vida
               </Text>
             </Block>
