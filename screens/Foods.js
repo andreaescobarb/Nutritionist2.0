@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
-export default class Login extends React.Component {
+export default class Foods extends React.Component {
     state = {
         tags: []
     }
+    
     renderForm = () => {
         const { navigation } = this.props;
         return (
@@ -51,7 +53,7 @@ export default class Login extends React.Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:1337/tags', {
+        fetch('https://nutrionist-server.herokuapp.com/tags', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
