@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
@@ -13,7 +14,7 @@ export default class Login extends React.Component {
                 <Text size={16} style={styles.title}>Log In</Text>
                 {/*input de username*/}
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingresar Username</Text>
+                    <Text >Ingresar Username</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Username"
@@ -24,7 +25,7 @@ export default class Login extends React.Component {
 
                 {/*input de Contraseña*/}
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
+                    <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
@@ -139,5 +140,7 @@ const styles = StyleSheet.create({
     rows: {
         height: theme.SIZES.BASE * 2,
     },
-
+    Text:{
+        fontSize: responsiveFontSize(2)
+      },
 })

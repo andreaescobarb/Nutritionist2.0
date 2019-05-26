@@ -66,13 +66,7 @@ const ProfileStack = createStackNavigator({
     transitionConfig,
   })
 
-const AuthenticationStack = createStackNavigator({
-  SignUp: {
-    screen: SignUpScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: null
-    })
-  },
+const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: ({ navigation }) => ({
@@ -83,7 +77,18 @@ const AuthenticationStack = createStackNavigator({
     cardStyle: { backgroundColor: '#EEEEEE', },
     transitionConfig,
   })
-
+const SignUpStack = createStackNavigator({
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
+}, {
+    cardStyle: { backgroundColor: '#EEEEEE', },
+    transitionConfig,
+  }
+)
 /* const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
@@ -252,7 +257,7 @@ const AppStack = createDrawerNavigator(
        }),
      },*/
 
-     Foods: {
+    Foods: {
       screen: FoodsScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
@@ -267,7 +272,8 @@ export default createStackNavigator(
   {
     App: AppStack,
     Home: HomeStack,
-    Authentication: AuthenticationStack
+    Login: LoginStack,
+    SignUp: SignUpStack
   },
   {
     initialRouteName: 'App',
