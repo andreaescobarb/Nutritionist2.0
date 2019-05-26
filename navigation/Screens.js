@@ -13,6 +13,10 @@ import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
 import FoodsScreen from '../screens/Foods';
+import WaterScreen from '../screens/Water';
+import StepsScreen from '../screens/Steps';
+import WeightScreen from '../screens/Weight';
+import Hours_SleepScreen from '../screens/Hours_Sleep';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -105,7 +109,7 @@ const ComponentsStack = createStackNavigator({
   Components: {
     screen: ComponentsScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header back title="Components" navigation={navigation} />,
+      header: <Header back title="Diario" navigation={navigation} />,
     })
   },
 }, {
@@ -126,10 +130,34 @@ const HomeStack = createStackNavigator({
       header: <Header back title="Settings" navigation={navigation} />,
     })
   },
+  Water: {
+    screen: WaterScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back title="Agua" navigation={navigation} />,
+    })
+  },
+  Steps: {
+    screen: StepsScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back title="Pasos" navigation={navigation} />,
+    })
+  },
+  Weight: {
+    screen: WeightScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back title="Peso" navigation={navigation} />,
+    })
+  },
+  Hours_Sleep: {
+    screen: Hours_SleepScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back title="Horas de Sueño" navigation={navigation} />,
+    })
+  },
   Components: {
     screen: ComponentsScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header title="Components" navigation={navigation} />,
+      header: <Header title="Diario" navigation={navigation} />,
     })
   },
   Profile: {
@@ -230,7 +258,7 @@ const AppStack = createDrawerNavigator(
       screen: ComponentsStack,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Components" title="Components" />
+          <Drawer focused={focused} screen="Components" title="Diario" />
         ),
       }),
     },
