@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
+import { AppRegistry, View, Image } from 'react-native';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
@@ -34,7 +34,13 @@ export default class Foods extends React.Component {
     renderFoods = (foods) => {
         return foods.map((food) => {
             return(
+            <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                 <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>{food.name}</Text>
+                <Image
+                    style={{width: 50, height: 50}}
+                    source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+                />
+            </Block>
             )
         })
     }
