@@ -101,8 +101,8 @@ export default class Perfil extends React.Component{
         <Block flex>
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Block center>
-                    <Button shadowless style={[styles.button, styles.shadow]} onPress={() => signUp()}>
-                        Crear Cuenta
+                    <Button shadowless style={[styles.button, styles.shadow]}>
+                        Crear Perfil
                     </Button>
                 </Block>
             </Block>
