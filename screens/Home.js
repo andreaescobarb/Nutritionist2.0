@@ -64,10 +64,20 @@ export default class Home extends React.Component{
   }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <Block flex center style={styles.home}>
-        {this.renderProducts()}
-      </Block>
+      <ScrollView>
+        <Block flex center style={styles.home}>
+          {this.renderProducts()}
+        </Block>
+        <Block center>
+          <Button
+          onPress={() => navigation.navigate('Onboarding')}
+          shadowless color="warning">
+            Sign Out
+          </Button>
+        </Block>
+      </ScrollView>
     );
   }
 }
