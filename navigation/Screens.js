@@ -258,7 +258,15 @@ const AppStack = createDrawerNavigator(
       }),
     },*/
 
-    
+    Profile:{
+      screen:  PerfileScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel: ({focused})=>(
+          <Drawer focused={focused} screen="Profile" title="Perfil"/>
+        ),
+      }),
+    },
+
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({
