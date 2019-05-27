@@ -3,7 +3,7 @@ import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View
 import { Block, Text, theme, Icon } from "galio-framework";
 
 import materialTheme from '../constants/Theme';
-import SleepPic from '../images/sleep4.png';
+import SleepPic from '../assets/images/sleep4.png';
 
 export default class Hours_Sleep extends React.Component {
   constructor(props) {

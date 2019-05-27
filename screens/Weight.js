@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, ScrollView, View, Image, Button } from "react-native";
 import { Block, Text, theme, Icon } from "galio-framework";
-import WeightPic from '../images/weight.png';
+import WeightPic from '../assets/images/weight.png';
 
 import materialTheme from '../constants/Theme';
 import { Slider } from 'react-native-gesture-handler';

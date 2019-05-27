@@ -13,7 +13,7 @@ import {
 import { Block, Text, theme, Icon } from "galio-framework";
 
 import materialTheme from '../constants/Theme';
-import WaterPic from '../images/waterglass.png';
+import WaterPic from '../assets/images/waterglass.png';
 
 const { width } = Dimensions.get('screen');
 

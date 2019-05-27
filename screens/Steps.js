@@ -3,7 +3,7 @@ import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, ScrollView, V
 import { Block, Text, theme, Icon } from "galio-framework";
 
 import materialTheme from '../constants/Theme';
-import steps from '../images/steps2.png';
+import steps from '../assets/images/steps2.png';
 
 export default class Steps extends React.Component {
   constructor(props) {

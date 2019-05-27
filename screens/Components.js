@@ -10,7 +10,7 @@ import { Button, Block, Text, theme } from 'galio-framework';
 
 import { materialTheme } from '../constants/';
 import { Icon, Switch } from '../components/';
-import fruits from '../images/fruits.jpg';
+import fruits from '../assets/images/fruits.jpg';
 
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
