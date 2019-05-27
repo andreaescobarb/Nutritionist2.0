@@ -17,3 +17,4 @@ export {
   Header,
   Switch,
 };
+console.disableYellowBox = true;
