@@ -8,7 +8,6 @@ import ComponentsScreen from '../screens/Components';
 import HomeScreen from '../screens/Home';
 import OnboardingScreen from '../screens/Onboarding';
 import ProfileScreen from '../screens/Profile';
-import ProScreen from '../screens/Pro';
 import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
@@ -185,14 +184,7 @@ const HomeStack = createStackNavigator({
     navigationOptions:({navigation})=>({
       header: <Header title="Perfil" navigation={navigation}/>
     })
-  },
-  Pro: {
-    screen: ProScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
+  }
 },
   {
     cardStyle: {
