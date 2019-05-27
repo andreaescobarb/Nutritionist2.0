@@ -18,6 +18,7 @@ import StepsScreen from '../screens/Steps';
 import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
+import AddFoodScreen from '../screens/AddFood';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -311,6 +312,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Pro" title="Foods" />
+        ),
+      }),
+    },
+    AddFood: {
+      screen: AddFoodScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="AddFood " title="Agregar Comida" />
         ),
       }),
     },
