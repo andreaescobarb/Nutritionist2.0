@@ -18,9 +18,12 @@ let parameters = {
 };
 
 let login = async function() {
+    console.log(parameters);
     axios.get('https://nutrionist-server.herokuapp.com/users', {
-        username: parameters.username,
-        password: parameters.password
+        params: {
+            username: parameters.username,
+            password: parameters.password
+        }
     }, {
         headers: {
             'Accept': 'application/json'
@@ -32,11 +35,12 @@ let login = async function() {
                 'Usuario no encontrado, favor registrarse.'
             )
         } else {
-            const value = await AsyncStorage.setItem('user', user);
-
             Alert.alert(
                 'Bienvenido...'
             )
+            const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+            const example =  await AsyncStorage.getItem('user');
+            console.log(example);
         }
     }).catch(function(error) {
         console.log(error);
