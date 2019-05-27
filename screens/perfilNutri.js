@@ -22,10 +22,10 @@ export default class Onboarding extends React.Component {
                     <Block flex space="around" style={{ zIndex: 2 }}>
                         <Block>
                             <Block>
-                                <Text h1 color="white">About</Text>
+                                <Text h5 color="white">About</Text>
                             </Block>
                             <Block row>
-                                <Text h1 color="white">Lucia Escobar</Text>
+                                <Text h5 color="white">Lucia Escobar</Text>
                             </Block>
                             <Text size={16} color='rgba(255,255,255,0.6)'>
                                 Cambia tu estilo de vida

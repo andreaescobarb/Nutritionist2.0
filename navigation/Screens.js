@@ -137,7 +137,7 @@ const HomeStack = createStackNavigator({
   perfilNutri: {
     screen: perfilNutriScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header back title="Perfil de Nutricionista" navigation={navigation} />,
+      header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
   Water: {
