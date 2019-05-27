@@ -31,7 +31,7 @@ export default class AddFoods extends React.Component{
                 </Block>
 
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Descripción</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese descripción" 

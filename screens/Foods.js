@@ -36,10 +36,10 @@ export default class Foods extends React.Component {
             return(
             <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                 <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>{food.name}</Text>
-                <Image
+                {/*<Image
                     style={{width: 50, height: 50}}
                     source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
-                />
+                />*/}
             </Block>
             )
         })
