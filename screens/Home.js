@@ -5,7 +5,7 @@ import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { Icon, Product } from '../components/';
 
 const { width } = Dimensions.get('screen');
-import products from '../constants/products';
+//import products from '../constants/products';
 
 export default class Home extends React.Component{
   
@@ -14,7 +14,9 @@ export default class Home extends React.Component{
   renderProducts = () => {
     return (
       <ScrollView>
-        
+        <Block>
+          <Text>progreso</Text>
+        </Block>
       </ScrollView>
     )
   }
