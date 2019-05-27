@@ -35,11 +35,11 @@ export default class Foods extends React.Component {
         return foods.map((food) => {
             return(
             <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>{food.name}</Text>
-                {/*<Image
-                    style={{width: 50, height: 50}}
-                    source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
-                />*/}
+                <Text h4 style={{ marginBottom: theme.SIZES.BASE / 2 }}>{food.name}</Text>
+                {<Image
+                    style={{width: 100, height: 100}}
+                    source={{uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg'}}
+                />}
             </Block>
             )
         })

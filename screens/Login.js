@@ -35,9 +35,14 @@ let login = async function() {
                 'Usuario no encontrado, favor registrarse.'
             )
         } else {
-            Alert.alert(
-                'Bienvenido...'
-            )
+            if(user.password===password){
+                    Alert.alert(
+                    'Bienvenido...'
+                )
+            }
+            else{
+                Alert.alert('Contraseña incorrecta')
+            }
             const value = await AsyncStorage.setItem('user', JSON.stringify(user));
             const example =  await AsyncStorage.getItem('user');
             console.log(example);
