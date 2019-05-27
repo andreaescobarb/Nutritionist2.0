@@ -19,6 +19,7 @@ import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
+import perfilNutriScreen from '../screens/perfilNutri';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -131,6 +132,12 @@ const HomeStack = createStackNavigator({
     screen: SettingsScreen,
     navigationOptions: ({ navigation }) => ({
       header: <Header back title="Settings" navigation={navigation} />,
+    })
+  },
+  perfilNutri: {
+    screen: perfilNutriScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header back title="Perfil de Nutricionista" navigation={navigation} />,
     })
   },
   Water: {
@@ -264,6 +271,15 @@ const AppStack = createDrawerNavigator(
       navigationOptions:(navOpt)=>({
         drawerLabel: ({focused})=>(
           <Drawer focused={focused} screen="Profile" title="Perfil"/>
+        ),
+      }),
+    },
+
+    perfilNutri:{
+      screen:  perfilNutriScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel: ({focused})=>(
+          <Drawer focused={focused} screen="perfilNutri" title="About"/>
         ),
       }),
     },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, StatusBar, Dimensions, Platform, TextInput } from 'react-native';
+import { Image, StyleSheet, StatusBar, Dimensions, Platform, TextInput } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -13,16 +13,16 @@ export default class Onboarding extends React.Component {
             <Block flex style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <Block flex center>
-                    <ImageBackground
-                        source={require('../assets/images/avocado.png')}
-                        style={{ height: height, width: width, marginTop: '-55%', zIndex: 1 }}
+                    <Image
+                        source={require('../assets/images/perfil.jpeg')}
+                        style={{ width: 350, height: 350 }}
                     />
                 </Block>
                 <Block flex space="between" style={styles.padded}>
                     <Block flex space="around" style={{ zIndex: 2 }}>
                         <Block>
                             <Block>
-                                <Text h1 color="white">Nutricionista</Text>
+                                <Text h1 color="white">About</Text>
                             </Block>
                             <Block row>
                                 <Text h1 color="white">Lucia Escobar</Text>
@@ -30,16 +30,6 @@ export default class Onboarding extends React.Component {
                             <Text size={16} color='rgba(255,255,255,0.6)'>
                                 Cambia tu estilo de vida
               </Text>
-                        </Block>
-                        <Block center>
-                            <Button onPress={() => navigation.navigate('Login')}>
-                                Log In
-              </Button>
-                            <Text></Text>
-                            <Button onPress={() => navigation.navigate('SignUp')}>
-                                Sign Up
-              </Button>
-
                         </Block>
                     </Block>
                 </Block>
