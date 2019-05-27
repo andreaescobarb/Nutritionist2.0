@@ -79,13 +79,16 @@ export default class Login extends React.Component {
     }
 
     renderButton = () => {
+        const { navigation } = this.props;
         return (
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button shadowless style={[styles.button, styles.shadow]} onPress={() => login()}>
+                        <Button 
+                            shadowless style={[styles.button, styles.shadow]} 
+                            onPress={() => navigation.navigate('Home')}>
                             Ingresar
-                    </Button>
+                        </Button>
                     </Block>
                 </Block>
             </Block>

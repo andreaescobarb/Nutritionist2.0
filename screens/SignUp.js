@@ -91,11 +91,14 @@ export default class SignUp extends React.Component{
     }
 
     renderButton = () =>{
-       return(
+        const { navigation } = this.props;
+        return(
         <Block flex>
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Block center>
-                    <Button shadowless style={[styles.button, styles.shadow]} onPress={() => signUp()}>
+                    <Button 
+                    shadowless style={[styles.button, styles.shadow]} 
+                    onPress={() => navigation.navigate('Login')}>
                         Crear Cuenta
                     </Button>
                 </Block>
