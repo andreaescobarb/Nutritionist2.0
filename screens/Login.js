@@ -17,7 +17,7 @@ let parameters = {
     password: ''
 };
 
-let login = async function() {
+let login = async function(navigation) {
     axios.get('https://nutrionist-server.herokuapp.com/users', {
         params:{ 
             username: parameters.username,
@@ -35,6 +35,7 @@ let login = async function() {
             )
         } else {
             const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+            navigation.navigate('Profile')
         }
     }).catch(function(error) {
         console.log(error);
@@ -80,7 +81,7 @@ export default class Login extends React.Component {
                     <Block center>
                         <Button 
                             shadowless style={[styles.button, styles.shadow]} 
-                            onPress={() => login()}>
+                            onPress={() => login(navigation)}>
                             Ingresar
                         </Button>
                     </Block>
