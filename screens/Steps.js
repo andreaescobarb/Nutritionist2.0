@@ -5,7 +5,13 @@ import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 import steps from '../assets/images/steps2.png';
 
+var pasos = "";
+export {pasos};
+
 export default class Steps extends React.Component {
+  onTextPress(event, text) {
+    console.log(text);
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -65,7 +71,8 @@ export default class Steps extends React.Component {
             textAlign="center"
             placeholder={"Ingrese pasos..."}
             placeholderTextColor="black"
-            keyboardType="numeric"></TextInput>
+            keyboardType="numeric"
+            onChangeText={(value) => pasos =value}></TextInput>
           <Text>{"\n"}{"\n"}{"\n"}</Text>  
           <Image
             source={(steps)}

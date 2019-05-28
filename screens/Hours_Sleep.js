@@ -5,7 +5,13 @@ import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 import SleepPic from '../assets/images/sleep4.png';
 
+var horas_sueno = "";
+export {horas_sueno};
+
 export default class Hours_Sleep extends React.Component {
+  onTextPress(event, text) {
+    console.log(text);
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +80,7 @@ export default class Hours_Sleep extends React.Component {
           />
           <Text>{"\n"}</Text>
           <Text size={30}>Horas:</Text>
-          <Text size={30}>{this.state.quantity}</Text>
+          <Text size={30} onPress={(horas_sueno) => this.onTextPress(horas_sueno, (this.state.quantity))}>{this.state.quantity}</Text>
         </Block>
         <Block center>
           <Text></Text>

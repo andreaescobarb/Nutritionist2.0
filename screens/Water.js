@@ -8,16 +8,26 @@ import {
   Image,
   View,
   Button,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from "react-native";
 import { Block, Text, theme, Icon } from "galio-framework";
 
 import materialTheme from '../constants/Theme';
 import WaterPic from '../assets/images/waterglass.png';
 
+//import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { carName } from './Components';
+
 const { width } = Dimensions.get('screen');
 
+var agua = "";
+export { agua };
+
 export default class Water extends React.Component {
+  onTextPress(event, text) {
+    console.log(text);
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -80,15 +90,16 @@ export default class Water extends React.Component {
     //const {navigate} = this.props.navigation;
     const { navigation } = this.props;
     return (
-      <ScrollView style = {{ backgroundColor: '#7fffd4' }}>
+      <ScrollView style={{ backgroundColor: '#7fffd4' }}>
         <Block center>
           <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-          <Text size={30}>{this.state.quantity} L</Text>
+          <Text size={30} onPress={(agua) => this.onTextPress(agua, (this.state.quantity))}>{this.state.quantity} L</Text>
           <Text>{"\n"}</Text>
           <Image
             source={(WaterPic)}
             style={{ width: 300, height: 300 }}
           />
+          <Text>{agua}</Text>
         </Block>
         <Block center>
           <Text>{"\n"}{"\n"}{"\n"}</Text>
