@@ -67,7 +67,6 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.name =value}   
-                        value= {parameters.name}
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -79,7 +78,6 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Ingrese Apellido" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.lastname =value}  
-                        value= {parameters.lastname} 
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -102,7 +100,6 @@ export default class Perfil extends React.Component{
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Edad" 
                         keyboardType="numeric"
-                        value= {parameters.age} 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.age =value}   
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
@@ -115,7 +112,6 @@ export default class Perfil extends React.Component{
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Peso" 
                         keyboardType="numeric"
-                        value= {parameters.weight} 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.weight =value}   
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}

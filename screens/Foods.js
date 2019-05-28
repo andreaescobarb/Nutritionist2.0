@@ -12,7 +12,7 @@ import { Card} from 'react-native-elements';
 
 export default class Foods extends React.Component {
     state = {
-        foods: {},
+        foods: [],
         tagMap: {} 
     };
      
@@ -71,11 +71,10 @@ export default class Foods extends React.Component {
                 let tagMap = {};
 
                 if(!responseJson){
-                    responseJson = {};
+                    responseJson = [];
                 }
 
                 responseJson.forEach(function(item){
-                    responseJson[item.id] = item;
                     tagMap[item.id] = item.tags.map(function(tag){return tag.name + " "});
                 });
 
