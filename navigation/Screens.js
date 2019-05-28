@@ -5,7 +5,7 @@ import { createSwitchNavigator, createStackNavigator, createDrawerNavigator } fr
 import { Block, Text, theme } from "galio-framework";
 
 import ComponentsScreen from '../screens/Components';
-import HomeScreen from '../screens/Home';
+import HomeScreen from '../screens/Profile';
 import OnboardingScreen from '../screens/Onboarding';
 import ProfileScreen from '../screens/Profile';
 import SettingsScreen from '../screens/Settings';
@@ -201,63 +201,6 @@ const AppStack = createDrawerNavigator(
         drawerLabel: () => { },
       },
     },
-    Dashboard: {
-      screen: HomeStack,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Home" title="Home" />
-        ),
-      }),
-    },
-    /* SignUp:{
-       screen: SignUpScreen,
-       navigationOptions: (navOpt) =>({
-         drawerLabel: ({focused}) =>(
-           <Drawer focused={focused} screen="OnboardingScreen" title="OnBoarding"/>
-         ),
-       })
-     },*/
-    /*Woman: {
-      screen: ProScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Woman" />
-        ),
-      }),
-    },*/
-    /*Man: {
-      screen: ProScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Man" />
-        ),
-      }),
-    },*/
-    /*Kids: {
-      screen: ProScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Kids" />
-        ),
-      }),
-    },*/
-    /*NewCollection: {
-      screen: ProScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="New Collection" />
-        ),
-      }),
-    },*/
-    /*Profile: {
-      screen: ProfileStack,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Profile" title="Profile" />
-        ),
-      }),
-    },*/
-
     Profile:{
       screen:  PerfileScreen,
       navigationOptions:(navOpt)=>({
@@ -275,15 +218,6 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-
-    Settings: {
-      screen: SettingsScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Settings" title="Settings" />
-        ),
-      }),
-    },
     Components: {
       screen: ComponentsStack,
       navigationOptions: (navOpt) => ({
@@ -292,29 +226,6 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    MenuDivider: {
-      screen: HomeStack,
-      navigationOptions: {
-        drawerLabel: () => <Block style={{ marginVertical: 8 }}><Text>{` `}</Text></Block>,
-      },
-    },
-    /*SignIn: {
-      screen: ProScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Sign In" />
-        ),
-      }),
-    },*/
-    /* SignUp: {
-       screen: ProScreen,
-       navigationOptions: (navOpt) => ({
-         drawerLabel: ({focused}) => (
-           <Drawer focused={focused} screen="Pro" title="Sign Up" />
-         ),
-       }),
-     },*/
-
     Foods: {
       screen: FoodsScreen,
       navigationOptions: (navOpt) => ({
@@ -327,10 +238,18 @@ const AppStack = createDrawerNavigator(
       screen: AddFoodScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="AddFood " title="Agregar Comida" />
+          <Drawer focused={focused} screen="AddFood " title="Food+" />
         ),
       }),
     },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Settings" title="Settings" />
+        ),
+      }),
+    }
   },
 );
 

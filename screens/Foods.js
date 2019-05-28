@@ -2,46 +2,47 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import { AppRegistry, View, Image } from 'react-native';
+import { AppRegistry, View, Image, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
+import Tags from "react-native-tags";
+import { Card} from 'react-native-elements';
+
+
 
 export default class Foods extends React.Component {
     state = {
-        tags: []
-    }
-    
+        foods: {},
+        tagMap: {} 
+    };
+     
     renderForm = () => {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
-                {this.renderTags(this.state.tags)}
-            </Block>
-
+                {this.renderFoods(this.state.foods)}
+            </Block> 
         )
-    }
-
-    renderTags = (tags) => {
-        return tags.map((tag) => {
-            return(
-            <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text h3 style={{ marginBottom: theme.SIZES.BASE / 2 }}>{tag.name}</Text>
-                    {this.renderFoods(tag.foods)}
-            </Block>)
-        })
     }
 
     renderFoods = (foods) => {
         return foods.map((food) => {
             return(
-            <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                <Text h4 style={{ marginBottom: theme.SIZES.BASE / 2 }}>{food.name}</Text>
-                {<Image
-                    style={{width: 100, height: 100}}
-                    source={{uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg'}}
-                />}
-            </Block>
-            )
+                <Card 
+                  title={food.name}
+                  image={{uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg'}}>
+                  <Text style={{marginBottom: 5}}>
+                    {food.description}
+                  </Text>
+                   <Tags
+                        initialTags={this.state.tagMap[food.id]}
+                        renderTag={({ tag, index, onPress, deleteTagOnPress, readonly }) => (
+                        <TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
+                            <Text>{tag}</Text>
+                          </TouchableOpacity>
+                        )}
+                        />
+                </Card>)
         })
     }
 
@@ -59,14 +60,28 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount(){
-        fetch('https://nutrionist-server.herokuapp.com/tags', {
+        fetch('https://nutrionist-server.herokuapp.com/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
             },
         }).then((response) => response.json())
             .then((responseJson) => {
-                this.setState({tags:responseJson}) ;
+
+                let tagMap = {};
+
+                if(!responseJson){
+                    responseJson = {};
+                }
+
+                responseJson.forEach(function(item){
+                    responseJson[item.id] = item;
+                    tagMap[item.id] = item.tags.map(function(tag){return tag.name + " "});
+                });
+
+
+                this.setState({foods:responseJson}) ;
+                this.setState({tagMap:tagMap}) ;
             })
             .catch((error) => {
                 console.error(error);
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: theme.SIZES.BASE * 2,
     },
     group: {
-        paddingTop: theme.SIZES.BASE * 3.75,
+        paddingTop: 20
     },
     shadow: {
         shadowColor: 'black',

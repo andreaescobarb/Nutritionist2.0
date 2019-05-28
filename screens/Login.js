@@ -18,13 +18,12 @@ let parameters = {
 };
 
 let login = async function() {
-    console.log(parameters);
     axios.get('https://nutrionist-server.herokuapp.com/users', {
-        params: {
+        params:{ 
             username: parameters.username,
-            password: parameters.password
+            password: parameters.password 
         }
-    }, {
+    }, { 
         headers: {
             'Accept': 'application/json'
         }
@@ -35,17 +34,7 @@ let login = async function() {
                 'Usuario no encontrado, favor registrarse.'
             )
         } else {
-            if(user.password===password){
-                    Alert.alert(
-                    'Bienvenido...'
-                )
-            }
-            else{
-                Alert.alert('Contraseña incorrecta')
-            }
             const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-            const example =  await AsyncStorage.getItem('user');
-            console.log(example);
         }
     }).catch(function(error) {
         console.log(error);
@@ -91,7 +80,7 @@ export default class Login extends React.Component {
                     <Block center>
                         <Button 
                             shadowless style={[styles.button, styles.shadow]} 
-                            onPress={() => navigation.navigate('Home')}>
+                            onPress={() => login()}>
                             Ingresar
                         </Button>
                     </Block>

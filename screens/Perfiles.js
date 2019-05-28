@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import {Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import {Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage , Picker} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -9,14 +9,54 @@ const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
 
+let parameters = {
+    name: '',
+    username: '',
+    password: '',
+    lastname: '',
+    gender: 'male',
+    age: '0',
+    weight: '',
+    height: ''
+};
 
 
+
+ let renderUserData =  async function () {
+     let user = await AsyncStorage.getItem('user');
+
+    if(!user){
+        console.log("miraa");
+    }else{
+        parameters = { 
+            name: user.name,
+            username: user.username,
+            password: user.password,
+            lastname: user.lastname,
+            gender: 'male',
+            age: user.age,
+            weight: user.weight,
+            height: user.height
+        };
+    }
+};
 
 
 
 export default class Perfil extends React.Component{
-    renderForm=()=>{
+
+    constructor(props) {
+      super(props); 
+
+      renderUserData();
+      this.state = {};
+    }
+
+   
+
+    renderForm= ()=>{
         const {navigation}= this.props;
+
         return(
             <KeyboardAvoidingView>
                 <Block flex style ={styles.group}>
@@ -27,6 +67,7 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.name =value}   
+                        value= {parameters.name}
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -37,7 +78,8 @@ export default class Perfil extends React.Component{
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Apellido" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.lastname =value}   
+                        onChangeText={(value) => parameters.lastname =value}  
+                        value= {parameters.lastname} 
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -46,11 +88,12 @@ export default class Perfil extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Genero</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Genero" 
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.lastname =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                    />
+                   <Picker
+                      selectedValue={parameters.gender}
+                      onValueChange={(itemValue, itemIndex) => parameters.gender = itemValue}>
+                      <Picker.Item label="Femenino" value="male" />
+                      <Picker.Item label="Masculino" value="female" />
+                    </Picker>
                 </Block>
 
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
@@ -58,8 +101,10 @@ export default class Perfil extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Edad" 
+                        keyboardType="numeric"
+                        value= {parameters.age} 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.username =value}   
+                        onChangeText={(value) => parameters.age =value}   
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -69,9 +114,10 @@ export default class Perfil extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Peso" 
+                        keyboardType="numeric"
+                        value= {parameters.weight} 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.password =value}   
-                        password={true}
+                        onChangeText={(value) => parameters.weight =value}   
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -81,9 +127,10 @@ export default class Perfil extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Altura" 
+                        keyboardType="numeric"
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.password =value}   
-                        password={true}
+                        onChangeText={(value) => parameters.height =value}   
+                        value= {parameters.height} 
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -102,7 +149,7 @@ export default class Perfil extends React.Component{
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Block center>
                     <Button shadowless style={[styles.button, styles.shadow]}>
-                        Crear Perfil
+                        Actualizar Perfil
                     </Button>
                 </Block>
             </Block>
@@ -151,7 +198,6 @@ const styles = StyleSheet.create({
       },
       optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,
-        color: '#4A4A4A',
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: -0.29,

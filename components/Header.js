@@ -62,11 +62,6 @@ class Header extends React.Component {
     }
 
     switch (routeName) {
-      case 'Home':
-        return ([
-          <ChatButton key='chat-home' navigation={navigation} isWhite={white} />,
-          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-        ]);
       case 'Deals':
         return ([
           <ChatButton key='chat-categories' navigation={navigation} />,
