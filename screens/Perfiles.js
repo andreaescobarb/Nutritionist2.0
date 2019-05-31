@@ -65,8 +65,6 @@ export default class Perfil extends React.Component{
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
         lastnamevalidation=/^[a-zA-Z]+$/
-        agevalidation=/^[0-9]+$/
-        weightvalidation=/^[0-9]+$/
         if(type=='name'){
             if(namevalidation.test(text)){
                 this.setState({
