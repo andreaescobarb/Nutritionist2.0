@@ -5,7 +5,7 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 
 const { height, width } = Dimensions.get('screen');
 
-export default class Onboarding extends React.Component {
+export default class nutriProfile extends React.Component {
     render() {
         const { navigation } = this.props;
 
