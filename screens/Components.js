@@ -20,9 +20,9 @@ import { agua } from './Water'
 
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
-var day = new Date().getDate(); //Current Date
-var month = new Date().getMonth() + 1; //Current Month
-var year = new Date().getFullYear(); //Current Year
+let day = new Date().getDate(); //Current Date
+let month = new Date().getMonth() + 1; //Current Month
+let year = new Date().getFullYear(); //Current Year
 //var fecha = day.concat(month).concat(year);
 
 let parameters = {
@@ -30,11 +30,13 @@ let parameters = {
   steps: pasos,
   weight: peso,
   water: agua,
-  //date: fecha
 };
+
+export { entries };
 
 let entries = async () => {
   axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+    console.log(entries)
     let data = response.data;
     if (!data.created) {
       Alert.alert(
