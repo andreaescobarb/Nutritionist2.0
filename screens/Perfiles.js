@@ -65,6 +65,7 @@ export default class Perfil extends React.Component{
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
         lastnamevalidation=/^[a-zA-Z]+$/
+        agevalidation=/^[0-9]+$/
         if(type=='name'){
             if(namevalidation.test(text)){
                 this.setState({
@@ -86,6 +87,18 @@ export default class Perfil extends React.Component{
             }else{
                 this.setState({
                     lastnameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else if(type=='age'){
+            if(agevalidation.test(text)){
+                this.setState({
+                    ageValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    ageValdate:false,
                 })
                 console.warn("invalid text")
             }
@@ -146,7 +159,8 @@ export default class Perfil extends React.Component{
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.age =value} 
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        onChangeText={(text)=>this.validate(text,'age')}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.ageValdate?styles.error:null]}
                     />
                 </Block>
 

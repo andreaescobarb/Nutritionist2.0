@@ -90,6 +90,7 @@ export default class Login extends React.Component {
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Username"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                        color={materialTheme.COLORS.ICON}
                         style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.nameValdate?styles.error:null]}
                         onChangeText={(value) => parameters.username =value}   
                         onChangeText={(text)=>this.validate(text,'username')}
@@ -102,6 +103,7 @@ export default class Login extends React.Component {
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                        color={materialTheme.COLORS.ICON}
                         password={true}
                         onChangeText={(value) => parameters.password =value}
                         onChangeText={(text)=>this.validate(text,'password')}                        
