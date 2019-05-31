@@ -210,11 +210,11 @@ const AppStack = createDrawerNavigator(
       }),
     },
 
-    perfilNutri:{
-      screen:  perfilNutriScreen,
+    nutriProfile:{
+      screen:  nutriProfile,
       navigationOptions:(navOpt)=>({
         drawerLabel: ({focused})=>(
-          <Drawer focused={focused} screen="perfilNutri" title="About"/>
+          <Drawer focused={focused} screen="nutriProfile" title="About"/>
         ),
       }),
     },
