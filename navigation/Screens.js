@@ -211,7 +211,7 @@ const AppStack = createDrawerNavigator(
     },
 
     nutriProfile:{
-      screen:  nutriProfile,
+      screen:  nutriProfileScreen,
       navigationOptions:(navOpt)=>({
         drawerLabel: ({focused})=>(
           <Drawer focused={focused} screen="nutriProfile" title="About"/>
