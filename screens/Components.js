@@ -35,6 +35,7 @@ let parameters = {
 
 let entries = async () => {
   axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+    console.log(entries)
     let data = response.data;
     if (!data.created) {
       Alert.alert(
@@ -49,6 +50,27 @@ let entries = async () => {
     console.log(error);
   });
 };
+
+export { entries };
+
+/*
+let entries = async () => {
+axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+  let data = response.data;
+  if (!data.created) {
+    Alert.alert(
+      'Error al actualizar datos'
+    )
+  } else {
+    Alert.alert(
+      'Datos actualizados...'
+    )
+  }
+}).catch(function (error) {
+  console.log(error);
+});
+};
+*/
 
 export default class Components extends React.Component {
   state = {};
