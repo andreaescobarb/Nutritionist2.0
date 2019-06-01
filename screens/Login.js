@@ -52,7 +52,7 @@ export default class Login extends React.Component {
         }
     }
     validate(text,type){
-        uservalidation=/^[a-zA-Z]+$/
+        uservalidation=/^[a-zA-Z0-9@.]+$/
         passwordvalidation=/^[a-zA-Z0-9]+$/
         if(type=='username'){
             if(uservalidation.test(text)){
