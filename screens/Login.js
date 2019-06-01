@@ -42,8 +42,8 @@ let login = async function(navigation) {
     });
 };
 export default class Login extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props);
         this.state={
             name:'',
             nameValdate:true,
@@ -52,7 +52,7 @@ export default class Login extends React.Component {
         }
     }
     validate(text,type){
-        uservalidation=/^[a-zA-Z0-9@.]+$/
+        uservalidation=/^[a-zA-Z0-9@._-]+$/
         passwordvalidation=/^[a-zA-Z0-9]+$/
         if(type=='username'){
             if(uservalidation.test(text)){
