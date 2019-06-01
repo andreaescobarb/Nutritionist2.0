@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, ScrollView, View, Image, Button } from "react-native";
 import { Block, Text, theme, Icon } from "galio-framework";
 import WeightPic from '../assets/images/weight.png';
+import axios from 'axios';
 
 import materialTheme from '../constants/Theme';
 import { Slider } from 'react-native-gesture-handler';
@@ -15,6 +16,7 @@ export default class Weight extends React.Component {
     this.incrementCount = this.incrementCount.bind(this)
   }
 
+
   decrementCount = () => {
     this.setState((prevState, props) => {
       if (prevState.quantity - 1 >= 0) {
@@ -27,6 +29,23 @@ export default class Weight extends React.Component {
     this.setState((prevState, props) => ({
       quantity: prevState.quantity + 1
     }));
+  }
+
+  saveWeight = () => {
+    axios.post('https://nutrionist-server.herokuapp.com/entries', {
+      userId: 0,
+      date: '--',
+      water: 0,
+      steps: 0,
+      weight: quantity,
+      hours_of_sleep: 0
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   state = {};
@@ -95,6 +114,14 @@ export default class Weight extends React.Component {
               <Button
                 onPress={this.incrementCount}
                 title={'+'}
+                backgroundColor={'#FB6567'}
+                icon={{ name: 'face' }}
+              >
+                {this.state.quantity}
+              </Button>
+              <Button
+                onPress={this.saveWeight}
+                title={'Save'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
               >
