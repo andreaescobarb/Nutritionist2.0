@@ -20,6 +20,31 @@ let parameters = {
     height: ''
 };
 
+let updateUsers = async function(navigation) {
+    axios.get('https://nutrionist-server.herokuapp.com/users', {
+        params:{ 
+            username: parameters.username,
+            password: parameters.password 
+        }
+    }, { 
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(async function(response) {
+        let user = response.data[0];
+        if (!user) {
+            Alert.alert(
+                'Usuario no encontrado, favor registrarse.'
+            )
+        } else {
+            const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+            navigation.navigate('Profile')
+        }
+    }).catch(function(error) {
+        console.log(error);
+    });
+};
+
 
 
  let renderUserData =  async function () {
