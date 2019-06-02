@@ -19,6 +19,7 @@ import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
 import perfilNutriScreen from '../screens/perfilNutri';
+import Appointments from '../screens/Appointments'
 import AddAppointment from '../screens/AddAppointment'
 
 import Menu from './Menu';
@@ -123,7 +124,7 @@ const ComponentsStack = createStackNavigator({
 
 const AppointmentsStack = createStackNavigator({
   Appointments: {
-    screen: AddAppointment,
+    screen: Appointments,
     navigationOptions: ({ navigation }) => ({
       header: null
     })
@@ -150,6 +151,13 @@ const HomeStack = createStackNavigator({
     screen: perfilNutriScreen,
     navigationOptions: ({ navigation }) => ({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
+    })
+  },
+  Appointment: {
+    screen: AddAppointment,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+      //<Header back title="Agua" navigation={navigation} />,
     })
   },
   Water: {
@@ -186,9 +194,9 @@ const HomeStack = createStackNavigator({
     })
   },
   Appointments: {
-    screen: AddAppointment,
+    screen: Appointments,
     navigationOptions: ({ navigation }) => ({
-      header: <Header title="Cita" navigation={navigation} />,
+      header: <Header title="Citas" navigation={navigation} />,
     })
   },
   /*Profile: {
@@ -249,7 +257,7 @@ const AppStack = createDrawerNavigator(
       screen: AppointmentsStack,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="AddAppointment" title="Cita" />
+          <Drawer focused={focused} screen="Appointments" title="Citas" />
         ),
       }),
     },

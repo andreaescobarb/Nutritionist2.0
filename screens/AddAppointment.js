@@ -16,7 +16,7 @@ let parameters = {
     patient_data: ''
 };
 
-export default class AddAppointent extends React.Component {
+export default class AddAppointment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
