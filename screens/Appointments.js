@@ -24,14 +24,14 @@ export default class Appointments extends React.Component {
                         </Block>
                         <Block center>
                             <Button
-                                onPress={() => navigation.navigate('Appointment')}
+                                onPress={() => navigation.navigate('AddAppointment')}
                                 shadowless style={[styles.button, styles.shadow]}>
                                 Crear cita
                             </Button>
                         </Block>
                         <Block center>
                             <Button
-                                onPress={() => navigation.navigate('Weight')}
+                                onPress={() => navigation.navigate('EditDelAppointment')}
                                 shadowless color="info"
                                 style={[styles.button, styles.shadow]}>
                                 Editar o eliminar cita

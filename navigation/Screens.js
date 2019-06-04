@@ -21,6 +21,7 @@ import AddFoodScreen from '../screens/AddFood';
 import perfilNutriScreen from '../screens/perfilNutri';
 import Appointments from '../screens/Appointments'
 import AddAppointment from '../screens/AddAppointment'
+import EditDelAppointment from '../screens/EditDelAppointment'
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -153,8 +154,15 @@ const HomeStack = createStackNavigator({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
-  Appointment: {
+  AddAppointment: {
     screen: AddAppointment,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+      //<Header back title="Agua" navigation={navigation} />,
+    })
+  },
+  EditDelAppointment: {
+    screen: EditDelAppointment,
     navigationOptions: ({ navigation }) => ({
       header: null
       //<Header back title="Agua" navigation={navigation} />,
