@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
+import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage, View, Image} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
+import ImagePicker from "react-native-image-picker";
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-
 
 
 let parameters = {
@@ -43,6 +42,24 @@ export default class AddFood extends React.Component {
             </Block>
         )
 
+    }
+
+    handlePhoto = () => {
+        const options = {};
+        ImagePicker.launchImageLibrary(options, response => {
+            console.log("response", response);
+        });
+    };
+
+    renderImage(){
+        return (
+            <View>
+                <Button
+                    title="Elije una foto"
+                    onPress={this.handlePhoto}
+                />
+            </View>
+        )
     }
 
     renderButton = () => {
