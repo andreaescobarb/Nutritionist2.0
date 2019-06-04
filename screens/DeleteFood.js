@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
+import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -26,17 +26,17 @@ export default class AddFood extends React.Component {
                     <Input right placeholder="Ingresar el nombre de la comida a eliminar"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
-                        onChangeText={(value) => parameters.name =value}   
+                        onChangeText={(value) => parameters.name = value}
                     />
                 </Block>
 
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
+                    <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Ingresar descripción de la comida"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.description =value}                        s
+                        onChangeText={(value) => parameters.description = value} s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -51,7 +51,7 @@ export default class AddFood extends React.Component {
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button 
+                        <Button
                             shadowless style={[styles.button, styles.shadow]}>
                             Eliminar
                         </Button>
@@ -73,6 +73,34 @@ export default class AddFood extends React.Component {
                 </ScrollView>
             </Block>
         );
+    }
+
+    deleteFood() {
+        fetch('https://nutrionist-server.herokuapp.com/foods', {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+            },
+        }).then((response) => response.json())
+            .then((responseJson) => {
+
+                let tagMap = {};
+
+                if (!responseJson) {
+                    responseJson = [];
+                }
+
+                responseJson.forEach(function (item) {
+                    tagMap[item.id] = item.tags.map(function (tag) { return " " });
+                });
+
+
+                this.setState({ foods: responseJson });
+                this.setState({ tagMap: tagMap });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 }
 
@@ -141,7 +169,7 @@ const styles = StyleSheet.create({
     rows: {
         height: theme.SIZES.BASE * 2,
     },
-    Text:{
+    Text: {
         fontSize: responsiveFontSize(2)
-      },
+    },
 })
