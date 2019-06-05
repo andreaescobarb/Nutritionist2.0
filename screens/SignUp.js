@@ -35,6 +35,74 @@ let signUp = async ()  =>{
 
 
 export default class SignUp extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            name:'',
+            nameValdate:true,
+            lastname:'',
+            lastnameValdate:true,
+            username:'',
+            usernameValdate:true,
+            password:'',
+            passwordValdate:true,
+        }
+    }
+    validate(text,type){
+        namevalidation=/^[a-zA-Z]+$/
+        lastnamevalidation=/^[a-zA-Z]+$/
+        usernamevalidation=/^[a-zA-Z0-9@._-]+$/
+        passwordvalidation=/^[a-zA-Z0-9]+$/
+        if(type=='name'){
+            if(namevalidation.test(text)){
+                this.setState({
+                    nameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    nameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else  if(type=='lastname'){
+            if(lastnamevalidation.test(text)){
+                this.setState({
+                    lastnameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    lastnameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else  if(type=='username'){
+            if(usernamevalidation.test(text)){
+                this.setState({
+                    usernameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    usernameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else  if(type=='password'){
+            if(passwordvalidation.test(text)){
+                this.setState({
+                    passwordValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    passwordValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        } 
+    }
     renderForm=()=>{
         const {navigation}= this.props;
         return(
@@ -45,9 +113,11 @@ export default class SignUp extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Nombre" 
+                        color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.name =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        onChangeText={(value) => parameters.name =value}
+                        onChangeText={(text) => this.validate(text,"name")}   
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />
                 </Block>
 
@@ -56,9 +126,11 @@ export default class SignUp extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Apellido" 
+                        color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.lastname =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        onChangeText={(value) => parameters.lastname =value}
+                        onChangeText={(text) => this.validate(text,"lastname")}   
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.lastnameValdate?styles.error:null]}
                     />
                 </Block>
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
@@ -66,9 +138,11 @@ export default class SignUp extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Correo" 
+                        color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.username =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        onChangeText={(text) => this.validate(text,"username")}   
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.usernameValdate?styles.error:null]}
                     />
                 </Block>
 
@@ -77,10 +151,12 @@ export default class SignUp extends React.Component{
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Contraseña" 
+                        color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.password =value}   
+                        onChangeText={(text) => this.validate(text,"password")}   
                         password={true}
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.passwordValdate?styles.error:null]}
                     />
                 </Block>
             </Block>
@@ -188,5 +264,9 @@ const styles = StyleSheet.create({
       rows: {
         height: theme.SIZES.BASE * 2,
       },
+      error:{
+        borderWidth:2,
+        borderColor:'red'
+    }
 
 })

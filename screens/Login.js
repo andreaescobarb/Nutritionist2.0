@@ -42,6 +42,44 @@ let login = async function(navigation) {
     });
 };
 export default class Login extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            name:'',
+            nameValdate:true,
+            password:'',
+            passwordValdate: true,
+        }
+    }
+    validate(text,type){
+        uservalidation=/^[a-zA-Z0-9@._-]+$/
+        passwordvalidation=/^[a-zA-Z0-9]+$/
+        if(type=='username'){
+            if(uservalidation.test(text)){
+                this.setState({
+                    nameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    nameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else if(type=='password'){
+            if(passwordvalidation.test(text)){
+                this.setState({
+                    passwordValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    passwordValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }
+    }
     renderForm = () => {
         const { navigation } = this.props;
         return (
@@ -52,8 +90,10 @@ export default class Login extends React.Component {
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Username"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                        style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
+                        color={materialTheme.COLORS.ICON}
+                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.nameValdate?styles.error:null]}
                         onChangeText={(value) => parameters.username =value}   
+                        onChangeText={(text)=>this.validate(text,'username')}
 />
                 </Block>
 
@@ -63,9 +103,11 @@ export default class Login extends React.Component {
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                        color={materialTheme.COLORS.ICON}
                         password={true}
-                        onChangeText={(value) => parameters.password =value}                        s
-                        style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
+                        onChangeText={(value) => parameters.password =value}
+                        onChangeText={(text)=>this.validate(text,'password')}                        
+                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.passwordValdate?styles.error:null]}
                     />
                 </Block>
             </Block>
@@ -173,4 +215,8 @@ const styles = StyleSheet.create({
     Text:{
         fontSize: responsiveFontSize(2)
       },
-})
+      error:{
+          borderWidth:2,
+          borderColor:'red'
+      }
+    })
