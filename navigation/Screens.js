@@ -19,6 +19,8 @@ import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
+import EditFoodScreen from '../screens/EditFood';
+import DeleteFoodScreen from '../screens/DeleteFood';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -238,9 +240,25 @@ const AppStack = createDrawerNavigator(
       screen: AddFoodScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="AddFood " title="Food+" />
+          <Drawer focused={focused} screen="AddFood " title="Crear Comida" />
         ),
       }),
+    },
+    EditFood: {
+      screen: EditFoodScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="EditFood " title="Editar Comida" />
+        ),
+      }),
+    },
+    DeleteFood:{
+      screen: DeleteFoodScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused = { focused } screen = "DeleteFood" title = "Eliminar Comida"/>
+        )
+      })
     },
     Settings: {
       screen: SettingsScreen,
