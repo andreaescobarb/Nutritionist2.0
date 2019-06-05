@@ -19,7 +19,6 @@ import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
-import perfilNutriScreen from '../screens/perfilNutri';
 import Appointments from '../screens/Appointments'
 import AddAppointment from '../screens/AddAppointment'
 import EditDelAppointment from '../screens/EditDelAppointment'
