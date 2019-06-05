@@ -23,7 +23,7 @@ export default class AddFood extends React.Component {
                     <Text>Nombre de Comida</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar nombre de comida"
+                    <Input right placeholder="Ingresar nuevo nombre"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         onChangeText={(value) => parameters.name =value}   
@@ -34,7 +34,7 @@ export default class AddFood extends React.Component {
                     <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar descripción de comida"
+                    <Input right placeholder="Ingresar nueva descripción"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.description =value}                        s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
@@ -47,15 +47,14 @@ export default class AddFood extends React.Component {
 
     renderButton = () => {
         const { navigation } = this.props;
-        return(
-        <Block flex>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Block center>
-                    <Button 
-                    shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() => combinedFunction()}>
-                        Guardar
-                    </Button>
+        return (
+            <Block flex>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Block center>
+                        <Button 
+                            shadowless style={[styles.button, styles.shadow]}>
+                            Actualizar
+                        </Button>
                     </Block>
                 </Block>
             </Block>

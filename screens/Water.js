@@ -17,16 +17,17 @@ import materialTheme from '../constants/Theme';
 import WaterPic from '../assets/images/waterglass.png';
 
 //import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
-import { carName } from './Components';
+import { entries } from './Components';
 
 const { width } = Dimensions.get('screen');
 
-var agua = "";
+let agua = "";
 export { agua };
 
 export default class Water extends React.Component {
-  onTextPress(event, text) {
+  onTextPress(agua, text) {
     console.log(text);
+    agua = text;
   }
   constructor(props) {
     super(props);
@@ -99,7 +100,6 @@ export default class Water extends React.Component {
             source={(WaterPic)}
             style={{ width: 300, height: 300 }}
           />
-          <Text>{agua}</Text>
         </Block>
         <Block center>
           <Text>{"\n"}{"\n"}{"\n"}</Text>
@@ -117,7 +117,7 @@ export default class Water extends React.Component {
             <Text>{"              "}</Text>
             <View style={styles.button}>
               <Button
-                onPress={this.incrementCount}
+                onPress = {() => {() => entries(navigation); this.incrementCount()}}
                 title={'+'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
