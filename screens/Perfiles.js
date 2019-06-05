@@ -72,11 +72,63 @@ export default class Perfil extends React.Component{
 
     constructor(props) {
       super(props); 
+      
 
       renderUserData();
-      this.state = {};
+      this.state = {
+        name:'',
+        nameValdate:true,
+        lastname:'',
+        lastnameValdate:true,
+        age:'',
+        ageValdate: true,
+        weight:'',
+        weightValdate:true,
+      };
     }
 
+    validate(text,type){
+        namevalidation=/^[a-zA-Z]+$/
+        lastnamevalidation=/^[a-zA-Z]+$/
+        agevalidation=/^[0-9]+$/
+        if(type=='name'){
+            if(namevalidation.test(text)){
+                this.setState({
+                    nameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    nameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else if(type=='lastname'){
+            if(lastnamevalidation.test(text)){
+                this.setState({
+                    lastnameValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    lastnameValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }else if(type=='age'){
+            if(agevalidation.test(text)){
+                this.setState({
+                    ageValdate:true,
+                })
+                console.warn("text is correct")
+            }else{
+                this.setState({
+                    ageValdate:false,
+                })
+                console.warn("invalid text")
+            }
+        }
+    }
    
 
     renderForm= ()=>{
@@ -91,8 +143,10 @@ export default class Perfil extends React.Component{
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.name =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        onChangeText={(text)=>this.validate(text,'name')}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />
                 </Block>
 
@@ -102,8 +156,10 @@ export default class Perfil extends React.Component{
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese Apellido" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.lastname =value}  
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        color={materialTheme.COLORS.ICON}
+                        onChangeText={(value) => parameters.lastname =value} 
+                        onChangeText={(text)=>this.validate(text,'lastname')}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.lastnameValdate?styles.error:null]}
                     />
                 </Block>
 
@@ -126,8 +182,10 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Edad" 
                         keyboardType="numeric"
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.age =value}   
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
+                        color={materialTheme.COLORS.ICON}
+                        onChangeText={(value) => parameters.age =value} 
+                        onChangeText={(text)=>this.validate(text,'age')}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.ageValdate?styles.error:null]}
                     />
                 </Block>
 
@@ -138,7 +196,8 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Peso" 
                         keyboardType="numeric"
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.weight =value}   
+                        color={materialTheme.COLORS.ICON}
+                        onChangeText={(value) => parameters.weight =value}
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
@@ -150,6 +209,7 @@ export default class Perfil extends React.Component{
                     <Input right placeholder="Altura" 
                         keyboardType="numeric"
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.height =value}   
                         value= {parameters.height} 
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
@@ -258,5 +318,8 @@ const styles = StyleSheet.create({
       rows: {
         height: theme.SIZES.BASE * 2,
       },
-
+      error:{
+        borderWidth:2,
+        borderColor:'red'
+    }
 })
