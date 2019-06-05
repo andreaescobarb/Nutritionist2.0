@@ -4,7 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage, Alert, KeyboardAvoidingView
 } from 'react-native';
 import { Button, Block, Text, theme } from 'galio-framework';
 
@@ -12,11 +13,64 @@ import { materialTheme } from '../constants/';
 import { Icon, Switch } from '../components/';
 import fruits from '../assets/images/fruits.jpg';
 
+import { horas_sueno } from './Hours_Sleep'
+import { pasos } from './Steps'
+import { peso } from './Weight'
+import { agua } from './Water'
+
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
 var day = new Date().getDate(); //Current Date
 var month = new Date().getMonth() + 1; //Current Month
 var year = new Date().getFullYear(); //Current Year
+//var fecha = day.concat(month).concat(year);
+
+let parameters = {
+  hours_sleep: horas_sueno,
+  steps: pasos,
+  weight: peso,
+  water: agua,
+  //date: fecha
+};
+
+let entries = async () => {
+  axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+    console.log(entries)
+    let data = response.data;
+    if (!data.created) {
+      Alert.alert(
+        'Error al actualizar datos'
+      )
+    } else {
+      Alert.alert(
+        'Datos actualizados...'
+      )
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
+
+export { entries };
+
+/*
+let entries = async () => {
+axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+  let data = response.data;
+  if (!data.created) {
+    Alert.alert(
+      'Error al actualizar datos'
+    )
+  } else {
+    Alert.alert(
+      'Datos actualizados...'
+    )
+  }
+}).catch(function (error) {
+  console.log(error);
+});
+};
+*/
 
 export default class Components extends React.Component {
   state = {};
@@ -26,35 +80,35 @@ export default class Components extends React.Component {
   renderItem = ({ item }) => {
     const { navigate } = this.props.navigation;
   }
-/*
-    switch (item.type) {
-      case 'switch':
-        return (
-          <Block row middle space="between" style={styles.rows}>
-            <Text size={14}>{item.title}</Text>
-            <Switch
-              onValueChange={() => this.toggleSwitch(item.id)}
-              ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
-              thumbColor={Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null}
-              trackColor={{ false: materialTheme.COLORS.SWITCH_OFF, true: materialTheme.COLORS.SWITCH_ON }}
-              value={this.state[item.id]}
-            />
-          </Block>
-        );
-      case 'button':
-        return (
-          <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigate('Pro')}>
-              <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text size={14}>{item.title}</Text>
-                <Icon name="stre-right" family="Galio" style={{ paddingRight: 5 }} />
-              </Block>
-            </TouchableOpacity>
-          </Block>);
-      default:
-        break;
-    }
-  }*/
+  /*
+      switch (item.type) {
+        case 'switch':
+          return (
+            <Block row middle space="between" style={styles.rows}>
+              <Text size={14}>{item.title}</Text>
+              <Switch
+                onValueChange={() => this.toggleSwitch(item.id)}
+                ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
+                thumbColor={Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null}
+                trackColor={{ false: materialTheme.COLORS.SWITCH_OFF, true: materialTheme.COLORS.SWITCH_ON }}
+                value={this.state[item.id]}
+              />
+            </Block>
+          );
+        case 'button':
+          return (
+            <Block style={styles.rows}>
+              <TouchableOpacity onPress={() => navigate('Pro')}>
+                <Block row middle space="between" style={{ paddingTop: 7 }}>
+                  <Text size={14}>{item.title}</Text>
+                  <Icon name="stre-right" family="Galio" style={{ paddingRight: 5 }} />
+                </Block>
+              </TouchableOpacity>
+            </Block>);
+        default:
+          break;
+      }
+    }*/
 
   render() {
     const { navigation } = this.props;

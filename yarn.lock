@@ -848,10 +848,10 @@
     resolve-from "^4.0.0"
     slugify "^1.3.4"
 
-"@expo/dev-tools@^0.5.14":
-  version "0.5.14"
-  resolved "https://registry.yarnpkg.com/@expo/dev-tools/-/dev-tools-0.5.14.tgz#8ad41314081329bb1dcfb16fb2ebfa0d484f9bfb"
-  integrity sha512-7+DWm9X/IbFULMH1AhO6/BL5plGz6/zrvkPCKRYbcHBZhUitQ+EyBIXc6e///btIXK3wmKq4ujuUfK6na4w2zQ==
+"@expo/dev-tools@^0.5.17":
+  version "0.5.17"
+  resolved "https://registry.yarnpkg.com/@expo/dev-tools/-/dev-tools-0.5.17.tgz#8242b22fdd6c41ee124e914675b3a0299fe9b01f"
+  integrity sha512-Iacpp0sIv7klqUNM61zg35gjFP7uAr1d20uwKf3DuUS8/R0XReQ9hg0WarE9a+WOvXD9LcCNnHzMxUni/IAAdg==
   dependencies:
     "@expo/config" "^1.0.5"
     express "4.16.4"
@@ -1071,10 +1071,10 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
-"@expo/xdl@^54.0.1":
-  version "54.0.1"
-  resolved "https://registry.yarnpkg.com/@expo/xdl/-/xdl-54.0.1.tgz#97aa2530bb2931a30c6ad72e34ff5aa79873bb15"
-  integrity sha512-FyW3KCtv21Ss+IKUrdOUd6Ar1LYwps8Mm6hA3tBuWc0T0xun+qkKvWvrCiBcsSEu8weH7SIQds1I0Fuax6OOiA==
+"@expo/xdl@^54.0.4":
+  version "54.0.4"
+  resolved "https://registry.yarnpkg.com/@expo/xdl/-/xdl-54.0.4.tgz#ba1d874aa27d975faa9a44eb7f23403bb15a906c"
+  integrity sha512-TIAgboJFaSImhxfjNK1txhJ3Q1PNtCKJMYP/qBzbf60WYM8BVD02A2jEYTWEoZ1tIDyAzjEfLdUAmWa0Osdj5Q==
   dependencies:
     "@expo/bunyan" "3.0.2"
     "@expo/config" "^1.0.5"
@@ -4937,17 +4937,17 @@ expo-camera@~2.0.0:
     prop-types "^15.6.0"
 
 expo-cli@^2.18.3:
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-2.18.3.tgz#a54fa03546e4bb4cfe5e5912b0e33faae7fccbe8"
-  integrity sha512-DIKtQvKJtV8IgnhvIxs5cAC4bgJjXWGzPi5xyP+AMbSVLenrmF6DOTU9mhOzgykxvBoVNCvr7KoBuw/sHuGjuQ==
+  version "2.18.7"
+  resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-2.18.7.tgz#46cdcbcf27a4e46e83f25c83e748bc8ce903d9c2"
+  integrity sha512-okpzpE5Uf1x95cPP4+gncBld3ux3y0jvm96OdbRRoOb8t+vcjj1oxOr1tdulp4vf2Azuljhhvdjz+OgRRiPSLg==
   dependencies:
     "@expo/bunyan" "3.0.2"
     "@expo/config" "^1.0.5"
-    "@expo/dev-tools" "^0.5.14"
+    "@expo/dev-tools" "^0.5.17"
     "@expo/json-file" "^8.1.3"
     "@expo/simple-spinner" "1.0.2"
     "@expo/spawn-async" "1.4.2"
-    "@expo/xdl" "^54.0.1"
+    "@expo/xdl" "^54.0.4"
     ansi-regex "^4.1.0"
     axios "0.18.0"
     babel-runtime "6.26.0"
@@ -10394,7 +10394,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10679,6 +10679,13 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-animatable@^1.2.4:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.2.tgz#4783ee1a73dc98815aef234ce6b819f80bfe7d80"
+  integrity sha512-rmah3KQ63ft8DxkzFUwJSuZeq+oSYwldoGF4DTOR5WM2WR5wiWLgBAtrAHlI3Di3by323uOR21s+MlqPcHz2Kw==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-animated-loader@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/react-native-animated-loader/-/react-native-animated-loader-0.0.7.tgz#a5b8a4fc38ecae418693dc1bd9ffaac9528b82c6"
@@ -10736,12 +10743,28 @@ react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
 
+react-native-modal-datetime-picker@^7.4.2:
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-7.4.2.tgz#d000c4c9675ca8add779820f2947c814e0aa2e53"
+  integrity sha512-RzQiYvbtBE/FJdaPhFcyc4tjw4LZ6AuE3uWPRqiTy4WSoE9pGV1QzrJzPIYhrJfmKWLF72ntnzG8uQyUAx/Znw==
+  dependencies:
+    prop-types "^15.7.2"
+    react-native-modal "^9.0.0"
+
 react-native-modal-dropdown@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-0.6.2.tgz#da6027b3546d2031fbce46242bffc95561e13599"
   integrity sha512-1jzByA+ME+q0mZJ2rZrLsf6jVwJhNxNHdg7I50xYZ9oYJsmmKwF9r/ks95tZxxks4Zvd7/FnaveNtyd+uevXAw==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-modal@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-9.0.0.tgz#0bfd0770361a2e5c6e0072bfdb0f1277f9662dba"
+  integrity sha512-j4xeIK9noHU/ksp2Ndc8NI1qJvjApToqGvqLEu2wtYeaISanbhtd0S3V4hZkSlCa3DZtegl6aaMZBLeH1q6xfA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-animatable "^1.2.4"
 
 react-native-ratings@^6.3.0:
   version "6.3.1"

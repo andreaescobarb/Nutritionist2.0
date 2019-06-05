@@ -7,7 +7,13 @@ import axios from 'axios';
 import materialTheme from '../constants/Theme';
 import { Slider } from 'react-native-gesture-handler';
 
+var peso = "";
+export {peso};
+
 export default class Weight extends React.Component {
+  onTextPress(event, text) {
+    console.log(text);
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -89,7 +95,7 @@ export default class Weight extends React.Component {
       <ScrollView style = {{ backgroundColor: '#ffdab9' }}>
         <Block center>
           <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-          <Text size={30}>{this.state.quantity} Lbs</Text>
+          <Text size={30} onPress={(peso) => this.onTextPress(peso, (this.state.quantity))}>{this.state.quantity} Lbs</Text>
           <Text>{"\n"}{"\n"}</Text>
           <Image
             source={(WeightPic)}
