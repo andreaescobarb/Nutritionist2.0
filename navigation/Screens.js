@@ -19,6 +19,10 @@ import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
+import perfilNutriScreen from '../screens/perfilNutri';
+import Appointments from '../screens/Appointments'
+import AddAppointment from '../screens/AddAppointment'
+import EditDelAppointment from '../screens/EditDelAppointment'
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -120,6 +124,18 @@ const ComponentsStack = createStackNavigator({
     transitionConfig,
   })
 
+const AppointmentsStack = createStackNavigator({
+  Appointments: {
+    screen: Appointments,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
+}, {
+    cardStyle: { backgroundColor: '#EEEEEE', },
+    transitionConfig,
+  })
+
 const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
@@ -139,30 +155,44 @@ const HomeStack = createStackNavigator({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
+  AddAppointment: {
+    screen: AddAppointment,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+      //<Header back title="Agua" navigation={navigation} />,
+    })
+  },
+  EditDelAppointment: {
+    screen: EditDelAppointment,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+      //<Header back title="Agua" navigation={navigation} />,
+    })
+  },
   Water: {
     screen: WaterScreen,
-    navigationOptions: ({navigation}) => ({
-      header: null 
+    navigationOptions: ({ navigation }) => ({
+      header: null
       //<Header back title="Agua" navigation={navigation} />,
     })
   },
   Steps: {
     screen: StepsScreen,
-    navigationOptions: ({navigation}) => ({
-      header: null 
+    navigationOptions: ({ navigation }) => ({
+      header: null
       //<Header back title="Pasos" navigation={navigation} />,
     })
   },
   Weight: {
     screen: WeightScreen,
-    navigationOptions: ({navigation}) => ({
-      header: null 
+    navigationOptions: ({ navigation }) => ({
+      header: null
       //<Header back title="Peso" navigation={navigation} />,
     })
   },
   Hours_Sleep: {
     screen: Hours_SleepScreen,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       header: null,
     })
   },
@@ -172,6 +202,12 @@ const HomeStack = createStackNavigator({
       header: <Header title="Diario" navigation={navigation} />,
     })
   },
+  Appointments: {
+    screen: Appointments,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header title="Citas" navigation={navigation} />,
+    })
+  },
   /*Profile: {
     screen: ProfileScreen,
     navigationOptions: ({ navigation }) => ({
@@ -179,10 +215,10 @@ const HomeStack = createStackNavigator({
       headerTransparent: true,
     })
   },*/
-  Perfil:{
+  Perfil: {
     screen: PerfileScreen,
-    navigationOptions:({navigation})=>({
-      header: <Header title="Perfil" navigation={navigation}/>
+    navigationOptions: ({ navigation }) => ({
+      header: <Header title="Perfil" navigation={navigation} />
     })
   }
 },
@@ -201,20 +237,19 @@ const AppStack = createDrawerNavigator(
         drawerLabel: () => { },
       },
     },
-    Profile:{
-      screen:  PerfileScreen,
-      navigationOptions:(navOpt)=>({
-        drawerLabel: ({focused})=>(
-          <Drawer focused={focused} screen="Profile" title="Perfil"/>
+    Profile: {
+      screen: PerfileScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Profile" title="Perfil" />
         ),
       }),
     },
-
-    nutriProfile:{
-      screen:  nutriProfileScreen,
-      navigationOptions:(navOpt)=>({
-        drawerLabel: ({focused})=>(
-          <Drawer focused={focused} screen="nutriProfile" title="About"/>
+    nutriProfile: {
+      screen: nutriProfileScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="nutriProfile" title="About" />
         ),
       }),
     },
@@ -223,6 +258,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Components" title="Diario" />
+        ),
+      }),
+    },
+    Appointments: {
+      screen: AppointmentsStack,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Appointments" title="Citas" />
         ),
       }),
     },

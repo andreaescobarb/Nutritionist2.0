@@ -5,12 +5,30 @@ import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 import SleepPic from '../assets/images/sleep4.png';
 
-var horas_sueno = "";
-export {horas_sueno};
+import { entries } from './Components'
 
+let horas_sueno = "";
+export { horas_sueno };
+/*
+let save = async function (value) {
+  try {
+    await AsyncStorage.setItem('sleep', value);
+  } catch (error) {
+  }
+};
+
+let show = async function () {
+  try {
+    let value = await AsyncStorage.setItem('sleep');
+    console.log(value);
+  } catch (error) {
+  }
+};
+*/
 export default class Hours_Sleep extends React.Component {
-  onTextPress(event, text) {
+  onTextPress(horas_sueno, text) {
     console.log(text);
+    horas_sueno = text;
   }
   constructor(props) {
     super(props);
@@ -22,7 +40,7 @@ export default class Hours_Sleep extends React.Component {
 
   decrementCount = () => {
     this.setState((prevState, props) => {
-      if (prevState.quantity - 0.5>= 0) {
+      if (prevState.quantity - 0.5 >= 0) {
         return { quantity: prevState.quantity - 0.5 };
       }
     });
@@ -33,6 +51,15 @@ export default class Hours_Sleep extends React.Component {
       quantity: prevState.quantity + 0.5
     }));
   }
+  /*
+  incrementCount = () => {
+    this.setState((prevState, props) => {
+      save( prevState.quantity + 0.25 );
+  
+      return {quantity: prevState.quantity + 0.25};
+    });
+  }
+  */
   state = {};
 
   toggleSwitch = switchNumber => this.setState({ [switchNumber]: !this.state[switchNumber] });
@@ -70,8 +97,9 @@ export default class Hours_Sleep extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <ScrollView style = {{ backgroundColor: '#dda0dd' }}>
+      <ScrollView style={{ backgroundColor: '#dda0dd' }}>
         <Block center>
           <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
           <Image
@@ -80,7 +108,7 @@ export default class Hours_Sleep extends React.Component {
           />
           <Text>{"\n"}</Text>
           <Text size={30}>Horas:</Text>
-          <Text size={30} onPress={(horas_sueno) => this.onTextPress(horas_sueno, (this.state.quantity))}>{this.state.quantity}</Text>
+          <Text size={30} onPress={(horas_sueno) => this.onTextPress(horas_sueno, (this.state.quantity))}>{this.state.quantity} L</Text>
         </Block>
         <Block center>
           <Text></Text>
@@ -98,7 +126,8 @@ export default class Hours_Sleep extends React.Component {
             <Text>{"              "}</Text>
             <View style={styles.button}>
               <Button
-                onPress={this.incrementCount}
+                onPress={() => { () => entries(navigation); this.incrementCount() }}
+                /*onPress={this.incrementCount}*/
                 title={'+'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
