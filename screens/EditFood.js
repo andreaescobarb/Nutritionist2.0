@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage, View, Image} from 'react-native';
+import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import ImagePicker from "react-native-image-picker";
+
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
+
 
 
 let parameters = {
@@ -22,7 +23,7 @@ export default class AddFood extends React.Component {
                     <Text>Nombre de Comida</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar nombre de comida"
+                    <Input right placeholder="Ingresar nuevo nombre"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         onChangeText={(value) => parameters.name =value}   
@@ -33,7 +34,7 @@ export default class AddFood extends React.Component {
                     <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar descripción de comida"
+                    <Input right placeholder="Ingresar nueva descripción"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.description =value}                        s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
@@ -44,24 +45,6 @@ export default class AddFood extends React.Component {
 
     }
 
-    handlePhoto = () => {
-        const options = {};
-        ImagePicker.launchImageLibrary(options, response => {
-            console.log("response", response);
-        });
-    };
-
-    renderImage(){
-        return (
-            <View>
-                <Button
-                    title="Elije una foto"
-                    onPress={this.handlePhoto}
-                />
-            </View>
-        )
-    }
-
     renderButton = () => {
         const { navigation } = this.props;
         return (
@@ -70,7 +53,7 @@ export default class AddFood extends React.Component {
                     <Block center>
                         <Button 
                             shadowless style={[styles.button, styles.shadow]}>
-                            Guardar
+                            Actualizar
                         </Button>
                     </Block>
                 </Block>
