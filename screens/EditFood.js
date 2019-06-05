@@ -14,6 +14,20 @@ let parameters = {
     description: ''
 };
 
+updateFood = () => {
+    axios.patch('https://nutrionist-server.herokuapp.com/foods', {
+      id: 1,
+      name: parameters.name,
+      description: parameters.description
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 export default class AddFood extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;

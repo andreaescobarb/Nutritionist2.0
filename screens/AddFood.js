@@ -14,6 +14,19 @@ let parameters = {
     description: ''
 };
 
+addFood = () => {
+  axios.post('https://nutrionist-server.herokuapp.com/foods', {
+    name: parameters.name,
+    description: parameters.description
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 export default class AddFood extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;
@@ -52,6 +65,7 @@ export default class AddFood extends React.Component {
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
                         <Button 
+                            onPress={this.addFood}
                             shadowless style={[styles.button, styles.shadow]}>
                             Guardar
                         </Button>
