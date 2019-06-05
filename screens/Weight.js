@@ -37,23 +37,6 @@ export default class Weight extends React.Component {
     }));
   }
 
-  saveWeight = () => {
-    axios.post('https://nutrionist-server.herokuapp.com/entries', {
-      userId: 0,
-      date: '--',
-      water: 0,
-      steps: 0,
-      weight: quantity,
-      hours_of_sleep: 0
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
   state = {};
 
   toggleSwitch = switchNumber => this.setState({ [switchNumber]: !this.state[switchNumber] });
@@ -107,7 +90,7 @@ export default class Weight extends React.Component {
           <View style={styles.container}>
             <View style={styles.button}>
               <Button
-                onPress={this.decrementCount}
+                onPress = {() => {() => entries(navigation); this.decrementCount()}}
                 title={'-'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
@@ -118,16 +101,8 @@ export default class Weight extends React.Component {
             <Text>{"              "}</Text>
             <View style={styles.button}>
               <Button
-                onPress={this.incrementCount}
+                onPress = {() => {() => entries(navigation); this.incrementCount()}}
                 title={'+'}
-                backgroundColor={'#FB6567'}
-                icon={{ name: 'face' }}
-              >
-                {this.state.quantity}
-              </Button>
-              <Button
-                onPress={this.saveWeight}
-                title={'Save'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
               >

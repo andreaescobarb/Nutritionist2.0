@@ -115,7 +115,7 @@ export default class Hours_Sleep extends React.Component {
           <View style={styles.container}>
             <View style={styles.button}>
               <Button
-                onPress={this.decrementCount}
+                onPress = {() => {() => entries(navigation); this.decrementCount()}}
                 title={'-'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
