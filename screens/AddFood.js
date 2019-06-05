@@ -24,6 +24,12 @@ saveFood = () => {
     console.log(error);
   });
 }
+
+combinedFunction = () => {
+  navigation.navigate('Login'); 
+  saveFood();
+}
+
 export default class AddFoods extends React.Component{
     renderForm=()=>{
         const {navigation}= this.props;
@@ -66,7 +72,7 @@ export default class AddFoods extends React.Component{
                 <Block center>
                     <Button 
                     shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() => navigation.navigate('Login')}>
+                    onPress={() => combinedFunction()}>
                         Guardar
                     </Button>
                 </Block>
