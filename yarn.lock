@@ -4936,7 +4936,11 @@ expo-camera@~2.0.0:
     lodash.mapvalues "^4.6.0"
     prop-types "^15.6.0"
 
+<<<<<<< HEAD
 expo-cli@^2.18.3:
+=======
+expo-cli@^2.18.4:
+>>>>>>> master
   version "2.18.7"
   resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-2.18.7.tgz#46cdcbcf27a4e46e83f25c83e748bc8ce903d9c2"
   integrity sha512-okpzpE5Uf1x95cPP4+gncBld3ux3y0jvm96OdbRRoOb8t+vcjj1oxOr1tdulp4vf2Azuljhhvdjz+OgRRiPSLg==

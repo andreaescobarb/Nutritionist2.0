@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, ScrollView, View, Image, Button } from "react-native";
 import { Block, Text, theme, Icon } from "galio-framework";
 import WeightPic from '../assets/images/weight.png';
+import axios from 'axios';
 
 import materialTheme from '../constants/Theme';
 import { Slider } from 'react-native-gesture-handler';
@@ -20,6 +21,7 @@ export default class Weight extends React.Component {
     }
     this.incrementCount = this.incrementCount.bind(this)
   }
+
 
   decrementCount = () => {
     this.setState((prevState, props) => {
@@ -88,7 +90,7 @@ export default class Weight extends React.Component {
           <View style={styles.container}>
             <View style={styles.button}>
               <Button
-                onPress={this.decrementCount}
+                onPress = {() => {() => entries(navigation); this.decrementCount()}}
                 title={'-'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
@@ -99,7 +101,7 @@ export default class Weight extends React.Component {
             <Text>{"              "}</Text>
             <View style={styles.button}>
               <Button
-                onPress={this.incrementCount}
+                onPress = {() => {() => entries(navigation); this.incrementCount()}}
                 title={'+'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}

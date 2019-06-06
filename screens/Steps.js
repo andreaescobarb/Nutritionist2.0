@@ -4,6 +4,10 @@ import { Block, Text, theme, Icon } from "galio-framework";
 
 import materialTheme from '../constants/Theme';
 import steps from '../assets/images/steps2.png';
+import { entries } from './Components';
+
+var pasos = "";
+export {pasos};
 
 var pasos = "";
 export {pasos};

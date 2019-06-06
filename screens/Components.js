@@ -20,9 +20,15 @@ import { agua } from './Water'
 
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
+<<<<<<< HEAD
 var day = new Date().getDate(); //Current Date
 var month = new Date().getMonth() + 1; //Current Month
 var year = new Date().getFullYear(); //Current Year
+=======
+let day = new Date().getDate(); //Current Date
+let month = new Date().getMonth() + 1; //Current Month
+let year = new Date().getFullYear(); //Current Year
+>>>>>>> master
 //var fecha = day.concat(month).concat(year);
 
 let parameters = {
@@ -30,9 +36,16 @@ let parameters = {
   steps: pasos,
   weight: peso,
   water: agua,
+<<<<<<< HEAD
   //date: fecha
 };
 
+=======
+};
+
+export { entries };
+
+>>>>>>> master
 let entries = async () => {
   axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
     console.log(entries)
@@ -80,6 +93,7 @@ export default class Components extends React.Component {
   renderItem = ({ item }) => {
     const { navigate } = this.props.navigation;
   }
+<<<<<<< HEAD
   /*
       switch (item.type) {
         case 'switch':
@@ -109,6 +123,8 @@ export default class Components extends React.Component {
           break;
       }
     }*/
+=======
+>>>>>>> master
 
   render() {
     const { navigation } = this.props;
@@ -118,9 +134,7 @@ export default class Components extends React.Component {
           style={styles.components}
           showsVerticalScrollIndicator={false}
         >
-          {/*{this.renderButtons()}*/}
           <Block flex>
-            {/*<Text bold size={16} style={styles.title}>Buttons</Text>*/}
             <Text>{"\n"}</Text>
             <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
               <Block center>
