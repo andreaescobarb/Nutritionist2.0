@@ -20,15 +20,7 @@ import { agua } from './Water'
 
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
-<<<<<<< HEAD
-var day = new Date().getDate(); //Current Date
-var month = new Date().getMonth() + 1; //Current Month
-var year = new Date().getFullYear(); //Current Year
-=======
-let day = new Date().getDate(); //Current Date
-let month = new Date().getMonth() + 1; //Current Month
-let year = new Date().getFullYear(); //Current Year
->>>>>>> master
+
 //var fecha = day.concat(month).concat(year);
 
 let parameters = {
@@ -36,16 +28,12 @@ let parameters = {
   steps: pasos,
   weight: peso,
   water: agua,
-<<<<<<< HEAD
+
   //date: fecha
 };
 
-=======
-};
 
-export { entries };
 
->>>>>>> master
 let entries = async () => {
   axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
     console.log(entries)
@@ -93,38 +81,7 @@ export default class Components extends React.Component {
   renderItem = ({ item }) => {
     const { navigate } = this.props.navigation;
   }
-<<<<<<< HEAD
-  /*
-      switch (item.type) {
-        case 'switch':
-          return (
-            <Block row middle space="between" style={styles.rows}>
-              <Text size={14}>{item.title}</Text>
-              <Switch
-                onValueChange={() => this.toggleSwitch(item.id)}
-                ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
-                thumbColor={Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null}
-                trackColor={{ false: materialTheme.COLORS.SWITCH_OFF, true: materialTheme.COLORS.SWITCH_ON }}
-                value={this.state[item.id]}
-              />
-            </Block>
-          );
-        case 'button':
-          return (
-            <Block style={styles.rows}>
-              <TouchableOpacity onPress={() => navigate('Pro')}>
-                <Block row middle space="between" style={{ paddingTop: 7 }}>
-                  <Text size={14}>{item.title}</Text>
-                  <Icon name="stre-right" family="Galio" style={{ paddingRight: 5 }} />
-                </Block>
-              </TouchableOpacity>
-            </Block>);
-        default:
-          break;
-      }
-    }*/
-=======
->>>>>>> master
+
 
   render() {
     const { navigation } = this.props;

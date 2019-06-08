@@ -17,7 +17,7 @@ import materialTheme from '../constants/Theme';
 import WaterPic from '../assets/images/waterglass.png';
 
 //import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
-<<<<<<< HEAD
+
 import { carName } from './Components';
 
 const { width } = Dimensions.get('screen');
@@ -28,19 +28,6 @@ export { agua };
 export default class Water extends React.Component {
   onTextPress(event, text) {
     console.log(text);
-=======
-import { entries } from './Components';
-
-const { width } = Dimensions.get('screen');
-
-let agua = "";
-export { agua };
-
-export default class Water extends React.Component {
-  onTextPress(agua, text) {
-    console.log(text);
-    agua = text;
->>>>>>> master
   }
   constructor(props) {
     super(props);
