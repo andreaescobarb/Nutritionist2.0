@@ -174,7 +174,7 @@ export default class SignUp extends React.Component{
                 <Block center>
                     <Button 
                     shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() => navigation.navigate('Login')}>
+                    onPress={() =>signUp(navigation)}>
                         Crear Cuenta
                     </Button>
                 </Block>

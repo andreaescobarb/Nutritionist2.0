@@ -52,7 +52,7 @@ let entries = async () => {
   });
 };
 
-export { entries };
+
 
 /*
 let entries = async () => {
