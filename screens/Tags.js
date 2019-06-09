@@ -4,8 +4,6 @@ import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 
 const { width } = Dimensions.get('screen');
-import { materialTheme } from '../constants';
-
 
 
 let parameters = {
@@ -19,7 +17,7 @@ export default class AddFood extends React.Component {
         return (
             <Block flex style={styles.group}>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text>Nombre de Comida</Text>
+                    <Text>Tags</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Ingresar nombre de comida"
