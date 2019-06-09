@@ -27,6 +27,8 @@ let signUp = async ()  =>{
             Alert.alert(
                 'Usuario creado...'
             )
+            const value = await AsyncStorage.setItem('user',JSON.stringify(users));
+            navigation.navigation('login')
         }
     }).catch(function(error) {
         console.log(error);
@@ -116,7 +118,7 @@ export default class SignUp extends React.Component{
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.name =value}
-                        onChangeText={(text) => this.validate(text,"name")}   
+//                        onChangeText={(text) => this.validate(text,"name")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />
                 </Block>
@@ -129,7 +131,7 @@ export default class SignUp extends React.Component{
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.lastname =value}
-                        onChangeText={(text) => this.validate(text,"lastname")}   
+//                        onChangeText={(text) => this.validate(text,"lastname")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.lastnameValdate?styles.error:null]}
                     />
                 </Block>
@@ -141,7 +143,7 @@ export default class SignUp extends React.Component{
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.username =value}   
-                        onChangeText={(text) => this.validate(text,"username")}   
+//                        onChangeText={(text) => this.validate(text,"username")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.usernameValdate?styles.error:null]}
                     />
                 </Block>
@@ -154,7 +156,7 @@ export default class SignUp extends React.Component{
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.password =value}   
-                        onChangeText={(text) => this.validate(text,"password")}   
+//                        onChangeText={(text) => this.validate(text,"password")}   
                         password={true}
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.passwordValdate?styles.error:null]}
                     />

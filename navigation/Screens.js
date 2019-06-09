@@ -21,10 +21,10 @@ import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
-import Appointments from '../screens/Appointments'
-import AddAppointment from '../screens/AddAppointment'
-import EditDelAppointment from '../screens/EditDelAppointment'
-
+import Appointments from '../screens/Appointments';
+import AddAppointment from '../screens/AddAppointment';
+import EditDelAppointment from '../screens/EditDelAppointment';
+import ListTagsScreen from '../screens/ListTags';
 import Menu from './Menu';
 import Header from '../components/Header';
 import { Drawer } from '../components/';
@@ -156,6 +156,12 @@ const HomeStack = createStackNavigator({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
+  ListTags:{
+    screen: ListTagsScreen,
+    navigationOptions:({navigation})=>({
+      header:null
+    })
+  },
   AddAppointment: {
     screen: AddAppointment,
     navigationOptions: ({ navigation }) => ({
@@ -267,6 +273,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Appointments" title="Citas" />
+        ),
+      }),
+    },
+    ListTags:{
+      screen:ListTagsScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel:({focused})=>(
+          <Drawer focused={focused} screen="List Tags" title="List Tags"/>
         ),
       }),
     },
