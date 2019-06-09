@@ -11,7 +11,7 @@ let parameters = {
     description: ''
 };
 
-export default class AddFood extends React.Component {
+export default class Tags extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;
         return (
@@ -20,7 +20,7 @@ export default class AddFood extends React.Component {
                     <Text>Tags</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar nombre de comida"
+                    <Input right placeholder="Ingresar nombre de tag"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         onChangeText={(value) => parameters.name =value}   
@@ -31,7 +31,7 @@ export default class AddFood extends React.Component {
                     <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Input right placeholder="Ingresar descripción de comida"
+                    <Input right placeholder="Ingresar descripción del tag"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.description =value}                        s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
@@ -70,18 +70,6 @@ export default class AddFood extends React.Component {
                     {this.renderButton()}
                 </ScrollView>
             </Block>
-        );
-    }
-}
-
-export default class ProfileUpToDate extends React.Component{
-    render(){
-        return(
-            <View>
-
-                
-            </View>
-            
         );
     }
 }
