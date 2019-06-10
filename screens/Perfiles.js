@@ -26,7 +26,7 @@ let updateUsers = async function(navigation) {
             username: parameters.username,
             password: parameters.password 
         }
-    }, { 
+    },  { 
         headers: {
             'Accept': 'application/json'
         }

@@ -19,7 +19,7 @@ import { Card } from "react-native-elements";
 
 export default class ListTags extends React.Component {
   state = {
-    tags: [],
+    listtags: [],
     tagMap: {}
   };
 
@@ -27,24 +27,24 @@ export default class ListTags extends React.Component {
     const { navigation } = this.props;
     return (
       <Block flex style={styles.group}>
-        {this.renderTags(this.state.tags)}
+        {this.renderTags(this.state.listtags)}
       </Block>
     );
   };
 
-  renderTags = tags => {
-    return tags.map(tag => {
+  renderTags = listtags => {
+    return listtags.map(listtag => {
       return (
         <Card
-          title={tag.name}
+          title={listtag.name}
           image={{
             uri:
               "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.betterhealth.vic.gov.au%2F-%2Fmedia%2Fbhc%2Fimages%2Fslideshow%2Fhealthy-snacking-tips%2F8-colour_24199230_1050x600.jpg&imgrefurl=https%3A%2F%2Fwww.betterhealth.vic.gov.au%2Fhealth%2Fhealthyliving%2Ffood-variety-and-a-healthy-diet&docid=wvHGsoMmYIjm7M&tbnid=GJxWFBxdTe8eOM%3A&vet=10ahUKEwih68_F7driAhUruVkKHb7mD6sQMwhSKAAwAA..i&w=1050&h=590&bih=625&biw=1366&q=healthy%20food&ved=0ahUKEwih68_F7driAhUruVkKHb7mD6sQMwhSKAAwAA&iact=mrc&uact=8"
           }}
         >
-          <Text style={{ marginBottom: 5 }}>{tag.description}</Text>
+          <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
           <Tags
-            initialTags={this.state.tagMap[tag.id]}
+            initialTags={this.state.tagMap[listtag.id]}
             renderTag={({
               tag,
               index,
@@ -80,19 +80,25 @@ export default class ListTags extends React.Component {
       method: "GET",
       headers: {
         Accept: "application/json"
-      }
+      },
     })
       .then(response => response.json())
       .then(responseJson => {
-        let tagMap = {};
+        //let tagMap = {};
         if (!responseJson) {
           responseJson = [];
         }
-        responseJson.forEach(function(item) {
+        /*responseJson.forEach(function(item) {
           tagMap[item.id] = item.tags.map(function(tag) {
             return tag.name + " "});
-        });
+        });*/
         this.setState({ tags: responseJson });
+        //this.setState({ tagMap: tagMap });
+        responseJson.forEach(function(item) {
+          tagMap[item.id] = item.tag.map(function(tag) {
+            return tag.name + " "});
+        });
+        this.setState({ listtags: responseJson });
         this.setState({ tagMap: tagMap });
       })
       .catch(error => {
