@@ -39,7 +39,7 @@ export default class Steps extends React.Component {
           <Block row middle space="between" style={styles.rows}>
             <Text size={14}>{item.title}</Text>
             <Switch
-              onValueChange={() => this.toggleSwitch(item.id)}
+              onValueChange={() => navigate('Components')}
               ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
               thumbColor={Platform.OS === 'android' ? materialTheme.COLORS.SWITCH_OFF : null}
               trackColor={{ false: materialTheme.COLORS.SWITCH_OFF, true: materialTheme.COLORS.SWITCH_ON }}
@@ -50,7 +50,7 @@ export default class Steps extends React.Component {
       case 'button':
         return (
           <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigate('Pro')}>
+            <TouchableOpacity onPress={() => navigate('Components')}>
               <Block row middle space="between" style={{ paddingTop: 7 }}>
                 <Text size={14}>{item.title}</Text>
                 <Icon name="stre-right" family="Galio" style={{ paddingRight: 5 }} />

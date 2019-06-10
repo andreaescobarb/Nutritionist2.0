@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Button } from "react-native";
+import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Button, Dimensions } from "react-native";
 import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 

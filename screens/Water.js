@@ -18,11 +18,9 @@ import WaterPic from '../assets/images/waterglass.png';
 
 //import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { entries } from './Components';
+import { agua } from './Components';
 
 const { width } = Dimensions.get('screen');
-
-let agua = "";
-export { agua };
 
 export default class Water extends React.Component {
   onTextPress(agua, text) {
@@ -75,7 +73,7 @@ export default class Water extends React.Component {
       case 'button':
         return (
           <Block style={styles.rows}>
-            <TouchableOpacity onPress={() => navigate('Pro')}>
+            <TouchableOpacity onPress={() => navigate('Components')}>
               <Block row middle space="between" style={{ paddingTop: 7 }}>
                 <Text size={14}>{item.title}</Text>
                 <Icon name="stre-right" family="Galio" style={{ paddingRight: 5 }} />
@@ -117,7 +115,7 @@ export default class Water extends React.Component {
             <Text>{"              "}</Text>
             <View style={styles.button}>
               <Button
-                onPress = {() => {() => entries(navigation); this.incrementCount()}}
+                onPress = {() => {agua = this.state.quantity; this.incrementCount()}}
                 title={'+'}
                 backgroundColor={'#FB6567'}
                 icon={{ name: 'face' }}
@@ -131,6 +129,7 @@ export default class Water extends React.Component {
     );
   }
 }
+export { agua }
 
 const styles = StyleSheet.create({
   water: {

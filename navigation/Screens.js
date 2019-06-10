@@ -5,9 +5,9 @@ import { createSwitchNavigator, createStackNavigator, createDrawerNavigator } fr
 import { Block, Text, theme } from "galio-framework";
 
 import ComponentsScreen from '../screens/Components';
-import HomeScreen from '../screens/Profile';
+import HomeScreen from '../screens/Components';
 import OnboardingScreen from '../screens/Onboarding';
-import ProfileScreen from '../screens/Profile';
+import ProfileScreen from '../screens/Components';
 import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
@@ -28,6 +28,7 @@ import ListTagsScreen from '../screens/ListTags';
 import Menu from './Menu';
 import Header from '../components/Header';
 import { Drawer } from '../components/';
+import TagsScreen from '../screens/Tags';
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -141,7 +142,7 @@ const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header search tabs title="Home" navigation={navigation} />,
+      //header: <Header search tabs title="Home" navigation={navigation} />,
     })
   },
   Settings: {
@@ -160,6 +161,12 @@ const HomeStack = createStackNavigator({
     screen: ListTagsScreen,
     navigationOptions:({navigation})=>({
       header:null
+    })
+  },
+  Tags: {
+    screen: TagsScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header back title="Tags for Foods" navigation={navigation} />,
     })
   },
   AddAppointment: {
