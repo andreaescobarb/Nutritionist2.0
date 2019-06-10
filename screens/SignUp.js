@@ -28,7 +28,7 @@ let signUp = async ()  =>{
                 'Usuario creado...'
             )
             const value = await AsyncStorage.setItem('user',JSON.stringify(users));
-            navigation.navigation('login')
+            navigation.navigation('Login')
         }
     }).catch(function(error) {
         console.log(error);
@@ -176,7 +176,7 @@ export default class SignUp extends React.Component{
                 <Block center>
                     <Button 
                     shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() =>signUp(navigation)}>
+                    onPress={() =>signUp()}>
                         Crear Cuenta
                     </Button>
                 </Block>
