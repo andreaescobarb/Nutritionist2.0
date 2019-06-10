@@ -5,26 +5,9 @@ import { Block, Text, theme, Icon } from "galio-framework";
 import materialTheme from '../constants/Theme';
 import SleepPic from '../assets/images/sleep4.png';
 
-import { entries } from './Components'
+import { entries } from './Components';
+import { horas_sueno } from './Components';
 
-let horas_sueno = "";
-export { horas_sueno };
-/*
-let save = async function (value) {
-  try {
-    await AsyncStorage.setItem('sleep', value);
-  } catch (error) {
-  }
-};
-
-let show = async function () {
-  try {
-    let value = await AsyncStorage.setItem('sleep');
-    console.log(value);
-  } catch (error) {
-  }
-};
-*/
 export default class Hours_Sleep extends React.Component {
   onTextPress(horas_sueno, text) {
     console.log(text);
@@ -108,7 +91,7 @@ export default class Hours_Sleep extends React.Component {
           />
           <Text>{"\n"}</Text>
           <Text size={30}>Horas:</Text>
-          <Text size={30} onPress={(horas_sueno) => this.onTextPress(horas_sueno, (this.state.quantity))}>{this.state.quantity} L</Text>
+          <Text size={30} onPress={(horas_sueno) => this.onTextPress(horas_sueno, (this.state.quantity))}>{this.state.quantity}</Text>
         </Block>
         <Block center>
           <Text></Text>
@@ -141,6 +124,8 @@ export default class Hours_Sleep extends React.Component {
     );
   }
 }
+
+export { horas_sueno };
 
 const styles = StyleSheet.create({
   hours_sleep: {

@@ -13,19 +13,24 @@ import { materialTheme } from '../constants/';
 import { Icon, Switch } from '../components/';
 import fruits from '../assets/images/fruits.jpg';
 
-import { horas_sueno } from './Hours_Sleep'
-import { pasos } from './Steps'
-import { peso } from './Weight'
-import { agua } from './Water'
-
 const { width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth() + 1; //Current Month
 let year = new Date().getFullYear(); //Current Year
-//var fecha = day.concat(month).concat(year);
+let date = day + '/' + month + '/' + year;
+let agua = "";
+let horas_sueno = "";
+let peso = "";
+let pasos = "";
+
+export { agua };
+export { peso };
+export { pasos };
+export { horas_sueno };
 
 let parameters = {
+  date,
   hours_sleep: horas_sueno,
   steps: pasos,
   weight: peso,
@@ -51,27 +56,6 @@ let entries = async () => {
     console.log(error);
   });
 };
-
-
-
-/*
-let entries = async () => {
-axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
-  let data = response.data;
-  if (!data.created) {
-    Alert.alert(
-      'Error al actualizar datos'
-    )
-  } else {
-    Alert.alert(
-      'Datos actualizados...'
-    )
-  }
-}).catch(function (error) {
-  console.log(error);
-});
-};
-*/
 
 export default class Components extends React.Component {
   state = {};
@@ -102,7 +86,7 @@ export default class Components extends React.Component {
                   onPress={() => navigation.navigate('Hours_Sleep')}
                   shadowless style={[styles.button, styles.shadow]}>
                   Horas de Sueño
-            </Button>
+                </Button>
               </Block>
               <Block center>
                 <Button
@@ -110,7 +94,7 @@ export default class Components extends React.Component {
                   shadowless color="info"
                   style={[styles.button, styles.shadow]}>
                   Peso
-            </Button>
+                </Button>
               </Block>
               <Block center>
                 <Button
@@ -118,7 +102,7 @@ export default class Components extends React.Component {
                   shadowless color="success"
                   style={[styles.button, styles.shadow]}>
                   Pasos
-            </Button>
+                </Button>
               </Block>
               <Block center>
                 <Button
@@ -126,6 +110,18 @@ export default class Components extends React.Component {
                   shadowless color="warning"
                   style={[styles.button, styles.shadow]}>
                   Agua
+                </Button>
+              </Block>
+              <Block>
+                <Text>{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}</Text>
+              </Block>
+              <Block>
+                <Button
+                  onPress = {() => entries()}
+                  shadowless color="error"
+                  style={[styles.button, styles.shadow]}>
+                  <Text>Actualizar Datos</Text>
+                  {console.log(agua)}
                 </Button>
               </Block>
             </Block>
