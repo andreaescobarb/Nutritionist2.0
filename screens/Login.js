@@ -92,8 +92,7 @@ export default class Login extends React.Component {
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.nameValdate?styles.error:null]}
-                        onChangeText={(value) => parameters.username =value}   
-                        //onChangeText={(text)=>this.validate(text,'username')}
+                        onChangeText={(value) => parameters.username =value}
 />
                 </Block>
 
@@ -106,7 +105,7 @@ export default class Login extends React.Component {
                         color={materialTheme.COLORS.ICON}
                         password={true}
                         onChangeText={(value) => parameters.password =value}
-                        onChangeText={(text)=>this.validate(text,'password')}                        
+//                        onChangeText={(text)=>this.validate(text,'password')}                        
                         style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.passwordValdate?styles.error:null]}
                     />
                 </Block>
