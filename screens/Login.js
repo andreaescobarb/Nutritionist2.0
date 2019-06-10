@@ -93,7 +93,7 @@ export default class Login extends React.Component {
                         color={materialTheme.COLORS.ICON}
                         style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.nameValdate?styles.error:null]}
                         onChangeText={(value) => parameters.username =value}   
-                        onChangeText={(text)=>this.validate(text,'username')}
+                        //onChangeText={(text)=>this.validate(text,'username')}
 />
                 </Block>
 

@@ -80,20 +80,20 @@ export default class ListTags extends React.Component {
       method: "GET",
       headers: {
         Accept: "application/json"
-      }
+      },
     })
       .then(response => response.json())
       .then(responseJson => {
-        let tagMap = {};
+        //let tagMap = {};
         if (!responseJson) {
           responseJson = [];
         }
-        responseJson.forEach(function(item) {
+        /*responseJson.forEach(function(item) {
           tagMap[item.id] = item.tags.map(function(tag) {
             return tag.name + " "});
-        });
+        });*/
         this.setState({ tags: responseJson });
-        this.setState({ tagMap: tagMap });
+        //this.setState({ tagMap: tagMap });
       })
       .catch(error => {
         console.error(error);
