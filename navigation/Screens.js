@@ -24,7 +24,7 @@ import DeleteFoodScreen from '../screens/DeleteFood';
 import Appointments from '../screens/Appointments'
 import AddAppointment from '../screens/AddAppointment'
 import EditDelAppointment from '../screens/EditDelAppointment'
-import TagScreen from '../screen/Tags'
+import TagScreen from '../screens/Tags'
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -158,7 +158,7 @@ const HomeStack = createStackNavigator({
     })
   },
   Tags: {
-    screen: TagsScreen,
+    screen: TagScreen,
     navigationOptions: ({ navigation }) => ({
       header: <Header back title="Tags for Foods" navigation={navigation} />,
     })
@@ -308,6 +308,14 @@ const AppStack = createDrawerNavigator(
           <Drawer focused = { focused } screen = "DeleteFood" title = "Eliminar Comida"/>
         )
       })
+    },
+    Tags: {
+      screen: TagScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Tags" title="Tags" />
+        ),
+      }),
     },
     Settings: {
       screen: SettingsScreen,
