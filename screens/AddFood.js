@@ -18,17 +18,12 @@ let parameters = {
 let addFood = async ()  =>{
     axios.post('https://nutrionist-server.herokuapp.com/foods', parameters).then(async function(response) {
         let data = response.data;
-        if (data.created) {
-            Alert.alert(
-                'Error al crear comida'
-            )
-        } else {
             Alert.alert(
                 'Nueva comida creada...'
             )
             const value = await AsyncStorage.setItem('food',JSON.stringify(foods));
             navigation.navigation('login')
-        }
+        
     }).catch(function(error) {
         console.log(error);
     });
@@ -149,7 +144,7 @@ export default class AddFood extends React.Component{
     
         if (!result.cancelled) {
           this.setState({ imagePicked: result.uri});
-          parameters.image = result.uri;
+          parameters.image = JSON.stringify(result.uri);
         }
       };
 

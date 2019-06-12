@@ -48,22 +48,9 @@ let updateUsers = async function(navigation) {
 
 
  let renderUserData =  async function () {
-     let user = await AsyncStorage.getItem('user');
+    const value = await AsyncStorage.getItem('user');
+        console.log(value);
 
-    if(!user){
-        console.log("miraa");
-    }else{
-        parameters = { 
-            name: user.name,
-            username: user.username,
-            password: user.password,
-            lastname: user.lastname,
-            gender: 'male',
-            age: user.age,
-            weight: user.weight,
-            height: user.height
-        };
-    }
 };
 
 
