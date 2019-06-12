@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Dimensions } from "react-native";
+import axios from 'axios';
+import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Dimensions, Alert } from "react-native";
 import { Block, Text, theme, Icon, Input, Button } from "galio-framework";
 import materialTheme from '../constants/Theme';
 
@@ -10,6 +11,26 @@ let parameters = {
   name: '',
   description: ''
 };
+
+let AddTags = async () => {
+  axios.post('https://nutrionist-server.herokuapp.com/tags', parameters).then(async function (response) {
+    let data = response.data;
+    if (!data.created) {
+      Alert.alert(
+        'Error al crear tag'
+      )
+    } else {
+      Alert.alert(
+        'Tag creado exitosamente'
+      )
+      const value = await AsyncStorage.setItem('tag', JSON.stringify(tags));
+      navigation.navigation('Login')
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 export default class Tags extends React.Component {
   renderForm = () => {
@@ -50,8 +71,7 @@ export default class Tags extends React.Component {
           <Block center>
             <Button
               shadowless style={[styles.button, styles.shadow]}
-              //onPress={() => combinedFunction()}
-              >
+              onPress={() => AddTags()}>
               Guardar
                     </Button>
           </Block>
