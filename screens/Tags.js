@@ -24,7 +24,7 @@ let AddTags = async () => {
         'Tag creado exitosamente'
       )
       const value = await AsyncStorage.setItem('tag', JSON.stringify(tags));
-      navigation.navigation('Login')
+      //nnavigation.navigation('Login')
     }
   }).catch(function (error) {
     console.log(error);
@@ -43,6 +43,7 @@ export default class Tags extends React.Component {
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Input right placeholder="Ingresar nombre de tag"
             placeholderTextColor={materialTheme.COLORS.DEFAULT}
+            color={materialTheme.COLORS.ICON}
             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
             onChangeText={(value) => parameters.name = value}
           />
@@ -54,6 +55,7 @@ export default class Tags extends React.Component {
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Input right placeholder="Ingresar descripción del tag"
             placeholderTextColor={materialTheme.COLORS.DEFAULT}
+            color={materialTheme.COLORS.ICON}
             onChangeText={(value) => parameters.description = value} s
             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
           />
@@ -71,7 +73,7 @@ export default class Tags extends React.Component {
           <Block center>
             <Button
               shadowless style={[styles.button, styles.shadow]}
-              onPress={() => AddTags()}>
+              onPress={() => AddTags(Alert)}>
               Guardar
                     </Button>
           </Block>
