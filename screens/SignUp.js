@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Alert} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -25,7 +25,7 @@ let signUp = async ()  =>{
             )
         } else {
             Alert.alert(
-                'Usuario creado...'
+                'Usuario creado exitosamente'
             )
             const value = await AsyncStorage.setItem('user',JSON.stringify(users));
             navigation.navigation('Login')
@@ -176,7 +176,7 @@ export default class SignUp extends React.Component{
                 <Block center>
                     <Button 
                     shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() =>signUp()}>
+                    onPress={() =>signUp(Alert)}>
                         Crear Cuenta
                     </Button>
                 </Block>
