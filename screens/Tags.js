@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Button, Dimensions } from "react-native";
-import { Block, Text, theme, Icon } from "galio-framework";
+import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Dimensions } from "react-native";
+import { Block, Text, theme, Icon, Input, Button } from "galio-framework";
 import materialTheme from '../constants/Theme';
 
 const { width } = Dimensions.get('screen');
@@ -50,7 +50,8 @@ export default class Tags extends React.Component {
           <Block center>
             <Button
               shadowless style={[styles.button, styles.shadow]}
-              onPress={() => combinedFunction()}>
+              //onPress={() => combinedFunction()}
+              >
               Guardar
                     </Button>
           </Block>

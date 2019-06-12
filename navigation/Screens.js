@@ -21,10 +21,13 @@ import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
-import Appointments from '../screens/Appointments'
-import AddAppointment from '../screens/AddAppointment'
-import EditDelAppointment from '../screens/EditDelAppointment'
-import TagScreen from '../screens/Tags'
+import Appointments from '../screens/Appointments';
+import AddAppointment from '../screens/AddAppointment';
+import EditDelAppointment from '../screens/EditDelAppointment';
+import TagScreen from '../screens/Tags';
+import EditTagScreen from '../screens/EditTags';
+import DeleteTagScreen from '../screens/DeleteTags';
+import ListTagScreen from '../screens/ListTags';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -158,10 +161,17 @@ const HomeStack = createStackNavigator({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
-  Tags: {
-    screen: TagScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header back title="Tags for Foods" navigation={navigation} />,
+  
+  EditTag:{
+    screen: EditTagScreen,
+    navigationOptions:({navigation})=>({
+      header:<Header back title="Edit tags" navigation={navigation}/>,
+    })
+  },
+  DeleteTag:{
+    screen: DeleteTagScreen,
+    navigationOptions:({navigation})=>({
+      header:<Header back title="Delete tags" navigation={navigation}/>  
     })
   },
   AddAppointment: {
@@ -318,6 +328,25 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+
+    EditTags:{
+      screen:EditTagScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel:({focused})=>(
+          <Drawer focused={focused} screen ="EditTags" title="Editar Etiquetas"/>
+        )
+      })
+    },
+
+    DeleteTags:{
+      screen: DeleteTagScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel:({focused})=>(
+          <Drawer focused={focused} screen= "DeleteTags" title="Eliminar Etiqueta"/>
+        )
+      })
+    },
+
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({
