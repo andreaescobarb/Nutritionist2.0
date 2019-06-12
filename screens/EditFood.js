@@ -15,7 +15,7 @@ let parameters = {
     image: ''
 };
 
-let addFood = async ()  =>{
+let editFood = async ()  =>{
     axios.post('https://nutrionist-server.herokuapp.com/foods', parameters).then(async function(response) {
         let data = response.data;
         if (data.created) {

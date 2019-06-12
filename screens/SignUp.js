@@ -17,18 +17,36 @@ let parameters = {
 
 
 let signUp = async ()  =>{
-    axios.post('https://nutrionist-server.herokuapp.com/users', parameters).then(async function(response) {
-        let data = response.data;
-        if (!data.created) {
-            Alert.alert(
-                'Error al crear usuario'
-            )
+    axios.get('https://nutrionist-server.herokuapp.com/users', {
+        params:{ 
+            username: parameters.username
+        }
+    },  { 
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(async function(response) {
+        let user = response.data[0];
+        if (!user) {
+            axios.post('https://nutrionist-server.herokuapp.com/users', parameters).then(async function(response) {
+                let data = response.data;
+                if (!data.created) {
+                    Alert.alert(
+                        'Error al crear usuario'
+                    )
+                } else {
+                    Alert.alert(
+                        'Usuario creado exitosamente'
+                    )
+                    navigation.navigation('Onboarding')
+                }
+                }).catch(function(error) {
+                    console.log(error);
+                });
         } else {
             Alert.alert(
-                'Usuario creado exitosamente'
-            )
-            const value = await AsyncStorage.setItem('user',JSON.stringify(users));
-            navigation.navigation('Login')
+                'El usuario ya existe'
+                )
         }
     }).catch(function(error) {
         console.log(error);
