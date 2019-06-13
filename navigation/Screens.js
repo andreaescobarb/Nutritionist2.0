@@ -169,18 +169,8 @@ const HomeStack = createStackNavigator({
     })
   },
 
-  EditTag:{
-    screen: EditTagScreen,
-    navigationOptions:({navigation})=>({
-      header:<Header back title="Edit tags" navigation={navigation}/>,
-    })
-  },
-  DeleteTag:{
-    screen: DeleteTagScreen,
-    navigationOptions:({navigation})=>({
-      header:<Header back title="Delete tags" navigation={navigation}/>  
-    })
-  },
+  
+  
   AddAppointment: {
     screen: AddAppointment,
     navigationOptions: ({ navigation }) => ({
@@ -345,23 +335,9 @@ const AppStack = createDrawerNavigator(
       })
     },
 
-    EditTags:{
-      screen:EditTagScreen,
-      navigationOptions:(navOpt)=>({
-        drawerLabel:({focused})=>(
-          <Drawer focused={focused} screen ="EditTags" title="Editar Etiquetas"/>
-        )
-      })
-    },
+    
 
-    DeleteTags:{
-      screen: DeleteTagScreen,
-      navigationOptions:(navOpt)=>({
-        drawerLabel:({focused})=>(
-          <Drawer focused={focused} screen= "DeleteTags" title="Eliminar Etiqueta"/>
-        )
-      })
-    },
+    
 
     Settings: {
       screen: SettingsScreen,
