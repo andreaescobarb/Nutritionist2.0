@@ -37,7 +37,7 @@ export default class ListTags extends React.Component {
       return (
         <Card title={listtag.name}>
           <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-          <Button style={styles.button} > Agregar</Button>
+          <Button style={styles.button} > Editar</Button>
           <Button style={styles.button} > Eliminar</Button>
 
         </Card>
