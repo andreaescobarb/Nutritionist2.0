@@ -35,28 +35,11 @@ export default class ListTags extends React.Component {
   renderTags = listtags => {
     return listtags.map(listtag => {
       return (
-        <Card
-          title={listtag.name}
-          image={{
-            uri:
-              "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.betterhealth.vic.gov.au%2F-%2Fmedia%2Fbhc%2Fimages%2Fslideshow%2Fhealthy-snacking-tips%2F8-colour_24199230_1050x600.jpg&imgrefurl=https%3A%2F%2Fwww.betterhealth.vic.gov.au%2Fhealth%2Fhealthyliving%2Ffood-variety-and-a-healthy-diet&docid=wvHGsoMmYIjm7M&tbnid=GJxWFBxdTe8eOM%3A&vet=10ahUKEwih68_F7driAhUruVkKHb7mD6sQMwhSKAAwAA..i&w=1050&h=590&bih=625&biw=1366&q=healthy%20food&ved=0ahUKEwih68_F7driAhUruVkKHb7mD6sQMwhSKAAwAA&iact=mrc&uact=8"
-          }}
-        >
+        <Card title={listtag.name}>
           <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-          <Tags
-            initialTags={this.state.tagMap[listtag.id]}
-            renderTag={({
-              tag,
-              index,
-              onPress,
-              deleteTagOnPress,
-              readonly
-            }) => (
-              <TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
-                <Text>{tag}</Text>
-              </TouchableOpacity>
-            )}
-          />
+          <Button style={styles.button} > Agregar</Button>
+          <Button style={styles.button} > Eliminar</Button>
+
         </Card>
       );
     });
@@ -80,7 +63,7 @@ export default class ListTags extends React.Component {
       method: "GET",
       headers: {
         Accept: "application/json"
-      },
+      }
     })
       .then(response => response.json())
       .then(responseJson => {
