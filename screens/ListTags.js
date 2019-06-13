@@ -95,11 +95,10 @@ export default class ListTags extends React.Component {
         this.setState({ tags: responseJson });
         //this.setState({ tagMap: tagMap });
         responseJson.forEach(function(item) {
-          tagMap[item.id] = item.tag.map(function(tag) {
-            return tag.name + " "});
+          //tagMap[item.id] = item.tag.map(function(tag) {return tag.name + " "});
         });
         this.setState({ listtags: responseJson });
-        this.setState({ tagMap: tagMap });
+        //this.setState({ tagMap: tagMap });
       })
       .catch(error => {
         console.error(error);

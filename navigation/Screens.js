@@ -162,6 +162,13 @@ const HomeStack = createStackNavigator({
     })
   },
   
+  ListTags:{
+    screen:ListTagScreen,
+    navigationOptions:({navigation})=>({
+      header:<Header back title = "List Tags" navigation={navigation}/>
+    })
+  },
+
   EditTag:{
     screen: EditTagScreen,
     navigationOptions:({navigation})=>({
@@ -327,6 +334,15 @@ const AppStack = createDrawerNavigator(
           <Drawer focused={focused} screen="Tags" title="Tags" />
         ),
       }),
+    },
+
+    ListTags:{
+      screen: ListTagScreen,
+      navigationOptions:(navOpt)=>({
+        drawerLabel:({focused})=>(
+          <Drawer focused ={focused} screen ="ListTag" title= "List Tags"/>
+        ),
+      })
     },
 
     EditTags:{
