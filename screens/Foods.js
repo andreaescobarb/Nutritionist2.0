@@ -25,6 +25,11 @@ export default class Foods extends React.Component {
         )
     }
 
+    removeFood = () => {
+        var index = this.state.tagMap.indexOf(food.id)
+        console.log(food.id);
+      }
+
     renderFoods = (foods) => {
         return foods.map((food) => {
             return(
@@ -42,6 +47,10 @@ export default class Foods extends React.Component {
                           </TouchableOpacity>
                         )}
                         />
+                     <Button shadowless style={[styles.button, styles.shadow]}
+                        onPress={() => console.log(food.id)}>
+                        Eliminar Comida
+                    </Button>
                 </Card>)
         })
     }

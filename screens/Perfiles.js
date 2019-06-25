@@ -105,7 +105,9 @@ export default class Perfil extends React.Component{
         (async () => {
             const data = await getUser();
             console.log(data);
-            console.log(data.username);
+            console.log(data.name);
+            this.state.name = data.name;
+            console.log(this.state.name);
          })()
         
         return(
@@ -115,7 +117,7 @@ export default class Perfil extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value="data.name" right placeholder="Ingrese Nombre" 
+                    <Input value={this.state.name} right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.name =value}   
