@@ -20,50 +20,32 @@ let parameters = {
     height: ''
 };
 
-let updateUsers = async function(navigation) {
-    axios.get('https://nutrionist-server.herokuapp.com/users', {
-        params:{ 
-            username: parameters.username,
-            password: parameters.password 
-        }
-    },  { 
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(async function(response) {
-        let user = response.data[0];
-        if (!user) {
-            Alert.alert(
-                'Usuario no encontrado, favor registrarse.'
-            )
-        } else {
-            const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-            navigation.navigate('Profile')
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
-};
 
-
-
- let renderUserData =  async function () {
+async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
-    console.log(loggedUser.id); 
-};
-
-
+    console.log(loggedUser.id);
+    try {
+        const response = await axios.get('https://nutrionist-server.herokuapp.com/users', {
+            params: {
+              id: loggedUser.id
+            }
+        });
+        const userData = response.data[0];
+        console.log(userData.name);
+        return userData;
+    } catch (error) {
+      
+    }
+  }
 
 export default class Perfil extends React.Component{
 
     constructor(props) {
       super(props); 
-      
-
-      renderUserData();
-      this.state = {
-        name:'',
+    
+    this.state = {
+        name: '',
         nameValdate:true,
         lastname:'',
         lastnameValdate:true,
@@ -119,8 +101,13 @@ export default class Perfil extends React.Component{
    
 
     renderForm= ()=>{
-        const {navigation}= this.props;
-
+        const {navigation} = this.props;
+        (async () => {
+            const data = await getUser();
+            console.log(data);
+            console.log(data.username);
+         })()
+        
         return(
             <KeyboardAvoidingView>
                 <Block flex style ={styles.group}>
@@ -128,7 +115,7 @@ export default class Perfil extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese Nombre" 
+                    <Input value="data.name" right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.name =value}   
