@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Image, View } from 'react-native';
 import { ImagePicker, Permissions, Constants} from 'expo';
-import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Alert } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
