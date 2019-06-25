@@ -28,6 +28,7 @@ import TagScreen from '../screens/Tags';
 import EditTagScreen from '../screens/EditTags';
 import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
+import Diario from '../screens/Diario';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -119,7 +120,7 @@ const SignUpStack = createStackNavigator({
 
 const ComponentsStack = createStackNavigator({
   Components: {
-    screen: ComponentsScreen,
+    screen: Diario,
     navigationOptions: ({ navigation }) => ({
       header: null
       //<Header back title="Diario" navigation={navigation} />,
@@ -213,7 +214,7 @@ const HomeStack = createStackNavigator({
     })
   },
   Components: {
-    screen: ComponentsScreen,
+    screen: Diario,
     navigationOptions: ({ navigation }) => ({
       header: <Header title="Diario" navigation={navigation} />,
     })
