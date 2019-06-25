@@ -49,8 +49,8 @@ let updateUsers = async function(navigation) {
 
  let renderUserData =  async function () {
     const value = await AsyncStorage.getItem('user');
-        console.log(value);
-
+    const loggedUser = JSON.parse(value);
+    console.log(loggedUser.id); 
 };
 
 
