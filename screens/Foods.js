@@ -29,12 +29,28 @@ export default class Foods extends React.Component {
     }
 
     handleDelete = (foodId) => {
+
+            // state, before delete anything
+            const currentFoods = this.state.foods;
+        
+            // Remove deleted item from state.
+            this.setState({
+              foods: currentFoods.filter(food => food.id !== foodId),
+            });
+
         console.log(foodId);
         axios.delete('https://nutrionist-server.herokuapp.com/foods', {
             data: { id: foodId }
-           })
+           }).then(response => {
+            if (response.status === 'error') {
+                this.setState({
+                  foods: currentFoods,
+                });
+              } else {
+              }
+          })
     };
-    
+
     renderFoods = (foods) => {
         return foods.map((food) => {
             return(
