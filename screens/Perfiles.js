@@ -42,10 +42,7 @@ async function getUser() {
 
 export default class Perfil extends React.Component{
 
-    constructor(props) {
-      super(props); 
-    
-    this.state = {
+    state = {
         name: '',
         nameValdate:true,
         lastname:'',
@@ -55,6 +52,9 @@ export default class Perfil extends React.Component{
         weight:'',
         weightValdate:true,
       };
+    constructor(props) {
+      super(props); 
+    
     }
 
     validate(value,type){
@@ -118,8 +118,8 @@ export default class Perfil extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value={this.state.value} right placeholder="Ingrese Nombre" 
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                    <Input value={this.state.value} right placeholder={this.state.name}
+                        placeholderTextColor= {materialTheme.COLORS.ICON}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => this.validate(parameters.name =value,'name')}   
                         //onChangeText={(text)=>this.validate(text,'name')}
