@@ -28,23 +28,13 @@ export default class Foods extends React.Component {
         )
     }
 
-    handleDelete = () => {
-        const { post } = this.state;
-        axios.delete("https://nutrionist-server.herokuapp.com/foods",{params: {id: parameters.id}})
-        .then(response => {
-            console.log(response);
-        });
+    handleDelete = (foodId) => {
+        console.log(foodId);
+        axios.delete('https://nutrionist-server.herokuapp.com/foods', {
+            data: { id: foodId }
+           })
     };
-
-    removeFood = async ()  =>{
-        axios.delete('https://nutrionist-server.herokuapp.com/foods', 
-        {params:{id: food.id}
-        }).then(async function(response) {
-        }).catch(function(error) {
-            
-        });
-    };
-
+    
     renderFoods = (foods) => {
         return foods.map((food) => {
             return(
@@ -63,7 +53,7 @@ export default class Foods extends React.Component {
                         )}
                         />
                      <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleDelete()}>
+                        onPress={() => this.handleDelete(food.id)}>
                         Eliminar Comida
                     </Button>
                 </Card>)
