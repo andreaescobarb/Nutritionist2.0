@@ -119,21 +119,20 @@ export default class Perfil extends React.Component {
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input value={this.state.value} right placeholder={this.state.name}
-                            placeholderTextColor={materialTheme.COLORS.ICON}
+                        <Input value={this.state.name} right placeholder="Nombre"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
                             onChangeText={(value) => this.validate(parameters.name = value, 'name')}
                             //onChangeText={(text)=>this.validate(text,'name')}
                             style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
                         />
                     </Block>
-
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Apellido</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder={this.state.lastname}
-                            placeholderTextColor={materialTheme.COLORS.ICON}
+                        <Input value={this.state.lastname} right placeholder= "Apellido"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
                             onChangeText={(value) => parameters.lastname = value}
                             //onChangeText={(text)=>this.validate(text,'lastname')}
