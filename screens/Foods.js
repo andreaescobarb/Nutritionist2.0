@@ -49,9 +49,9 @@ export default class Foods extends React.Component {
           })
     };
 
-    handleEdit = (navigation) => {
-        navigation.navigate('EditFood')
-        //navigation.navigate('EditFood', {food: foodId})
+    handleEdit = (navigation, food) => {
+        //navigation.navigate('EditFood')
+        navigation.navigate('EditFood', {foodId: food})
     };
 
     renderFoods = (foods) => {
@@ -74,7 +74,7 @@ export default class Foods extends React.Component {
                         )}
                         />
                     <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleEdit(navigation)}>
+                        onPress={() => this.handleEdit(navigation, food.id)}>
                         Editar Comida
                     </Button>
                     <Button shadowless style={[styles.button, styles.shadow]}

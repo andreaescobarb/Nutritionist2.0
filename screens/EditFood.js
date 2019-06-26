@@ -15,40 +15,32 @@ let parameters = {
     image: ''
 };
 
-let editFood = async ()  =>{
-    axios.post('https://nutrionist-server.herokuapp.com/foods', parameters).then(async function(response) {
-        let data = response.data;
-        if (data.created) {
-            Alert.alert(
-                'Error al crear comida'
-            )
-        } else {
-            Alert.alert(
-                'Nueva comida creada...'
-            )
-            const value = await AsyncStorage.setItem('food',JSON.stringify(foods));
-            navigation.navigation('login')
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
-};
+async function getFood(foodId) {
+    try {
+        const response = await axios.get('https://nutrionist-server.herokuapp.com/foods', {
+            params: {
+                id: foodId
+            }
+        });
+        const foodData = response.data[0];
+        console.log(foodData);
+        navigation.navigation('Foods')       
+        return foodData;
+    } catch (error) {
+
+    }
+}
 
 
 export default class AddFood extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            name:'',
-            nameValdate:true,
-            description:'',
-            descriptionValdate:true,
-            image: '',
-        }
-    }
     state = {
+        name: '',
+        description: '',
         imagePicked: null,
-      };
+    };
+    constructor(props){
+        super(props); 
+    }
 
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
@@ -82,9 +74,21 @@ export default class AddFood extends React.Component{
 
     renderForm=()=>{
         const {navigation}= this.props;
+        const foodId = navigation.getParam('foodId', 'NO-ID');
+        console.log(foodId);
         let { imagePicked } = this.state;
+        
+        (async (foodId) => {
+            const data = await getFood(foodId);
+            console.log(data);
+            //console.log(data.name);
+            this.setState(data);
+            //this.state.name = data.name;
+            //console.log(this.state.name); 
+        })()
+
         return(
-            <KeyboardAvoidingView>
+            <KeyboardAvoidingView> 
             <Block flex style ={styles.group}>
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
@@ -162,7 +166,7 @@ export default class AddFood extends React.Component{
                     <Button 
                     shadowless style={[styles.button, styles.shadow]} 
                     onPress={() =>addFood(navigation)}>
-                        Crear Comida
+                        Editar Comida
                     </Button>
                 </Block>
             </Block>
