@@ -9,19 +9,20 @@ const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import { entries } from './Components';
 
-async function getId() {
+async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
-    console.log(loggedUser.id);
-    return loggedUser.id;
+    console.log(loggedUser.id + " El id");
+    parameters.userId = loggedUser.id;
 }
 
+let identification = '';
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth() + 1; //Current Month
 let year = new Date().getFullYear(); //Current Year
 
 let parameters = {
-    userId: "3",
+    userId: '',
     date: day + '/' + month + '/' + year,
     water: '',
     steps: '',
@@ -48,6 +49,7 @@ let AddEntries = async () => {
 };
 
 function check() {
+    getUser();
     console.log(parameters);
     AddEntries();
 }
