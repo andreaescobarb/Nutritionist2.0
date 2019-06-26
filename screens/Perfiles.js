@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import {Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage , Picker} from 'react-native';
+import { Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Picker } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -28,203 +28,204 @@ async function getUser() {
     try {
         const response = await axios.get('https://nutrionist-server.herokuapp.com/users', {
             params: {
-              id: loggedUser.id
+                id: loggedUser.id
             }
         });
         const userData = response.data[0];
         console.log(userData.name);
-        
+
         return userData;
     } catch (error) {
-      
-    }
-  }
 
-export default class Perfil extends React.Component{
+    }
+}
+
+export default class Perfil extends React.Component {
 
     state = {
         name: '',
-        nameValdate:true,
-        lastname:'',
-        lastnameValdate:true,
-        age:'',
+        nameValdate: true,
+        lastname: '',
+        lastnameValdate: true,
+        age: '',
         ageValdate: true,
-        weight:'',
-        weightValdate:true,
-      };
+        weight: '',
+        weightValdate: true,
+    };
     constructor(props) {
-      super(props); 
-    
+        super(props);
+
     }
 
-    validate(value,type){
-        namevalidation=/^[a-zA-Z]+$/
-        lastnamevalidation=/^[a-zA-Z]+$/
-        agevalidation=/^[0-9]+$/
-        if(type=='name'){
-            if(namevalidation.test(value)){
+    validate(value, type) {
+        namevalidation = /^[a-zA-Z]+$/
+        lastnamevalidation = /^[a-zA-Z]+$/
+        agevalidation = /^[0-9]+$/
+        if (type == 'name') {
+            if (namevalidation.test(value)) {
                 this.setState({
-                    nameValdate:true,
+                    nameValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    nameValdate:false,
+                    nameValdate: false,
                 })
                 console.warn("invalid text")
             }
-        }else if(type=='lastname'){
-            if(lastnamevalidation.test(value)){
+        } else if (type == 'lastname') {
+            if (lastnamevalidation.test(value)) {
                 this.setState({
-                    lastnameValdate:true,
+                    lastnameValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    lastnameValdate:false,
+                    lastnameValdate: false,
                 })
                 console.warn("invalid text")
             }
-        }else if(type=='age'){
-            if(agevalidation.test(value)){
+        } else if (type == 'age') {
+            if (agevalidation.test(value)) {
                 this.setState({
-                    ageValdate:true,
+                    ageValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    ageValdate:false,
+                    ageValdate: false,
                 })
                 console.warn("invalid text")
             }
         }
     }
-   
 
-    renderForm = ()=>{
-        const {navigation} = this.props;
+
+    renderForm = () => {
+        const { navigation } = this.props;
         (async () => {
             const data = await getUser();
             console.log(data);
             console.log(data.name);
-            this.state.name = data.name;
+            this.setState(data);
+            //this.state.name = data.name;
             console.log(this.state.name);
-         })()
-        
-        return(
+        })()
+
+        return (
             <KeyboardAvoidingView>
-                <Block flex style ={styles.group}>
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value={this.state.value} right placeholder={this.state.name}
-                        placeholderTextColor= {materialTheme.COLORS.ICON}
-                        color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.validate(parameters.name =value,'name')}   
-                        //onChangeText={(text)=>this.validate(text,'name')}
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
-                    />
-                </Block>
+                <Block flex style={styles.group}>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input value={this.state.value} right placeholder={this.state.name}
+                            placeholderTextColor={materialTheme.COLORS.ICON}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => this.validate(parameters.name = value, 'name')}
+                            //onChangeText={(text)=>this.validate(text,'name')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
+                        />
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Apellido</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese Apellido" 
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => parameters.lastname =value} 
-                        //onChangeText={(text)=>this.validate(text,'lastname')}
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.lastnameValdate?styles.error:null]}
-                    />
-                </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Apellido</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder={this.state.lastname}
+                            placeholderTextColor={materialTheme.COLORS.ICON}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => parameters.lastname = value}
+                            //onChangeText={(text)=>this.validate(text,'lastname')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
+                        />
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Genero</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                   <Picker
-                      selectedValue={parameters.gender}
-                      onValueChange={(itemValue, itemIndex) => parameters.gender = itemValue}>
-                      <Picker.Item label="Femenino" value="male" />
-                      <Picker.Item label="Masculino" value="female" />
-                    </Picker>
-                </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Genero</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Picker
+                            selectedValue={parameters.gender}
+                            onValueChange={(itemValue, itemIndex) => parameters.gender = itemValue}>
+                            <Picker.Item label="Femenino" value="male" />
+                            <Picker.Item label="Masculino" value="female" />
+                        </Picker>
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Edad</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Edad" 
-                        keyboardType="numeric"
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => parameters.age =value} 
-                        //onChangeText={(text)=>this.validate(text,'age')}
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.ageValdate?styles.error:null]}
-                    />
-                </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Edad</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Edad"
+                            keyboardType="numeric"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => parameters.age = value}
+                            //onChangeText={(text)=>this.validate(text,'age')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.ageValdate ? styles.error : null]}
+                        />
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Peso</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Peso" 
-                        keyboardType="numeric"
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => parameters.weight =value}
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                    />
-                </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Peso</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Peso"
+                            keyboardType="numeric"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => parameters.weight = value}
+                            style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
+                        />
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Altura</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Altura" 
-                        keyboardType="numeric"
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => parameters.height =value}   
-                        //value= {parameters.height} 
-                        style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
-                    />
-                </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Altura</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Altura"
+                            keyboardType="numeric"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => parameters.height = value}
+                            //value= {parameters.height} 
+                            style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
+                        />
+                    </Block>
 
-                
-            </Block>
-         </KeyboardAvoidingView>
-   
+
+                </Block>
+            </KeyboardAvoidingView>
+
         )
-        
+
     }
 
-    renderButton = () =>{
-       return(
-        <Block flex>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Block center>
-                    <Button shadowless style={[styles.button, styles.shadow]}>
-                        Actualizar Perfil
+    renderButton = () => {
+        return (
+            <Block flex>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Block center>
+                        <Button shadowless style={[styles.button, styles.shadow]}>
+                            Actualizar Perfil
                     </Button>
+                    </Block>
                 </Block>
             </Block>
-        </Block>
-       )
+        )
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Block flex center >
                 <ScrollView
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
 
-                        {this.renderForm()}
-                        {this.renderButton()}
-                    </ScrollView>
+                    {this.renderForm()}
+                    {this.renderButton()}
+                </ScrollView>
             </Block>
         );
     }
@@ -232,20 +233,20 @@ export default class Perfil extends React.Component{
 
 
 const styles = StyleSheet.create({
-    components:{
+    components: {
 
     },
-    title:{
+    title: {
         paddingVertical: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE *2,
+        paddingHorizontal: theme.SIZES.BASE * 2,
     },
-    group:{
+    group: {
         paddingTop: theme.SIZES.BASE * 3.75,
         color: 'black'
     },
-    shadow:{
-        shadowColor:'black',
-        shadowOffset:{width:0,height:2},
+    shadow: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 4,
         shadowOpacity: 0.2,
         elevation: 2,
@@ -253,50 +254,50 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: theme.SIZES.BASE,
         width: width - (theme.SIZES.BASE * 2),
-      },
-      optionsText: {
+    },
+    optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: -0.29,
-      },
-      optionsButton: {
+    },
+    optionsButton: {
         width: 'auto',
         height: 34,
         paddingHorizontal: theme.SIZES.BASE,
         paddingVertical: 10,
-      },
-      input: {
+    },
+    input: {
         borderBottomWidth: 1,
-      },
+    },
 
-      inputDefault: {
+    inputDefault: {
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputInfo: {
+    },
+    inputInfo: {
         borderBottomColor: materialTheme.COLORS.INFO,
-      },
-      inputSuccess: {
+    },
+    inputSuccess: {
         borderBottomColor: materialTheme.COLORS.SUCCESS,
-      },
-      inputWarning: {
+    },
+    inputWarning: {
         borderBottomColor: materialTheme.COLORS.WARNING,
-      },
-      inputDanger: {
+    },
+    inputDanger: {
         borderBottomColor: materialTheme.COLORS.ERROR,
-      },
-     
-      rows: {
+    },
+
+    rows: {
         height: theme.SIZES.BASE * 2,
-      },
-      error:{
-        borderWidth:2,
-        borderColor:'red'
+    },
+    error: {
+        borderWidth: 2,
+        borderColor: 'red'
     }
 })

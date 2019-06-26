@@ -48,17 +48,28 @@ let AddEntries = async () => {
     });
 };
 
+let LoadEntries = async () => {
+    axios.get(`https://nutrionist-server.herokuapp.com/entries`).then(response => {
+        let data = response.data;
+        this.setState({ entries });
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
+
 function check() {
-    getUser();
+    LoadEntries();
+    console.log(this.state.entries)
+    /*getUser();
     console.log(parameters);
-    AddEntries();
+    AddEntries();*/
 }
 
 export default class Diario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            entries: []
         }
     }
     renderForm = () => {
@@ -70,7 +81,7 @@ export default class Diario extends React.Component {
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Horas de Sueño</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder="Horas de Sueño"
+                        <Input right placeholder={"Horas de Sueño"}
                             color={materialTheme.COLORS.ICON}
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             onChangeText={(value) => parameters.hours_of_sleep = value}
