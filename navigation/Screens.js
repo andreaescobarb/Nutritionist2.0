@@ -166,7 +166,7 @@ const HomeStack = createStackNavigator({
   ListTags:{
     screen:ListTagScreen,
     navigationOptions:({navigation})=>({
-      header:<Header back title = "List Tags" navigation={navigation}/>
+      header:<Header back title = "Listar Tags" navigation={navigation}/>
     })
   },
 

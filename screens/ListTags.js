@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import {
   StyleSheet,
   Dimensions,
@@ -32,13 +33,35 @@ export default class ListTags extends React.Component {
     );
   };
 
+  handleDelete = (tagId) => {
+
+    // state, before delete anything
+    const currentTags = this.state.listtags;
+
+    // Remove deleted item from state.
+    this.setState({
+      listtags: currentTags.filter(tag => tag.id !== tagId),
+    });
+
+console.log(tagId);
+axios.delete('https://nutrionist-server.herokuapp.com/tags', {
+    data: { id: tagId }
+   }).then(response => {
+    if (response.status === 'error') {
+        this.setState({
+          tags: currentTags,
+        });
+      } else {
+      }
+  })
+};
   renderTags = listtags => {
     return listtags.map(listtag => {
       return (
         <Card title={listtag.name}>
           <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
           <Button style={styles.button} > Editar</Button>
-          <Button style={styles.button} > Eliminar</Button>
+          <Button style={styles.button} onPress={() => this.handleDelete(listtag.id)}> Eliminar</Button>
 
         </Card>
       );
