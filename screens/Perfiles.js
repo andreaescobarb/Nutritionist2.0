@@ -33,6 +33,12 @@ async function getUser() {
         });
         const userData = response.data[0];
         console.log(userData.name);
+        this.parameters.name = userData.name;
+        this.parameters.lastname = userData.lastname;
+        this.parameters.gender = userData.gender;
+        this.parameters.age = userData.age;
+        this.parameters.weight = userData.weight;
+        this.parameters.height = userData.height;
         return userData;
     } catch (error) {
       
@@ -100,7 +106,7 @@ export default class Perfil extends React.Component{
     }
    
 
-    renderForm= ()=>{
+    renderForm = ()=>{
         const {navigation} = this.props;
         (async () => {
             const data = await getUser();
@@ -108,7 +114,7 @@ export default class Perfil extends React.Component{
             console.log(data.name);
             this.state.name = data.name;
             console.log(this.state.name);
-         })()
+         })
         
         return(
             <KeyboardAvoidingView>

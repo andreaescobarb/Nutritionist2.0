@@ -7,15 +7,18 @@ const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
 import { Card} from 'react-native-elements';
+import axios from 'axios';
 
-
+let parameters = {
+    id:''
+};
 
 export default class Foods extends React.Component {
     state = {
         foods: [],
         tagMap: {} 
     };
-     
+    
     renderForm = () => {
         const { navigation } = this.props;
         return (
@@ -25,10 +28,22 @@ export default class Foods extends React.Component {
         )
     }
 
-    removeFood = () => {
-        var index = this.state.tagMap.indexOf(food.id)
-        console.log(food.id);
-      }
+    handleDelete = () => {
+        const { post } = this.state;
+        axios.delete("https://nutrionist-server.herokuapp.com/foods",{params: {id: parameters.id}})
+        .then(response => {
+            console.log(response);
+        });
+    };
+
+    removeFood = async ()  =>{
+        axios.delete('https://nutrionist-server.herokuapp.com/foods', 
+        {params:{id: food.id}
+        }).then(async function(response) {
+        }).catch(function(error) {
+            
+        });
+    };
 
     renderFoods = (foods) => {
         return foods.map((food) => {
@@ -48,7 +63,7 @@ export default class Foods extends React.Component {
                         )}
                         />
                      <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => console.log(food.id)}>
+                        onPress={() => this.handleDelete()}>
                         Eliminar Comida
                     </Button>
                 </Card>)
