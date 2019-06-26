@@ -55,7 +55,6 @@ export default class Foods extends React.Component {
     };
 
     renderFoods = (foods) => {
-        const {navigate} = this.props.navigation;
         const { navigation } = this.props;
 
         return foods.map((food) => {
