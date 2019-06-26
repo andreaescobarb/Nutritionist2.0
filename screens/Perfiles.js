@@ -8,7 +8,6 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
-
 let parameters = {
     name: '',
     username: '',
@@ -33,7 +32,6 @@ async function getUser() {
         });
         const userData = response.data[0];
         console.log(userData.name);
-
         return userData;
     } catch (error) {
 

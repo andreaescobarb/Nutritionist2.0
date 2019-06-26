@@ -24,7 +24,6 @@ async function getFood(foodId) {
         });
         const foodData = response.data[0];
         console.log(foodData);
-        navigation.navigation('Foods')       
         return foodData;
     } catch (error) {
 
@@ -84,7 +83,7 @@ export default class AddFood extends React.Component{
             //console.log(data.name);
             this.setState(data);
             //this.state.name = data.name;
-            //console.log(this.state.name); 
+            console.log(this.state.name); 
         })()
 
         return(
@@ -94,12 +93,12 @@ export default class AddFood extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese Nombre de Comida" 
+                    <Input value={this.state.name} right placeholder="Ingrese Nombre de Comida" 
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.name =value}
 //                        onChangeText={(text) => this.validate(text,"name")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}]}
                     />
                 </Block>
 
@@ -107,12 +106,12 @@ export default class AddFood extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Descripción</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese Descripción de comida" 
+                    <Input value={this.state.description} right placeholder="Ingrese Descripción de comida" 
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.description =value}
 //                        onChangeText={(text) => this.validate(text,"description")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.descriptionValdate?styles.error:null]}
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}]}
                     />
                 </Block>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
