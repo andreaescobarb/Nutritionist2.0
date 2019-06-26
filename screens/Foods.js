@@ -29,8 +29,6 @@ export default class Foods extends React.Component {
     }
 
     handleDelete = (foodId) => {
-
-            // state, before delete anything
             const currentFoods = this.state.foods;
         
             // Remove deleted item from state.
@@ -51,7 +49,15 @@ export default class Foods extends React.Component {
           })
     };
 
+    handleEdit = (navigation) => {
+        navigation.navigate('EditFood')
+        //navigation.navigate('EditFood', {food: foodId})
+    };
+
     renderFoods = (foods) => {
+        const {navigate} = this.props.navigation;
+        const { navigation } = this.props;
+
         return foods.map((food) => {
             return(
                 <Card 
@@ -68,10 +74,15 @@ export default class Foods extends React.Component {
                           </TouchableOpacity>
                         )}
                         />
-                     <Button shadowless style={[styles.button, styles.shadow]}
+                    <Button shadowless style={[styles.button, styles.shadow]}
+                        onPress={() => this.handleEdit(navigation)}>
+                        Editar Comida
+                    </Button>
+                    <Button shadowless style={[styles.button, styles.shadow]}
                         onPress={() => this.handleDelete(food.id)}>
                         Eliminar Comida
                     </Button>
+
                 </Card>)
         })
     }
