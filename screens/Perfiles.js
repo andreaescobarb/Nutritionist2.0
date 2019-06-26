@@ -33,12 +33,7 @@ async function getUser() {
         });
         const userData = response.data[0];
         console.log(userData.name);
-        this.parameters.name = userData.name;
-        this.parameters.lastname = userData.lastname;
-        this.parameters.gender = userData.gender;
-        this.parameters.age = userData.age;
-        this.parameters.weight = userData.weight;
-        this.parameters.height = userData.height;
+        
         return userData;
     } catch (error) {
       
@@ -62,12 +57,12 @@ export default class Perfil extends React.Component{
       };
     }
 
-    validate(text,type){
+    validate(value,type){
         namevalidation=/^[a-zA-Z]+$/
         lastnamevalidation=/^[a-zA-Z]+$/
         agevalidation=/^[0-9]+$/
         if(type=='name'){
-            if(namevalidation.test(text)){
+            if(namevalidation.test(value)){
                 this.setState({
                     nameValdate:true,
                 })
@@ -79,7 +74,7 @@ export default class Perfil extends React.Component{
                 console.warn("invalid text")
             }
         }else if(type=='lastname'){
-            if(lastnamevalidation.test(text)){
+            if(lastnamevalidation.test(value)){
                 this.setState({
                     lastnameValdate:true,
                 })
@@ -91,7 +86,7 @@ export default class Perfil extends React.Component{
                 console.warn("invalid text")
             }
         }else if(type=='age'){
-            if(agevalidation.test(text)){
+            if(agevalidation.test(value)){
                 this.setState({
                     ageValdate:true,
                 })
@@ -114,7 +109,7 @@ export default class Perfil extends React.Component{
             console.log(data.name);
             this.state.name = data.name;
             console.log(this.state.name);
-         })
+         })()
         
         return(
             <KeyboardAvoidingView>
@@ -123,11 +118,11 @@ export default class Perfil extends React.Component{
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value={this.state.name} right placeholder="Ingrese Nombre" 
+                    <Input value={this.state.value} right placeholder="Ingrese Nombre" 
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => parameters.name =value}   
-                        onChangeText={(text)=>this.validate(text,'name')}
+                        onChangeText={(value) => this.validate(parameters.name =value,'name')}   
+                        //onChangeText={(text)=>this.validate(text,'name')}
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />
                 </Block>
@@ -140,7 +135,7 @@ export default class Perfil extends React.Component{
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.lastname =value} 
-                        onChangeText={(text)=>this.validate(text,'lastname')}
+                        //onChangeText={(text)=>this.validate(text,'lastname')}
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.lastnameValdate?styles.error:null]}
                     />
                 </Block>
@@ -166,7 +161,7 @@ export default class Perfil extends React.Component{
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.age =value} 
-                        onChangeText={(text)=>this.validate(text,'age')}
+                        //onChangeText={(text)=>this.validate(text,'age')}
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.ageValdate?styles.error:null]}
                     />
                 </Block>
@@ -193,7 +188,7 @@ export default class Perfil extends React.Component{
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         onChangeText={(value) => parameters.height =value}   
-                        value= {parameters.height} 
+                        //value= {parameters.height} 
                         style={{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}}
                     />
                 </Block>
