@@ -34,12 +34,27 @@ export default class ListTags extends React.Component {
   };
 
   handleDelete = (tagId) => {
-    console.log(tagId);
-    axios.delete('https://nutrionist-server.herokuapp.com/tags', {
-        data: { id: tagId }
-       })
-  };
 
+    // state, before delete anything
+    const currentTags = this.state.listtags;
+
+    // Remove deleted item from state.
+    this.setState({
+      listtags: currentTags.filter(tag => tag.id !== tagId),
+    });
+
+console.log(tagId);
+axios.delete('https://nutrionist-server.herokuapp.com/tags', {
+    data: { id: tagId }
+   }).then(response => {
+    if (response.status === 'error') {
+        this.setState({
+          tags: currentTags,
+        });
+      } else {
+      }
+  })
+};
   renderTags = listtags => {
     return listtags.map(listtag => {
       return (
