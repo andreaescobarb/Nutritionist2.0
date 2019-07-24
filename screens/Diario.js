@@ -58,11 +58,9 @@ let LoadEntries = async () => {
 };
 
 function check() {
-    LoadEntries();
-    console.log(this.state.entries)
-    /*getUser();
+    getUser();
     console.log(parameters);
-    AddEntries();*/
+    AddEntries();
 }
 
 export default class Diario extends React.Component {
