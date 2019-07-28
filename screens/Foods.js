@@ -81,6 +81,11 @@ export default class Foods extends React.Component {
                         onPress={() => this.handleDelete(food.id)}>
                         Eliminar Comida
                     </Button>
+                    <Button shadowless style={[styles.button, styles.shadow]}
+                        //onPress={() => this.handleDelete(food.id)}
+                        >
+                        Agregar Tags
+                    </Button>
 
                 </Card>)
         })
