@@ -59,41 +59,6 @@ export default class ListAppointments extends React.Component {
         tagMap: {}
     };
 
-    /*renderForm = () => {
-        const { navigation } = this.props;
-        return (
-            <Block flex style={styles.group}>
-                {this.renderFoods(this.state.foods)}
-            </Block> 
-        )
-    }
-
-    handleDelete = (foodId) => {
-            const currentFoods = this.state.foods;
-        
-            // Remove deleted item from state.
-            this.setState({
-              foods: currentFoods.filter(food => food.id !== foodId),
-            });
-
-        console.log(foodId);
-        axios.delete('https://nutrionist-server.herokuapp.com/foods', {
-            data: { id: foodId }
-           }).then(response => {
-            if (response.status === 'error') {
-                this.setState({
-                  foods: currentFoods,
-                });
-              } else {
-              }
-          })
-    };
-
-    handleEdit = (navigation, food) => {
-        //navigation.navigate('EditFood')
-        navigation.navigate('EditFood', {foodId: food})
-    };
-*/
     renderAppointments = (appointments) => {
         const { navigation } = this.props;
         return appointments.map((appointment) => {
@@ -132,36 +97,7 @@ export default class ListAppointments extends React.Component {
             </Block>
         );
     }
-
-    /*componentDidMount() {
-        fetch('http://localhost:1337/appointments', {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-            },
-        }).then((response) => response.json())
-            .then((responseJson) => {
-
-                let tagMap = {};
-
-                if (!responseJson) {
-                    responseJson = [];
-                }
-
-                responseJson.forEach(function (item) {
-                    tagMap[item.id] = item.tags.map(function (tag) { return tag.date + " " });
-                });
-
-
-                this.setState({ appointments: responseJson });
-                this.setState({ tagMap: tagMap });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }*/
 }
-
 
 const styles = StyleSheet.create({
     components: {
