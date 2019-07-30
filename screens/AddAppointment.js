@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 
-import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Picker, View } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Picker, View, Alert, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import DateTimePicker from "react-native-modal-datetime-picker";
 
@@ -8,22 +9,42 @@ const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
 let parameters = {
-    id: '',
-    patient_id: '',
-    nutritionist_id: '',
-    date: '',
-    time: '',
-    patient_data: ''
+    id: '12',
+    ID: '12',
+    patient_id: '12',
+    nutritionist_id: '12',
+    date: '12',
+    time: '12',
+    patientdata: '12'
+};
+
+let appointments = async () => {
+    axios.post('http://172.16.27.183:1337/appointments', parameters).then(async function (response) {
+        console.log(parameters)
+        let data = response.data;
+        if (!data.created) {
+            Alert.alert(
+                'Error al crear la cita'
+            )
+        } else {
+            Alert.alert(
+                'Se ha creado la cita'
+            )
+            const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 };
 
 export default class AddAppointment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            appointments: [],
             isDateTimePickerVisible: false
-        };
+        }
     }
-
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };
@@ -60,7 +81,7 @@ export default class AddAppointment extends React.Component {
                             onConfirm={this.handleDatePicked}
                             onCancel={this.hideDateTimePicker}
                             mode={'datetime'}
-                            is24Hour={true}
+                            is24Hour={false}
                         />
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -70,7 +91,7 @@ export default class AddAppointment extends React.Component {
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input right placeholder="Ingrese descripción"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.description = value}
+                            onChangeText={(value) => parameters.patient_data = value}
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
@@ -88,7 +109,7 @@ export default class AddAppointment extends React.Component {
                         <Text>{"\n"}{"\n"}</Text>
                         <Button
                             shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => console.log("Se ha registrado una nueva cita")}>
+                            onPress={() => appointments()}>
                             Hacer cita
                     </Button>
                     </Block>

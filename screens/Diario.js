@@ -12,11 +12,16 @@ import { entries } from './Components';
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
-    console.log(loggedUser.id + " El id");
     parameters.userId = loggedUser.id;
 }
 
-let identification = '';
+function check() {
+    getUser();
+    console.log(parameters);
+    AddEntries();
+}
+
+//let identification = '';
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth() + 1; //Current Month
 let year = new Date().getFullYear(); //Current Year
@@ -57,19 +62,7 @@ let LoadEntries = async () => {
     });
 };
 
-function check() {
-    getUser();
-    console.log(parameters);
-    AddEntries();
-}
-
 export default class Diario extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            entries: []
-        }
-    }
     renderForm = () => {
         const { navigation } = this.props;
         return (

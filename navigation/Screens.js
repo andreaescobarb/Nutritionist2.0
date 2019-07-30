@@ -24,6 +24,7 @@ import DeleteFoodScreen from '../screens/DeleteFood';
 import Appointments from '../screens/Appointments';
 import AddAppointment from '../screens/AddAppointment';
 import EditDelAppointment from '../screens/EditDelAppointment';
+import ListAppointments from '../screens/ListAppointments';
 import TagScreen from '../screens/Tags';
 import EditTagScreen from '../screens/EditTags';
 import DeleteTagScreen from '../screens/DeleteTags';
@@ -133,7 +134,7 @@ const ComponentsStack = createStackNavigator({
 
 const AppointmentsStack = createStackNavigator({
   Appointments: {
-    screen: Appointments,
+    screen: ListAppointments,
     navigationOptions: ({ navigation }) => ({
       header: null
     })
@@ -162,16 +163,16 @@ const HomeStack = createStackNavigator({
       header: <Header back title="About the nutritionist" navigation={navigation} />,
     })
   },
-  
-  ListTags:{
-    screen:ListTagScreen,
-    navigationOptions:({navigation})=>({
-      header:<Header back title = "Listar Tags" navigation={navigation}/>
+
+  ListTags: {
+    screen: ListTagScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header back title="Listar Tags" navigation={navigation} />
     })
   },
 
-  
-  
+
+
   AddAppointment: {
     screen: AddAppointment,
     navigationOptions: ({ navigation }) => ({
@@ -186,6 +187,13 @@ const HomeStack = createStackNavigator({
       //<Header back title="Agua" navigation={navigation} />,
     })
   },
+  /*ListAppointments: {
+    screen: ListAppointments,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+      //<Header back title="Agua" navigation={navigation} />,
+    })
+  }*/
   Water: {
     screen: WaterScreen,
     navigationOptions: ({ navigation }) => ({
@@ -219,8 +227,8 @@ const HomeStack = createStackNavigator({
       header: <Header title="Diario" navigation={navigation} />,
     })
   },
-  Appointments: {
-    screen: Appointments,
+  ListAppointments: {
+    screen: ListAppointments,
     navigationOptions: ({ navigation }) => ({
       header: <Header title="Citas" navigation={navigation} />,
     })
@@ -310,11 +318,11 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    DeleteFood:{
+    DeleteFood: {
       screen: DeleteFoodScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused = { focused } screen = "DeleteFood" title = "Eliminar Comida"/>
+          <Drawer focused={focused} screen="DeleteFood" title="Eliminar Comida" />
         )
       })
     },
@@ -327,18 +335,18 @@ const AppStack = createDrawerNavigator(
       }),
     },
 
-    ListTags:{
+    ListTags: {
       screen: ListTagScreen,
-      navigationOptions:(navOpt)=>({
-        drawerLabel:({focused})=>(
-          <Drawer focused ={focused} screen ="ListTag" title= "List Tags"/>
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListTag" title="List Tags" />
         ),
       })
     },
 
-    
 
-    
+
+
 
     Settings: {
       screen: SettingsScreen,

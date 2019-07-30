@@ -37,6 +37,14 @@ export default class Appointments extends React.Component {
                                 Editar o eliminar cita
                             </Button>
                         </Block>
+                        <Block center>
+                            <Button
+                                onPress={() => navigation.navigate('ListAppointments')}
+                                shadowless color="info"
+                                style={[styles.button, styles.shadow]}>
+                                Ver citas
+                            </Button>
+                        </Block>
                     </Block>
                 </Block>
             </ScrollView>
