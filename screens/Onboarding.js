@@ -35,11 +35,11 @@ export default class Onboarding extends React.Component {
               <Button onPress={() => navigation.navigate('Login')}>
                 Log In
               </Button>
-            <Text></Text>
+              <Text></Text>
               <Button onPress={() => navigation.navigate('SignUp')}>
                 Sign Up
               </Button>
-              
+
             </Block>
           </Block>
         </Block>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     shadowOpacity: 0,
   },
-  Text:{
+  Text: {
     fontSize: responsiveFontSize(2)
   },
 });

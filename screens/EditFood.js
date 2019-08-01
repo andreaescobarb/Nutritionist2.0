@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { Image, View } from 'react-native';
-import { ImagePicker, Permissions, Constants} from 'expo';
+import { ImagePicker, Permissions, Constants } from 'expo';
 import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
@@ -31,158 +31,156 @@ async function getFood(foodId) {
 }
 
 
-export default class AddFood extends React.Component{
-    state = {
-        name: '',
-        description: '',
-        imagePicked: null,
-    };
-    constructor(props){
-        super(props); 
+export default class AddFood extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            description: '',
+            imagePicked: null,
+        };
     }
 
-    validate(text,type){
-        namevalidation=/^[a-zA-Z]+$/
-        descriptionvalidation=/^[a-zA-Z]+$/
-        if(type=='name'){
-            if(namevalidation.test(text)){
+    componentDidMount = async (foodId) => {
+        const data = await getFood(foodId);
+        console.log(data);
+        this.setState(data);
+        console.log(this.state.name);
+    }
+
+    validate(text, type) {
+        namevalidation = /^[a-zA-Z]+$/
+        descriptionvalidation = /^[a-zA-Z]+$/
+        if (type == 'name') {
+            if (namevalidation.test(text)) {
                 this.setState({
-                    nameValdate:true,
+                    nameValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    nameValdate:false,
+                    nameValdate: false,
                 })
                 console.warn("invalid text")
             }
-        }else  if(type=='description'){
-            if(descriptionvalidation.test(text)){
+        } else if (type == 'description') {
+            if (descriptionvalidation.test(text)) {
                 this.setState({
-                    descriptionValdate:true,
+                    descriptionValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    descriptionValdate:false,
+                    descriptionValdate: false,
                 })
                 console.warn("invalid text")
             }
         }
-    } 
+    }
 
-    renderForm=()=>{
-        const {navigation}= this.props;
+    renderForm = () => {
+        const { navigation } = this.props;
         const foodId = navigation.getParam('foodId', 'NO-ID');
         console.log(foodId);
         let { imagePicked } = this.state;
-        
-        (async (foodId) => {
-            const data = await getFood(foodId);
-            console.log(data);
-            //console.log(data.name);
-            this.setState(data);
-            //this.state.name = data.name;
-            console.log(this.state.name); 
-        })()
 
-        return(
-            <KeyboardAvoidingView> 
-            <Block flex style ={styles.group}>
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value={this.state.name} right placeholder="Ingrese Nombre de Comida" 
-                        color={materialTheme.COLORS.ICON}
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.name =value}
-//                        onChangeText={(text) => this.validate(text,"name")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}]}
-                    />
-                </Block>
+        return (
+            <KeyboardAvoidingView>
+                <Block flex style={styles.group}>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input value={this.state.name} right placeholder="Ingrese Nombre de Comida"
+                            color={materialTheme.COLORS.ICON}
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            onChangeText={(value) => parameters.name = value}
+                            //                        onChangeText={(text) => this.validate(text,"name")}   
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }]}
+                        />
+                    </Block>
 
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Descripción</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input value={this.state.description} right placeholder="Ingrese Descripción de comida" 
-                        color={materialTheme.COLORS.ICON}
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.description =value}
-//                        onChangeText={(text) => this.validate(text,"description")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT}]}
-                    />
-                </Block>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Button shadowless style={[styles.button, styles.shadow]} 
-                    onPress={this._pickImage}>
-                        Selecciona una imagen
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input value={this.state.description} right placeholder="Ingrese Descripción de comida"
+                            color={materialTheme.COLORS.ICON}
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            onChangeText={(value) => parameters.description = value}
+                            //                        onChangeText={(text) => this.validate(text,"description")}   
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }]}
+                        />
+                    </Block>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Button shadowless style={[styles.button, styles.shadow]}
+                            onPress={this._pickImage}>
+                            Selecciona una imagen
                     </Button>
-                    
-                    {imagePicked &&
-                    <Image source={{ uri: imagePicked }} style={{ width: 200, height: 200 }} />}
-                </View>
-            </Block>
-         </KeyboardAvoidingView>
+
+                        {imagePicked &&
+                            <Image source={{ uri: imagePicked }} style={{ width: 200, height: 200 }} />}
+                    </View>
+                </Block>
+            </KeyboardAvoidingView>
         )
     }
     componentDidMount() {
         this.getPermissionAsync();
-      }
-    
-      getPermissionAsync = async () => {
-        if (Constants.platform.ios) {
-          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-          if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
-          }
-        }
-      }
-    
-      _pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          base64: true,
-          allowsEditing: true,
-          aspect: [4, 3],
-        });
-    
-        console.log(result);
-    
-        if (!result.cancelled) {
-          this.setState({ imagePicked: result.uri});
-          parameters.image = result.uri;
-        }
-      };
-
-    renderButton = () =>{
-        const { navigation } = this.props;
-        return(
-        <Block flex>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Block center>
-                    <Button 
-                    shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() =>addFood(navigation)}>
-                        Editar Comida
-                    </Button>
-                </Block>
-            </Block>
-        </Block>
-       )
     }
 
-    render(){
-        return(
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    }
+
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            base64: true,
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            this.setState({ imagePicked: result.uri });
+            parameters.image = result.uri;
+        }
+    };
+
+    renderButton = () => {
+        const { navigation } = this.props;
+        return (
+            <Block flex>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Block center>
+                        <Button
+                            shadowless style={[styles.button, styles.shadow]}
+                            onPress={() => addFood(navigation)}>
+                            Editar Comida
+                    </Button>
+                    </Block>
+                </Block>
+            </Block>
+        )
+    }
+
+    render() {
+        return (
             <Block flex center >
                 <ScrollView
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
 
-                        {this.renderForm()}
-                        {this.renderButton()}
-                    </ScrollView>
+                    {this.renderForm()}
+                    {this.renderButton()}
+                </ScrollView>
             </Block>
         );
     }
@@ -190,20 +188,20 @@ export default class AddFood extends React.Component{
 
 
 const styles = StyleSheet.create({
-    components:{
+    components: {
 
     },
-    title:{
+    title: {
         paddingVertical: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE *2,
+        paddingHorizontal: theme.SIZES.BASE * 2,
     },
-    group:{
+    group: {
         paddingTop: theme.SIZES.BASE * 3.75,
         color: 'black'
     },
-    shadow:{
-        shadowColor:'black',
-        shadowOffset:{width:0,height:2},
+    shadow: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 4,
         shadowOpacity: 0.2,
         elevation: 2,
@@ -211,52 +209,52 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: theme.SIZES.BASE,
         width: width - (theme.SIZES.BASE * 2),
-      },
-      optionsText: {
+    },
+    optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,
         color: '#4A4A4A',
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: -0.29,
-      },
-      optionsButton: {
+    },
+    optionsButton: {
         width: 'auto',
         height: 34,
         paddingHorizontal: theme.SIZES.BASE,
         paddingVertical: 10,
-      },
-      input: {
+    },
+    input: {
         borderBottomWidth: 1,
-      },
+    },
 
-      inputDefault: {
+    inputDefault: {
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputInfo: {
+    },
+    inputInfo: {
         borderBottomColor: materialTheme.COLORS.INFO,
-      },
-      inputSuccess: {
+    },
+    inputSuccess: {
         borderBottomColor: materialTheme.COLORS.SUCCESS,
-      },
-      inputWarning: {
+    },
+    inputWarning: {
         borderBottomColor: materialTheme.COLORS.WARNING,
-      },
-      inputDanger: {
+    },
+    inputDanger: {
         borderBottomColor: materialTheme.COLORS.ERROR,
-      },
-     
-      rows: {
+    },
+
+    rows: {
         height: theme.SIZES.BASE * 2,
-      },
-      error:{
-        borderWidth:2,
-        borderColor:'red'
+    },
+    error: {
+        borderWidth: 2,
+        borderColor: 'red'
     }
 
 })

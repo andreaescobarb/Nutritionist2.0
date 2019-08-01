@@ -24,7 +24,7 @@ let parameters = {
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
-    console.log(loggedUser.id);
+    //console.log(loggedUser.id);
     try {
         const response = await axios.get('https://nutrionist-server.herokuapp.com/users', {
             params: {
@@ -32,7 +32,7 @@ async function getUser() {
             }
         });
         const userData = response.data[0];
-        console.log(userData.name);
+        // console.log(userData.name);
 
         return userData;
     } catch (error) {
@@ -42,22 +42,27 @@ async function getUser() {
 
 export default class Perfil extends React.Component {
 
-    state = {
-        name: '',
-        nameValdate: true,
-        lastname: '',
-        lastnameValdate: true,
-        age: '',
-        ageValdate: true,
-        weight: '',
-        weightValdate: true,
-    };
     constructor(props) {
         super(props);
+        this.state = {
+            name: '',
+            nameValdate: true,
+            lastname: '',
+            lastnameValdate: true,
+            age: '',
+            ageValdate: true,
+            weight: '',
+            weightValdate: true,
+        };
 
     }
 
-    validate(value, type) {
+    componentDidMount = async () => {
+        const data = await getUser();
+        this.setState(data);
+    }
+
+    validate = (value, type) => {
         namevalidation = /^[a-zA-Z]+$/
         lastnamevalidation = /^[a-zA-Z]+$/
         agevalidation = /^[0-9]+$/
@@ -99,18 +104,8 @@ export default class Perfil extends React.Component {
             }
         }
     }
-
-
     renderForm = () => {
         const { navigation } = this.props;
-        (async () => {
-            const data = await getUser();
-            console.log(data);
-            console.log(data.name);
-            this.setState(data);
-            //this.state.name = data.name;
-            console.log(this.state.name);
-        })()
 
         return (
             <KeyboardAvoidingView>
@@ -122,21 +117,22 @@ export default class Perfil extends React.Component {
                         <Input value={this.state.name} right placeholder="Nombre"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => this.validate(parameters.name = value, 'name')}
-                            //onChangeText={(text)=>this.validate(text,'name')}
-                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
+                            //onChangeText={(value) => this.validate(parameters.name = value, 'name')}
+                            onChangeText={(text) => this.setState({ name: text })}
+                        //onChangeText={(text)=>this.validate(text,'name')}
+                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
                         />
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Apellido</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input value={this.state.lastname} right placeholder= "Apellido"
+                        <Input value={this.state.lastname} right placeholder="Apellido"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
                             onChangeText={(value) => parameters.lastname = value}
-                            //onChangeText={(text)=>this.validate(text,'lastname')}
-                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
+                        //onChangeText={(text)=>this.validate(text,'lastname')}
+                        // style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
                         />
                     </Block>
 
