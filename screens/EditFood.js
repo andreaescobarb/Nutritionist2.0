@@ -94,7 +94,7 @@ export default class AddFood extends React.Component {
                         <Input value={this.state.name} right placeholder="Ingrese Nombre de Comida"
                             color={materialTheme.COLORS.ICON}
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.name = value}
+                            onChangeText={(text) => this.setState({ name: text })}
                             //                        onChangeText={(text) => this.validate(text,"name")}   
                             style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }]}
                         />
@@ -107,7 +107,7 @@ export default class AddFood extends React.Component {
                         <Input value={this.state.description} right placeholder="Ingrese Descripción de comida"
                             color={materialTheme.COLORS.ICON}
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.description = value}
+                            onChangeText={(text) => this.setState({ description: text })}
                             //                        onChangeText={(text) => this.validate(text,"description")}   
                             style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }]}
                         />
