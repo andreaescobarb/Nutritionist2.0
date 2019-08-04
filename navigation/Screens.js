@@ -322,14 +322,14 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    DeleteFood: {
+    /*DeleteFood: {
       screen: DeleteFoodScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="DeleteFood" title="Eliminar Comida" />
         )
       })
-    },
+    },*/
     Tags: {
       screen: TagScreen,
       navigationOptions: (navOpt) => ({
