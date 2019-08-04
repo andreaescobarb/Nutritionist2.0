@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView, Alert, AsyncStorage
 } from "react-native";
 import { Button, Block, Text, Input, theme } from "galio-framework";
 import {
@@ -18,11 +18,45 @@ import { materialTheme } from "../constants";
 import Tags from "react-native-tags";
 import { Card } from "react-native-elements";
 
+let parameters = {
+  foodId: '',
+  tagId: ''
+}
+
+function _add(food, tag) {
+  parameters.foodId = food;
+  parameters.tagId = tag;
+  addTagtoFood();
+}
+
+let addTagtoFood = async () => {
+  console.log(parameters);
+  axios.post('https://nutrionist-server.herokuapp.com/foodTags', parameters).then(async function (response) {
+    let data = response.data;
+    if (!data.created) {
+      Alert.alert(
+        'Ocurrio un error al agregar el tag'
+      )
+    } else {
+      Alert.alert(
+        'Tag agregado a comida'
+      )
+      //const value = await AsyncStorage.setItem('foodTag', JSON.stringify(foodTags));
+      //navigation.navigation('foods')
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
+
 export default class ListTags extends React.Component {
-  state = {
-    listtags: [],
-    tagMap: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      listtags: [],
+      tagMap: {}
+    };
+  }
 
   renderForm = () => {
     const { navigation } = this.props;
@@ -33,36 +67,16 @@ export default class ListTags extends React.Component {
     );
   };
 
-  handleDelete = (tagId) => {
-
-    // state, before delete anything
-    const currentTags = this.state.listtags;
-
-    // Remove deleted item from state.
-    this.setState({
-      listtags: currentTags.filter(tag => tag.id !== tagId),
-    });
-
-console.log(tagId);
-axios.delete('https://nutrionist-server.herokuapp.com/tags', {
-    data: { id: tagId }
-   }).then(response => {
-    if (response.status === 'error') {
-        this.setState({
-          tags: currentTags,
-        });
-      } else {
-      }
-  })
-};
   renderTags = listtags => {
+    const { navigation } = this.props;
+    const food_id = navigation.getParam('foodId', '0');
     return listtags.map(listtag => {
       return (
         <Card title={listtag.name}>
           <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-          <Button style={styles.button} > Editar</Button>
-          <Button style={styles.button} onPress={() => this.handleDelete(listtag.id)}> Eliminar</Button>
-
+          <Button style={styles.button}
+            onPress={() => _add(food_id, listtag.id)}
+          >Agregar</Button>
         </Card>
       );
     });
@@ -71,10 +85,7 @@ axios.delete('https://nutrionist-server.herokuapp.com/tags', {
   render() {
     return (
       <Block flex center>
-        <ScrollView
-          style={styles.components}
-          showsVerticalScrollIndicator={false}
-        >
+        <ScrollView style={styles.components} showsVerticalScrollIndicator={false}>
           {this.renderForm()}
         </ScrollView>
       </Block>
@@ -100,7 +111,7 @@ axios.delete('https://nutrionist-server.herokuapp.com/tags', {
         });*/
         this.setState({ tags: responseJson });
         //this.setState({ tagMap: tagMap });
-        responseJson.forEach(function(item) {
+        responseJson.forEach(function (item) {
           //tagMap[item.id] = item.tag.map(function(tag) {return tag.name + " "});
         });
         this.setState({ listtags: responseJson });

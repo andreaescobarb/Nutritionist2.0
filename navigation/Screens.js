@@ -29,6 +29,7 @@ import TagScreen from '../screens/Tags';
 import EditTagScreen from '../screens/EditTags';
 import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
+import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
 
 import Menu from './Menu';
@@ -170,9 +171,12 @@ const HomeStack = createStackNavigator({
       header: <Header back title="Listar Tags" navigation={navigation} />
     })
   },
-
-
-
+  TagstoFoods: {
+    screen: TagstoFoods,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
   AddAppointment: {
     screen: AddAppointment,
     navigationOptions: ({ navigation }) => ({
