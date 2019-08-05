@@ -13,7 +13,7 @@ let parameters = {
 };
 
 let AddTags = async () => {
-  axios.post('https://nutrionist-server.herokuapp.com/tags', parameters).then(async function (response) {
+  axios.post('http://localhost:1337/tags', parameters).then(async function (response) {
     let data = response.data;
     if (!data.created) {
       Alert.alert(

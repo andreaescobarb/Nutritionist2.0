@@ -9,17 +9,36 @@ const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
 let parameters = {
-    id: '12',
-    ID: '12',
-    patient_id: '12',
-    nutritionist_id: '12',
-    date: '12',
-    time: '12',
-    patientdata: '12'
+    date: '',
+    time: '',
+    patientId: null,
+    patientName: '',
+    patientData: ''
 };
+async function getUser() {
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    //console.log(loggedUser.id);
+    try {
+        const response = await axios.get('http://localhost:1337/users', {
+            params: {
+                id: loggedUser.id
+            }
+        });
+        const userData = response.data[0];
+        // console.log(userData.name);
+
+        return userData;
+    } catch (error) {
+
+    }
+}
 
 let appointments = async () => {
-    axios.post('http://172.16.27.183:1337/appointments', parameters).then(async function (response) {
+    const user = await getUser();
+    parameters.patientId = user.id;
+    parameters.patientName = user.name + " " + user.lastname;
+    axios.post('http://localhost:1337/appointments', parameters).then(async function (response) {
         console.log(parameters)
         let data = response.data;
         if (!data.created) {
@@ -54,6 +73,19 @@ export default class AddAppointment extends React.Component {
     };
 
     handleDatePicked = date => {
+        formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        parameters.date = formattedDate;
+
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+         minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        console.log(strTime)
+        parameters.time = strTime;
+        console.log(formattedDate)
         console.log("A date has been picked: ", date);
         this.hideDateTimePicker();
     };
@@ -69,8 +101,6 @@ export default class AddAppointment extends React.Component {
                             selectedValue={parameters.nutritionist_id}
                             onValueChange={(itemValue, itemIndex) => parameters.nutritionist_id = itemValue}>
                             <Picker.Item label="Lucia Escobar" value="1" />
-                            <Picker.Item label="Nutricionista 2" value="2" />
-                            <Picker.Item label="Nutricionista 3" value="3" />
                         </Picker>
                     </Block>
                     <Block center>
@@ -81,7 +111,7 @@ export default class AddAppointment extends React.Component {
                             onConfirm={this.handleDatePicked}
                             onCancel={this.hideDateTimePicker}
                             mode={'datetime'}
-                            is24Hour={false}
+                            is24Hour={true}
                         />
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -91,7 +121,8 @@ export default class AddAppointment extends React.Component {
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input right placeholder="Ingrese descripción"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.patient_data = value}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => parameters.patientData = value}
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>

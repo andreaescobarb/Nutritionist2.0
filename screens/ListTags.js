@@ -45,7 +45,7 @@ export default class ListTags extends React.Component {
     });
 
 console.log(tagId);
-axios.delete('https://nutrionist-server.herokuapp.com/tags', {
+axios.delete('http://localhost:1337/tags', {
     data: { id: tagId }
    }).then(response => {
     if (response.status === 'error') {
@@ -94,7 +94,7 @@ handleEdit = (tagId) => {
   }
 
   componentDidMount() {
-    fetch("https://nutrionist-server.herokuapp.com/tags", {
+    fetch("http://localhost:1337/tags", {
       method: "GET",
       headers: {
         Accept: "application/json"

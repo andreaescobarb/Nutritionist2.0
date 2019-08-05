@@ -2,77 +2,91 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import { AppRegistry, View, Image, TouchableOpacity } from 'react-native';
+import { AppRegistry, View, Image, TouchableOpacity, Alert } from 'react-native';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
-import { Card} from 'react-native-elements';
+import { Card } from 'react-native-elements';
 import axios from 'axios';
 
 let parameters = {
-    id:''
+    id: ''
 };
 
 export default class Foods extends React.Component {
     state = {
         foods: [],
-        tagMap: {} 
+        tagMap: {}
     };
-    
+
     renderForm = () => {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
                 {this.renderFoods(this.state.foods)}
-            </Block> 
+            </Block>
         )
     }
 
+
     handleDelete = (foodId) => {
-            const currentFoods = this.state.foods;
-        
-            // Remove deleted item from state.
-            this.setState({
-              foods: currentFoods.filter(food => food.id !== foodId),
-            });
+        const currentFoods = this.state.foods;
+
+        // Remove deleted item from state.
+        this.setState({
+            foods: currentFoods.filter(food => food.id !== foodId),
+        });
 
         console.log(foodId);
-        axios.delete('https://nutrionist-server.herokuapp.com/foods', {
+        axios.delete('http://localhost:1337/foods', {
             data: { id: foodId }
-           }).then(response => {
+        }).then(response => {
             if (response.status === 'error') {
                 this.setState({
-                  foods: currentFoods,
+                    foods: currentFoods,
                 });
-              } else {
-              }
-          })
+            } else {
+            }
+        })
     };
 
     handleEdit = (navigation, food) => {
         //navigation.navigate('EditFood')
-        navigation.navigate('EditFood', {foodId: food})
+        navigation.navigate('EditFood', { foodId: food })
+        
+    };
+
+    handleNutritionalFacts = (navigation, food) => {
+        //navigation.navigate('EditFood')
+        Alert.alert(
+            food.nutritionalFacts
+        )
+        
+    };
+
+    handleTagstoFoods = (navigation, food) => {
+        navigation.navigate('TagstoFoods', { foodId: food })
     };
 
     renderFoods = (foods) => {
         const { navigation } = this.props;
 
         return foods.map((food) => {
-            return(
-                <Card 
-                  title={food.name}
-                  image={{uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg'}}>
-                  <Text style={{marginBottom: 5}}>
-                    {food.description}
-                  </Text>
-                   <Tags
+            return (
+                <Card
+                    title={food.name}
+                    image={{ uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg' }}>
+                    <Text style={{ marginBottom: 5 }}>
+                        {food.description}
+                    </Text>
+                    <Tags readonly
                         initialTags={this.state.tagMap[food.id]}
-                        renderTag={({ tag, index, onPress, deleteTagOnPress, readonly }) => (
-                        <TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
-                            <Text>{tag}</Text>
-                          </TouchableOpacity>
-                        )}
-                        />
+                    //renderTag={({ tag, index, onPress, deleteTagOnPress, readonly }) => (
+                    //<TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
+                    //  <Text>{tag}</Text>
+                    //</TouchableOpacity>
+                    //)}
+                    />
                     <Button shadowless style={[styles.button, styles.shadow]}
                         onPress={() => this.handleEdit(navigation, food.id)}>
                         Editar Comida
@@ -82,9 +96,12 @@ export default class Foods extends React.Component {
                         Eliminar Comida
                     </Button>
                     <Button shadowless style={[styles.button, styles.shadow]}
-                        //onPress={() => this.handleDelete(food.id)}
-                        >
+                        onPress={() => this.handleTagstoFoods(navigation, food.id)}>
                         Agregar Tags
+                    </Button>
+                    <Button shadowless style={[styles.button, styles.shadow]}
+                        onPress={() => this.handleNutritionalFacts(navigation, food)}>
+                        Ver Datos Nutricionales
                     </Button>
 
                 </Card>)
@@ -104,8 +121,8 @@ export default class Foods extends React.Component {
         );
     }
 
-    componentDidMount(){
-        fetch('https://nutrionist-server.herokuapp.com/foods', {
+    componentDidMount() {
+        fetch('http://localhost:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -115,17 +132,17 @@ export default class Foods extends React.Component {
 
                 let tagMap = {};
 
-                if(!responseJson){
+                if (!responseJson) {
                     responseJson = [];
                 }
 
-                responseJson.forEach(function(item){
-                    tagMap[item.id] = item.tags.map(function(tag){return tag.name + " "});
+                responseJson.forEach(function (item) {
+                    tagMap[item.id] = item.tags.map(function (tag) { return tag.name + " " });
                 });
 
 
-                this.setState({foods:responseJson}) ;
-                this.setState({tagMap:tagMap}) ;
+                this.setState({ foods: responseJson });
+                this.setState({ tagMap: tagMap });
             })
             .catch((error) => {
                 console.error(error);

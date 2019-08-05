@@ -17,7 +17,7 @@ let parameters = {
 
 async function getFood(foodId) {
     try {
-        const response = await axios.get('https://nutrionist-server.herokuapp.com/foods', {
+        const response = await axios.get('http://localhost:1337/foods', {
             params: {
                 id: foodId
             }

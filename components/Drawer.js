@@ -24,40 +24,64 @@ class DrawerItem extends React.Component {
         return (
           <Icon
             size={16}
-            name="users-mm"
-            family="Galio"
+            name="question"
+            family="AntDesign"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Diario':
         return (
           <Icon
             size={16}
-            name="selection"
-            family="Galio"
+            name="ios-stats"
+            family="Ionicons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Citas':
         return (
           <Icon
             size={16}
-            name="selection"
-            family="Galio"
+            name="view-agenda"
+            family="MaterialIcons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Foods':
         return (
           <Icon
             size={16}
-            name="circle-10"
-            family="GalioExtra"
+            name="food"
+            family="MaterialCommunityIcons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
-      case 'Food+':
+      case 'Crear Comida':
         return (
           <Icon
             size={16}
-            name="selection"
-            family="Galio"
+            name="ios-add"
+            family="Ionicons"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'Editar Comida':
+        return (
+          <Icon
+            size={16}
+            name="edit"
+            family="AntDesign"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'Tags':
+        return (
+          <Icon
+            size={16}
+            name="tags"
+            family="AntDesign"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'List Tags':
+        return (
+          <Icon
+            size={16}
+            name="list"
+            family="Entypo"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Settings':

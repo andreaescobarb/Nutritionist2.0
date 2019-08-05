@@ -12,11 +12,12 @@ import { materialTheme } from '../constants';
 let parameters = {
     name: '',
     description: '',
-    image: ''
+    image: '',
+    nutritionalFacts: ''
 };
 
 let addFood = async ()  =>{
-    axios.post('https://nutrionist-server.herokuapp.com/foods', parameters).then(async function(response) {
+    axios.post('http://localhost:1337/foods', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva comida creada...'
@@ -39,6 +40,8 @@ export default class AddFood extends React.Component{
             description:'',
             descriptionValdate:true,
             image: '',
+            nutritionalFacts : '',
+            factsValdate:true,
         }
     }
     state = {
@@ -48,6 +51,7 @@ export default class AddFood extends React.Component{
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
         descriptionvalidation=/^[a-zA-Z]+$/
+        factsvalidation=/^[a-zA-Z]+$/
         if(type=='name'){
             if(namevalidation.test(text)){
                 this.setState({
@@ -72,7 +76,19 @@ export default class AddFood extends React.Component{
                 })
                 console.warn("invalid text")
             }
-        }
+        }else  if(type=='nutritionalFacts'){
+          if(factsvalidation.test(text)){
+              this.setState({
+                  factsValdate:true,
+              })
+              console.warn("text is correct")
+          }else{
+              this.setState({
+                  factsValdate:false,
+              })
+              console.warn("invalid text")
+          }
+      }
     } 
 
     renderForm=()=>{
@@ -104,6 +120,18 @@ export default class AddFood extends React.Component{
                         onChangeText={(value) => parameters.description =value}
 //                        onChangeText={(text) => this.validate(text,"description")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.descriptionValdate?styles.error:null]}
+                    />
+                </Block>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Datos Nutricionales</Text>
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Ingrese Datos Nutricionales de comida" 
+                        color={materialTheme.COLORS.ICON}
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.nutritionalFacts =value}
+//                        onChangeText={(text) => this.validate(text,"description")}   
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.factsValdate?styles.error:null]}
                     />
                 </Block>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -144,7 +172,7 @@ export default class AddFood extends React.Component{
     
         if (!result.cancelled) {
           this.setState({ imagePicked: result.uri});
-          parameters.image = JSON.stringify(result.uri);
+          parameters.image = JSON.stringify(result.base64);
         }
       };
 

@@ -22,14 +22,14 @@ import AddGoalScreen from '../screens/AddMetas';
 import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
-import Appointments from '../screens/Appointments';
-import AddAppointment from '../screens/AddAppointment';
+import AddAppointmentScreen from '../screens/AddAppointment';
 import EditDelAppointment from '../screens/EditDelAppointment';
 import ListAppointments from '../screens/ListAppointments';
 import TagScreen from '../screens/Tags';
 import EditTagScreen from '../screens/EditTags';
 import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
+import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
 
 import Menu from './Menu';
@@ -171,11 +171,14 @@ const HomeStack = createStackNavigator({
       header: <Header back title="Listar Tags" navigation={navigation} />
     })
   },
-
-
-
+  TagstoFoods: {
+    screen: TagstoFoods,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
   AddAppointment: {
-    screen: AddAppointment,
+    screen: AddAppointmentScreen,
     navigationOptions: ({ navigation }) => ({
       header: null
       //<Header back title="Agua" navigation={navigation} />,
@@ -228,6 +231,7 @@ const HomeStack = createStackNavigator({
       header: <Header title="Diario" navigation={navigation} />,
     })
   },
+  
   ListAppointments: {
     screen: ListAppointments,
     navigationOptions: ({ navigation }) => ({
@@ -287,6 +291,14 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    AddAppointment: {
+      screen: AddAppointmentScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="AddAppointment" title="Crear Cita" />
+        ),
+      }),
+    },
     Appointments: {
       screen: AppointmentsStack,
       navigationOptions: (navOpt) => ({
@@ -327,14 +339,14 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    DeleteFood: {
+    /*DeleteFood: {
       screen: DeleteFoodScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="DeleteFood" title="Eliminar Comida" />
         )
       })
-    },
+    },*/
     Tags: {
       screen: TagScreen,
       navigationOptions: (navOpt) => ({
