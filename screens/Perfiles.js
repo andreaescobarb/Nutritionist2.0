@@ -26,7 +26,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('https://nutrionist-server.herokuapp.com/users', {
+        const response = await axios.get('http://localhost:1337/users', {
             params: {
                 id: loggedUser.id
             }

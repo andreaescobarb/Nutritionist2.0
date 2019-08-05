@@ -17,7 +17,7 @@ let parameters = {
 
 
 let signUp = async ()  =>{
-    axios.get('https://nutrionist-server.herokuapp.com/users', {
+    axios.get('http://localhost:1337/users', {
         params:{ 
             username: parameters.username
         }
@@ -28,7 +28,7 @@ let signUp = async ()  =>{
     }).then(async function(response) {
         let user = response.data[0];
         if (!user) {
-            axios.post('https://nutrionist-server.herokuapp.com/users', parameters).then(async function(response) {
+            axios.post('http://localhost:1337/users', parameters).then(async function(response) {
                 let data = response.data;
                 if (!data.created) {
                     Alert.alert(

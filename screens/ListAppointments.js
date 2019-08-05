@@ -1,167 +1,179 @@
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button as Btn, Block, Text, Input, theme } from 'galio-framework';
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import { AppRegistry, View, Image, TouchableOpacity } from 'react-native';
-const { width } = Dimensions.get('screen');
-import { materialTheme } from '../constants';
-import Tags from "react-native-tags";
-import { Card, Button } from 'react-native-elements';
+import React from "react";
 import axios from 'axios';
+import {
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  KeyboardAvoidingView
+} from "react-native";
+import { Button, Block, Text, Input, theme } from "galio-framework";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+import { AppRegistry, View, Image, TouchableOpacity } from "react-native";
+const { width } = Dimensions.get("screen");
+import { materialTheme } from "../constants";
+import Tags from "react-native-tags";
+import { Card } from "react-native-elements";
 
-/*let parameters = {
-    id,
-    ID,
-    Patient_ID,
-    Nutritionist_ID,
-    Date,
-    Time,
-    PatientData
-};
-*/
 export default class ListAppointments extends React.Component {
-    state = {
-        appointments: [
-            {
-                "id": "1",
-                "ID": "1",
-                "Patient_ID": "1",
-                "Nutritionist_ID": "1",
-                "Date": "28/07/2019",
-                "Time": "8:00 AM",
-                "PatientData": "Overweight",
-                "createdAt": "2019-07-24T03:40:41.911Z",
-                "updatedAt": "2019-07-24T03:40:41.911Z"
-            },
-            {
-                "id": "2",
-                "ID": "2",
-                "Patient_ID": "2",
-                "Nutritionist_ID": "1",
-                "Date": "29/07/2019",
-                "Time": "9:00 AM",
-                "PatientData": "Undernourishment",
-                "createdAt": "2019-07-24T03:40:41.911Z",
-                "updatedAt": "2019-07-24T03:40:41.911Z"
-            },
-            {
-                "id": "3",
-                "ID": "3",
-                "Patient_ID": "1",
-                "Nutritionist_ID": "1",
-                "Date": "30/07/2019",
-                "Time": "8:00 AM",
-                "PatientData": "Overweight",
-                "createdAt": "2019-07-24T03:40:41.911Z",
-                "updatedAt": "2019-07-24T03:40:41.911Z"
-            }
-        ],
-        tagMap: {}
-    };
+  state = {
+    listappointments: [],
+    appointmentMap: {}
+  };
 
-    renderAppointments = (appointments) => {
-        const { navigation } = this.props;
-        return appointments.map((appointment) => {
-            if (appointment.Patient_ID == 1) {
-                return (
-                    <Card title={appointment.date}>
-                        <Text style={{ marginBottom: 5 }}>
-                            {appointment.Date + " " + appointment.Time}
-                        </Text>
-                        <Button
-                            onPress={() => navigation.navigate('AddAppointment')}
-                            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-                            title='Editar' />
-                        <Text>
-                            {"\n"}
-                        </Text>
-                        <Button
-                            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-                            title='Eliminar' />
-                    </Card>)
-            }
-        })
-    }
+  renderForm = () => {
+    const { navigation } = this.props;
+    return (
+      <Block flex style={styles.group}>
+        {this.renderAppointments(this.state.listappointments)}
+      </Block>
+    );
+  };
 
-    render() {
-        const { navigation } = this.props;
-        return (
-            <Block>
-                <ScrollView>
-                    <Button
-                        onPress={() => navigation.navigate('AddAppointment')}
-                        buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-                        title='Agregar cita' />
-                    {this.renderAppointments(this.state.appointments)}
-                </ScrollView>
-            </Block>
-        );
-    }
+  handleDelete = (appointmentId) => {
+
+    // state, before delete anything
+    const currentAppointments = this.state.listappointments;
+
+    // Remove deleted item from state.
+    this.setState({
+      listappointments: currentAppointments.filter(appointment => appointment.id !== appointmentId),
+    });
+
+console.log(appointmentId);
+axios.delete('http://localhost:1337/appointments', {
+    data: { id: appointmentId }
+   }).then(response => {
+    if (response.status === 'error') {
+        this.setState({
+            appointments: currentappointments,
+        });
+      } else {
+      }
+  })
+};
+  renderAppointments = listappointments => {
+    return listappointments.map(listappointment => {
+      return (
+        <Card title={listappointment.date}>
+          <Text style={{ marginBottom: 5 }}>Hora: {listappointment.time}</Text>
+          <Text style={{ marginBottom: 5 }}>Paciente: {listappointment.patientName}</Text>
+          <Text style={{ marginBottom: 5 }}>Información: {listappointment.patientName}</Text>
+          <Button style={styles.button} > Editar</Button>
+          <Button style={styles.button} onPress={() => this.handleDelete(listappointment.id)}> Eliminar</Button>
+
+        </Card>
+      );
+    });
+  };
+
+  render() {
+    return (
+      <Block flex center>
+        <ScrollView
+          style={styles.components}
+          showsVerticalScrollIndicator={false}
+        >
+          {this.renderForm()}
+        </ScrollView>
+      </Block>
+    );
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:1337/appointments", {
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        //let tagMap = {};
+        if (!responseJson) {
+          responseJson = [];
+        }
+        /*responseJson.forEach(function(item) {
+          tagMap[item.id] = item.tags.map(function(tag) {
+            return tag.name + " "});
+        });*/
+        this.setState({ appointment: responseJson });
+        //this.setState({ tagMap: tagMap });
+        responseJson.forEach(function(item) {
+          //tagMap[item.id] = item.tag.map(function(tag) {return tag.name + " "});
+        });
+        this.setState({ listappointments: responseJson });
+        //this.setState({ tagMap: tagMap });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 }
 
 const styles = StyleSheet.create({
-    components: {
+  components: {},
+  title: {
+    paddingVertical: theme.SIZES.BASE,
+    paddingHorizontal: theme.SIZES.BASE * 2
+  },
+  group: {
+    paddingTop: 20
+  },
+  shadow: {
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.2,
+    elevation: 2
+  },
+  button: {
+    marginBottom: theme.SIZES.BASE,
+    width: width - theme.SIZES.BASE * 2
+  },
+  optionsText: {
+    fontSize: theme.SIZES.BASE * 0.75,
+    color: "#4A4A4A",
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: -0.29
+  },
+  optionsButton: {
+    width: "auto",
+    height: 34,
+    paddingHorizontal: theme.SIZES.BASE,
+    paddingVertical: 10
+  },
+  input: {
+    borderBottomWidth: 1
+  },
 
-    },
-    title: {
-        paddingVertical: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE * 2,
-    },
-    group: {
-        paddingTop: 20
-    },
-    shadow: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
-        shadowOpacity: 0.2,
-        elevation: 2,
-    },
-    button: {
-        marginBottom: theme.SIZES.BASE,
-        width: width - (theme.SIZES.BASE * 2),
-    },
-    optionsText: {
-        fontSize: theme.SIZES.BASE * 0.75,
-        color: '#4A4A4A',
-        fontWeight: "normal",
-        fontStyle: "normal",
-        letterSpacing: -0.29,
-    },
-    optionsButton: {
-        width: 'auto',
-        height: 34,
-        paddingHorizontal: theme.SIZES.BASE,
-        paddingVertical: 10,
-    },
-    input: {
-        borderBottomWidth: 1,
-    },
+  inputDefault: {
+    borderBottomColor: materialTheme.COLORS.PLACEHOLDER
+  },
+  inputTheme: {
+    borderBottomColor: materialTheme.COLORS.PRIMARY
+  },
+  inputTheme: {
+    borderBottomColor: materialTheme.COLORS.PRIMARY
+  },
+  inputInfo: {
+    borderBottomColor: materialTheme.COLORS.INFO
+  },
+  inputSuccess: {
+    borderBottomColor: materialTheme.COLORS.SUCCESS
+  },
+  inputWarning: {
+    borderBottomColor: materialTheme.COLORS.WARNING
+  },
+  inputDanger: {
+    borderBottomColor: materialTheme.COLORS.ERROR
+  },
 
-    inputDefault: {
-        borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
-    },
-    inputTheme: {
-        borderBottomColor: materialTheme.COLORS.PRIMARY,
-    },
-    inputTheme: {
-        borderBottomColor: materialTheme.COLORS.PRIMARY,
-    },
-    inputInfo: {
-        borderBottomColor: materialTheme.COLORS.INFO,
-    },
-    inputSuccess: {
-        borderBottomColor: materialTheme.COLORS.SUCCESS,
-    },
-    inputWarning: {
-        borderBottomColor: materialTheme.COLORS.WARNING,
-    },
-    inputDanger: {
-        borderBottomColor: materialTheme.COLORS.ERROR,
-    },
-
-    rows: {
-        height: theme.SIZES.BASE * 2,
-    },
-
-})
+  rows: {
+    height: theme.SIZES.BASE * 2
+  }
+});

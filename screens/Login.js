@@ -18,7 +18,7 @@ let parameters = {
 };
 
 let login = async function(navigation) {
-    axios.get('https://nutrionist-server.herokuapp.com/users', {
+    axios.get('http://localhost:1337/users', {
         params:{ 
             username: parameters.username,
             password: parameters.password 

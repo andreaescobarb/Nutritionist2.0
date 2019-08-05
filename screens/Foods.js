@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import { AppRegistry, View, Image, TouchableOpacity } from 'react-native';
+import { AppRegistry, View, Image, TouchableOpacity, Alert } from 'react-native';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
@@ -28,6 +28,7 @@ export default class Foods extends React.Component {
         )
     }
 
+
     handleDelete = (foodId) => {
         const currentFoods = this.state.foods;
 
@@ -37,7 +38,7 @@ export default class Foods extends React.Component {
         });
 
         console.log(foodId);
-        axios.delete('https://nutrionist-server.herokuapp.com/foods', {
+        axios.delete('http://localhost:1337/foods', {
             data: { id: foodId }
         }).then(response => {
             if (response.status === 'error') {
@@ -52,6 +53,15 @@ export default class Foods extends React.Component {
     handleEdit = (navigation, food) => {
         //navigation.navigate('EditFood')
         navigation.navigate('EditFood', { foodId: food })
+        
+    };
+
+    handleNutritionalFacts = (navigation, food) => {
+        //navigation.navigate('EditFood')
+        Alert.alert(
+            food.nutritionalFacts
+        )
+        
     };
 
     handleTagstoFoods = (navigation, food) => {
@@ -86,9 +96,12 @@ export default class Foods extends React.Component {
                         Eliminar Comida
                     </Button>
                     <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleTagstoFoods(navigation, food.id)}
-                    >
+                        onPress={() => this.handleTagstoFoods(navigation, food.id)}>
                         Agregar Tags
+                    </Button>
+                    <Button shadowless style={[styles.button, styles.shadow]}
+                        onPress={() => this.handleNutritionalFacts(navigation, food)}>
+                        Ver Datos Nutricionales
                     </Button>
 
                 </Card>)
@@ -109,7 +122,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://nutrionist-server.herokuapp.com/foods', {
+        fetch('http://localhost:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

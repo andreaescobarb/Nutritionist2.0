@@ -89,7 +89,7 @@ export default class DeleteTag extends React.Component {
   }
 
   deleteTag() {
-    fetch("https://nutrionist-server.herokuapp.com/tags", {
+    fetch("http://localhost:1337/tags", {
       method: "DELETE",
       headers: {
         Accept: "application/json"

@@ -76,7 +76,7 @@ export default class AddFood extends React.Component {
     }
 
     deleteFood() {
-        fetch('https://nutrionist-server.herokuapp.com/foods', {
+        fetch('http://localhost:1337/foods', {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',

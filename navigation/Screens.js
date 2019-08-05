@@ -21,8 +21,7 @@ import AddFoodScreen from '../screens/AddFood';
 import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
-import Appointments from '../screens/Appointments';
-import AddAppointment from '../screens/AddAppointment';
+import AddAppointmentScreen from '../screens/AddAppointment';
 import EditDelAppointment from '../screens/EditDelAppointment';
 import ListAppointments from '../screens/ListAppointments';
 import TagScreen from '../screens/Tags';
@@ -178,7 +177,7 @@ const HomeStack = createStackNavigator({
     })
   },
   AddAppointment: {
-    screen: AddAppointment,
+    screen: AddAppointmentScreen,
     navigationOptions: ({ navigation }) => ({
       header: null
       //<Header back title="Agua" navigation={navigation} />,
@@ -231,6 +230,7 @@ const HomeStack = createStackNavigator({
       header: <Header title="Diario" navigation={navigation} />,
     })
   },
+  
   ListAppointments: {
     screen: ListAppointments,
     navigationOptions: ({ navigation }) => ({
@@ -287,6 +287,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Components" title="Diario" />
+        ),
+      }),
+    },
+    AddAppointment: {
+      screen: AddAppointmentScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="AddAppointment" title="Crear Cita" />
         ),
       }),
     },
