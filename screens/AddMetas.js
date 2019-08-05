@@ -19,7 +19,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('https://nutrionist-server.herokuapp.com/users', {
+        const response = await axios.get('http://localhost:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -35,7 +35,7 @@ async function getUser() {
 }
 
 let addGoals = async ()  =>{
-    axios.patch('https://nutrionist-server.herokuapp.com/users', parameters).then(async function(response) {
+    axios.patch('http://localhost:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva comida creada...'
