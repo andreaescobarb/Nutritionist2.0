@@ -21,7 +21,8 @@ import { Card } from "react-native-elements";
 export default class ListTags extends React.Component {
   state = {
     listtags: [],
-    tagMap: {}
+    tagMap: {},
+    tagId: ''
   };
 
   renderForm = () => {
@@ -55,12 +56,23 @@ axios.delete('https://nutrionist-server.herokuapp.com/tags', {
       }
   })
 };
+
+handleEdit = (tagId) => {
+
+  // state, before delete anything
+  const currentTags = this.state.listtags;
+  const { navigation } = this.props;
+ 
+
+  navigation.navigate('EditTag')
+};
+
   renderTags = listtags => {
     return listtags.map(listtag => {
       return (
         <Card title={listtag.name}>
           <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-          <Button style={styles.button} > Editar</Button>
+          <Button style={styles.button} onPress={() => this.handleEdit(listtag.id)}> Editar</Button>
           <Button style={styles.button} onPress={() => this.handleDelete(listtag.id)}> Eliminar</Button>
 
         </Card>
