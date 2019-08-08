@@ -311,7 +311,7 @@ const AppStack = createDrawerNavigator(
       screen: FoodsScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Foods" />
+          <Drawer focused={focused} screen="Foods" title="Foods" />
         ),
       }),
     },

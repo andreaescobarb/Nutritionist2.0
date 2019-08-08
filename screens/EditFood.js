@@ -3,13 +3,14 @@ import axios from 'axios';
 
 import { Image, View } from 'react-native';
 import { ImagePicker, Permissions, Constants } from 'expo';
-import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Alert } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
 let parameters = {
+    id: '',
     name: '',
     description: '',
     image: ''
@@ -23,29 +24,55 @@ async function getFood(foodId) {
             }
         });
         const foodData = response.data[0];
-        console.log(foodData);
+        //console.log(foodData);
         return foodData;
     } catch (error) {
 
     }
 }
 
+function pre_edit(name, description) {
+    parameters.name = name;
+    parameters.description = description;
+    console.log("Updated data: " + parameters)
+    editFood();
+}
+
+let editFood = async () => {
+    axios.patch('http://localhost:1337/foods', parameters).then((response) => {
+        let data = response.data;
+        //console.log(data)
+        if (!data.updated) {
+            Alert.alert(
+                'Ocurrio un error al editar comida'
+            )
+        } else {
+            Alert.alert(
+                'Comida editada exitosamente'
+            )
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
 
 export default class AddFood extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             name: '',
             description: '',
             imagePicked: null,
         };
     }
 
-    componentDidMount = async (foodId) => {
-        const data = await getFood(foodId);
+    componentDidMount = async () => {
+        console.log("componentDidMount received id: " + parameters.id)
+        const data = await getFood(parameters.id);
         console.log(data);
         this.setState(data);
-        console.log(this.state.name);
+        //console.log(this.state.name);
     }
 
     validate(text, type) {
@@ -81,9 +108,9 @@ export default class AddFood extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;
         const foodId = navigation.getParam('foodId', 'NO-ID');
-        console.log(foodId);
+        console.log("Id received from navigation: " + foodId);
+        parameters.id = foodId;
         let { imagePicked } = this.state;
-
         return (
             <KeyboardAvoidingView>
                 <Block flex style={styles.group}>
@@ -162,7 +189,7 @@ export default class AddFood extends React.Component {
                     <Block center>
                         <Button
                             shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => addFood(navigation)}>
+                            onPress={() => pre_edit(this.state.name, this.state.description)}>
                             Editar Comida
                     </Button>
                     </Block>
