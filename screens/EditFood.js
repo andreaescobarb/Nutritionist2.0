@@ -30,8 +30,46 @@ async function getFood(foodId) {
     }
 }
 
+async function getFood(foodId) {
+    try {
+        const response = await axios.get('https://nutrionist-server.herokuapp.com/foods', {
+            params: {
+                id: foodId
+            }
+        });
+        const foodData = response.data[0];
+        console.log(foodData);
+        return foodData;
+    } catch (error) {
 
-export default class AddFood extends React.Component {
+    }
+}
+
+handleEditFood = async (foodId) => {
+    const data = await getFood(foodId);
+    axios.get('https://nutrionist-server.herokuapp.com/foods', {
+        params: {
+            name: foodData.name,
+            description: foodData.description
+        }
+    }, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(async function (response) {
+            let foodId = response.data[0];
+            axios.patch('https://nutrionist-server.herokuapp.com/foods', { datos: { id: this.state.id, name: this.state.name, description: this.state.description } }).then(async function (response) {
+                let data = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+}
+
+export default class EditFood extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

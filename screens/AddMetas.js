@@ -13,7 +13,7 @@ let parameters = {
     id: '',
     goal: ''
 };
-
+//h
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
@@ -119,25 +119,12 @@ export default class AddFood extends React.Component{
     
       
     
-      _pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          base64: true,
-          allowsEditing: true,
-          aspect: [4, 3],
-        });
-    
-        console.log(result);
-    
-        if (!result.cancelled) {
-          this.setState({ imagePicked: result.uri});
-          parameters.image = JSON.stringify(result.uri);
-        }
-      };
+
 
     renderButton = () =>{
         const { navigation } = this.props;
         return(
+        getUser(),
         <Block flex>
             <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                 <Block center>

@@ -64,7 +64,7 @@ handleEdit = (tagId) => {
   const { navigation } = this.props;
  
 
-  navigation.navigate('EditTag')
+  navigation.navigate('EditTag');
 };
 
   renderTags = listtags => {

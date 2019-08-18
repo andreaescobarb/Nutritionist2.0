@@ -323,7 +323,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    AddGoals: {
+    AddGoal: {
       screen: AddGoalScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
