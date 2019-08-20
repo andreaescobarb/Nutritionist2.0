@@ -4,9 +4,20 @@ import axios from 'axios';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Picker, View, Alert, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import DateTimePicker from "react-native-modal-datetime-picker";
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
+
+let day = new Date().getDate(); //Current Date
+let month = new Date().getMonth(); //Current Month
+let year = new Date().getFullYear(); //Current Year
+let mindate = new Date(year, month, day);
+let maxdate = new Date(year, month, day + 14);
+let btncont = "Escoger fecha";
+
+let hours = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM",
+    "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"];
 
 let parameters = {
     date: '',
@@ -20,7 +31,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://localhost:1337/users', {
+        const response = await axios.get('http://192.168.1.5:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -38,7 +49,7 @@ let appointments = async () => {
     const user = await getUser();
     parameters.patientId = user.id;
     parameters.patientName = user.name + " " + user.lastname;
-    axios.post('http://localhost:1337/appointments', parameters).then(async function (response) {
+    axios.post('http://192.168.1.5:1337/appointments', parameters).then(async function (response) {
         console.log(parameters)
         let data = response.data;
         if (!data.created) {
@@ -49,6 +60,7 @@ let appointments = async () => {
             Alert.alert(
                 'Se ha creado la cita'
             )
+            btncont = "Escoger fecha";
             const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
         }
     }).catch(function (error) {
@@ -61,7 +73,8 @@ export default class AddAppointment extends React.Component {
         super(props);
         this.state = {
             appointments: [],
-            isDateTimePickerVisible: false
+            isDateTimePickerVisible: false,
+            hour: ""
         }
     }
     showDateTimePicker = () => {
@@ -75,13 +88,13 @@ export default class AddAppointment extends React.Component {
     handleDatePicked = date => {
         formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
         parameters.date = formattedDate;
-
+        btncont = formattedDate;
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
-         minutes = minutes < 10 ? '0'+minutes : minutes;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         console.log(strTime)
         parameters.time = strTime;
@@ -89,6 +102,15 @@ export default class AddAppointment extends React.Component {
         console.log("A date has been picked: ", date);
         this.hideDateTimePicker();
     };
+
+    pickerChange(index) {
+        hours.map((v, i) => {
+            if (index === i) {
+                parameters.time = hours[index].label;
+            }
+        })
+        console.log(parameters.time)
+    }
 
     renderForm = () => {
         const { navigation } = this.props;
@@ -105,15 +127,23 @@ export default class AddAppointment extends React.Component {
                     </Block>
                     <Block center>
                         <Text>{"\n"}</Text>
-                        <Button onPress={this.showDateTimePicker}>Escoger fecha y hora</Button>
+                        <Button onPress={this.showDateTimePicker}>{btncont}</Button>
                         <DateTimePicker
                             isVisible={this.state.isDateTimePickerVisible}
                             onConfirm={this.handleDatePicked}
                             onCancel={this.hideDateTimePicker}
-                            mode={'datetime'}
+                            mode={'date'}
                             is24Hour={true}
+                            minimumDate={mindate}
+                            maximumDate={maxdate}
                         />
                     </Block>
+
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text>{"\n"}</Text>
+                        <ModalDropdown defaultValue={"Seleccione la hora"} options={hours} />
+                    </Block>
+
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text>{"\n"}{"\n"}</Text>
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>

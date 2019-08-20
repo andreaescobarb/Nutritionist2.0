@@ -84,6 +84,14 @@ class DrawerItem extends React.Component {
             family="AntDesign"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
+      case 'Datos Nutricionales':
+        return (
+          <Icon
+            size={20}
+            name="ios-add"
+            family="Ionicons"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
       case 'Tags':
         return (
           <Icon

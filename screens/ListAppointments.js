@@ -44,7 +44,7 @@ export default class ListAppointments extends React.Component {
     });
 
 console.log(appointmentId);
-axios.delete('http://localhost:1337/appointments', {
+axios.delete('http://192.168.1.5:1337/appointments', {
     data: { id: appointmentId }
    }).then(response => {
     if (response.status === 'error') {
@@ -84,7 +84,7 @@ axios.delete('http://localhost:1337/appointments', {
   }
 
   componentDidMount() {
-    fetch("http://localhost:1337/appointments", {
+    fetch("http://192.168.1.5:1337/appointments", {
       method: "GET",
       headers: {
         Accept: "application/json"
