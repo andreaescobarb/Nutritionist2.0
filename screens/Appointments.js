@@ -31,7 +31,7 @@ export default class Appointments extends React.Component {
                         </Block>
                         <Block center>
                             <Button
-                                onPress={() => navigation.navigate('EditDelAppointment')}
+                                //onPress={() => navigation.navigate('EditDelAppointment')}
                                 shadowless color="info"
                                 style={[styles.button, styles.shadow]}>
                                 Editar o eliminar cita
