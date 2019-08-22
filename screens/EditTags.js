@@ -23,7 +23,7 @@ let parameters = {
 
 let addTag = async () => {
   axios
-    .post("http://localhost:1337/tags", parameters)
+    .post("http://192.168.1.5:1337/tags", parameters)
     .then(async function(response) {
       let data = response.data;
       if (data.created) {

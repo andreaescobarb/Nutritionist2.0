@@ -31,6 +31,7 @@ import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
 import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
+import NutritionalFactsScreen from '../screens/DatosNutricionales'
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -231,7 +232,7 @@ const HomeStack = createStackNavigator({
       header: <Header title="Diario" navigation={navigation} />,
     })
   },
-  
+
   ListAppointments: {
     screen: ListAppointments,
     navigationOptions: ({ navigation }) => ({
@@ -311,7 +312,7 @@ const AppStack = createDrawerNavigator(
       screen: FoodsScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Pro" title="Foods" />
+          <Drawer focused={focused} screen="Foods" title="Foods" />
         ),
       }),
     },
@@ -336,6 +337,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="EditFood " title="Editar Comida" />
+        ),
+      }),
+    },
+    DatosNutricionales: {
+      screen: NutritionalFactsScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="NutritionalFacts" title="Datos Nutricionales" />
         ),
       }),
     },

@@ -15,7 +15,7 @@ class DrawerItem extends React.Component {
       case 'Perfil':
         return (
           <Icon
-            size={16}
+            size={20}
             name="users-wm"
             family="Galio"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -23,7 +23,7 @@ class DrawerItem extends React.Component {
       case 'About':
         return (
           <Icon
-            size={16}
+            size={20}
             name="question"
             family="AntDesign"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -31,15 +31,23 @@ class DrawerItem extends React.Component {
       case 'Diario':
         return (
           <Icon
-            size={16}
+            size={20}
             name="ios-stats"
+            family="Ionicons"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'Crear Cita':
+        return (
+          <Icon
+            size={20}
+            name="ios-add"
             family="Ionicons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Citas':
         return (
           <Icon
-            size={16}
+            size={20}
             name="view-agenda"
             family="MaterialIcons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -47,7 +55,7 @@ class DrawerItem extends React.Component {
       case 'Foods':
         return (
           <Icon
-            size={16}
+            size={20}
             name="food"
             family="MaterialCommunityIcons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -55,7 +63,15 @@ class DrawerItem extends React.Component {
       case 'Crear Comida':
         return (
           <Icon
-            size={16}
+            size={20}
+            name="ios-add"
+            family="Ionicons"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'Crear Meta':
+        return (
+          <Icon
+            size={20}
             name="ios-add"
             family="Ionicons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -63,15 +79,23 @@ class DrawerItem extends React.Component {
       case 'Editar Comida':
         return (
           <Icon
-            size={16}
+            size={20}
             name="edit"
             family="AntDesign"
+            color={focused ? 'white' : materialTheme.COLORS.MUTED} />
+        );
+      case 'Datos Nutricionales':
+        return (
+          <Icon
+            size={20}
+            name="ios-add"
+            family="Ionicons"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Tags':
         return (
           <Icon
-            size={16}
+            size={20}
             name="tags"
             family="AntDesign"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -79,7 +103,7 @@ class DrawerItem extends React.Component {
       case 'List Tags':
         return (
           <Icon
-            size={16}
+            size={20}
             name="list"
             family="Entypo"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
@@ -87,7 +111,7 @@ class DrawerItem extends React.Component {
       case 'Settings':
         return (
           <Icon
-            size={16}
+            size={20}
             name="flower-06"
             family="Galio"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
