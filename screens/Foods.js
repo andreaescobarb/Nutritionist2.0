@@ -3,11 +3,11 @@ import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import { AppRegistry, View, Image, TouchableOpacity, Alert } from 'react-native';
-const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
-import { Card } from 'react-native-elements';
+import { Card, Icon, Button } from 'react-native-elements';
 import axios from 'axios';
+const { width } = Dimensions.get('screen');
 
 let parameters = {
     id: ''
@@ -53,7 +53,7 @@ export default class Foods extends React.Component {
     handleEdit = (navigation, food) => {
         //navigation.navigate('EditFood')
         navigation.navigate('EditFood', { foodId: food })
-        
+
     };
 
     handleNutritionalFacts = (navigation, food) => {
@@ -61,7 +61,7 @@ export default class Foods extends React.Component {
         Alert.alert(
             food.nutritionalFacts
         )
-        
+
     };
 
     handleTagstoFoods = (navigation, food) => {
@@ -76,35 +76,28 @@ export default class Foods extends React.Component {
                 <Card
                     title={food.name}
                     image={{ uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg' }}>
-                    <Text style={{ marginBottom: 5 }}>
+                    <Text style={{ marginBottom: 5 }}>hw
                         {food.description}
                     </Text>
                     <Tags readonly
                         initialTags={this.state.tagMap[food.id]}
-                    //renderTag={({ tag, index, onPress, deleteTagOnPress, readonly }) => (
-                    //<TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
-                    //  <Text>{tag}</Text>
-                    //</TouchableOpacity>
-                    //)}
                     />
-                    <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleEdit(navigation, food.id)}>
-                        Editar Comida
-                    </Button>
-                    <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleDelete(food.id)}>
-                        Eliminar Comida
-                    </Button>
-                    <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleTagstoFoods(navigation, food.id)}>
-                        Agregar Tags
-                    </Button>
-                    <Button shadowless style={[styles.button, styles.shadow]}
-                        onPress={() => this.handleNutritionalFacts(navigation, food)}>
-                        Ver Datos Nutricionales
-                    </Button>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                        <Button icon={{ name: "pencil", type: "material-community", color: "white", size: 16 }} title="Editar Comida" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
+                            onPress={() => this.handleEdit(navigation, food.id)} />
+                        <Button icon={{ name: "delete", type: "material-community", color: "white", size: 16 }} title="Eliminar Comida" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
+                            onPress={() => this.handleDelete(food.id)} />
+                    </View>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
 
-                </Card>)
+                        <Button icon={{ name: "tag", type: "material-community", color: "white", size: 16 }} title="Agregar Tags" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
+                            onPress={() => this.handleTagstoFoods(navigation, food.id)} />
+                        <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
+                            onPress={() => this.handleNutritionalFacts(navigation, food)} />
+                    </View>
+
+                </Card>
+            )
         })
     }
 
