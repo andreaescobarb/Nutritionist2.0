@@ -9,23 +9,24 @@ import ModalDropdown from 'react-native-modal-dropdown';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
+let test = [];
+let isDisabled = true;
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth(); //Current Month
 let year = new Date().getFullYear(); //Current Year
 let mindate = new Date(year, month, day);
 let maxdate = new Date(year, month, day + 14);
-let btncont = "Escoger fecha";
-
-let hours = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM",
-    "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"];
+let btncont = "Escoger nueva fecha";
 
 let parameters = {
+    id: '',
     date: '',
     time: '',
     patientId: null,
     patientName: '',
     patientData: ''
 };
+
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
@@ -45,6 +46,29 @@ async function getUser() {
     }
 }
 
+async function getAvailableHours() {
+    try {
+        const response = await axios.get('http://192.168.1.5:1337/appointments', {
+            params: {
+                date: parameters.date
+            }
+        });
+        const naHours = [];
+        for (var i = 0; i < response.data.length; i++) {
+            naHours.push(response.data[i].time);
+        }
+        console.log("N/A Hours=====>" + JSON.stringify(naHours) + "<=====N/A Hours");
+        let hours = ["8:00 am", "9:00 am", "10:00 am", "11:00 am",
+            "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm"];
+        let avHours = hours.filter(x => !naHours.includes(x));
+        console.log("Available Hours=====>" + JSON.stringify(avHours) + "<=====Available Hours");
+        test = avHours;
+        //return avHours;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 let appointments = async () => {
     const user = await getUser();
     parameters.patientId = user.id;
@@ -61,6 +85,7 @@ let appointments = async () => {
                 'Se ha creado la cita'
             )
             btncont = "Escoger fecha";
+            isDisabled = true;
             const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
         }
     }).catch(function (error) {
@@ -68,15 +93,67 @@ let appointments = async () => {
     });
 };
 
-export default class AddAppointment extends React.Component {
+async function getAppointment(appointmentId) {
+    try {
+        const response = await axios.get('http://192.168.1.5:1337/appointments', {
+            params: {
+                id: appointmentId
+            }
+        });
+        const appointmentData = response.data[0];
+        //console.log(foodData);
+        return appointmentData;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function pre_edit(description) {
+    parameters.patientData = description;
+    console.log("Updated data: " + JSON.stringify(parameters))
+    editAppointment();
+}
+
+let editAppointment = async () => {
+    axios.patch('http://192.168.1.5:1337/appointments', parameters).then((response) => {
+        let data = response.data;
+        //console.log(data)
+        if (!data.updated) {
+            Alert.alert(
+                'Ocurrio un error al editar cita'
+            )
+        } else {
+            Alert.alert(
+                'Cita editada exitosamente'
+            )
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
+
+export default class EditAppointment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             appointments: [],
             isDateTimePickerVisible: false,
-            hour: ""
+            available_hours: [],
+            description: ''
         }
     }
+
+    componentDidMount = async () => {
+        console.log("componentDidMount received id: " + parameters.id)
+        const data = await getAppointment(parameters.id);
+        console.log("Appointment data to be stated: " + JSON.stringify(data));
+        this.setState({ description: data.patientData });
+        parameters = data;
+        //this.setState = ({ datebtn: data.date });
+        //this.setState(data);
+        //console.log(this.state.name);
+    }
+
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };
@@ -89,6 +166,11 @@ export default class AddAppointment extends React.Component {
         formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
         parameters.date = formattedDate;
         btncont = formattedDate;
+        getAvailableHours();
+        this.setState({ available_hours: test })
+        console.log("state: " + JSON.stringify(this.state.available_hours));
+        isDisabled = false;
+        /*
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
@@ -100,6 +182,7 @@ export default class AddAppointment extends React.Component {
         parameters.time = strTime;
         console.log(formattedDate)
         console.log("A date has been picked: ", date);
+        */
         this.hideDateTimePicker();
     };
 
@@ -114,6 +197,9 @@ export default class AddAppointment extends React.Component {
 
     renderForm = () => {
         const { navigation } = this.props;
+        const appointmentId = navigation.getParam('appointmentId', 'NO-ID');
+        console.log("Id received from navigation: " + appointmentId);
+        parameters.id = appointmentId;
         return (
             <KeyboardAvoidingView>
                 <Block flex style={styles.group}>
@@ -139,9 +225,10 @@ export default class AddAppointment extends React.Component {
                         />
                     </Block>
 
-                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Block center>
                         <Text>{"\n"}</Text>
-                        <ModalDropdown defaultValue={"Seleccione la hora"} options={hours} />
+                        <ModalDropdown options={this.state.available_hours} onSelect={(index) => parameters.time = test[index]}
+                            textStyle={{ fontSize: 17 }} disabled={isDisabled} defaultValue={"Seleccione la nueva hora"} />
                     </Block>
 
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -149,10 +236,12 @@ export default class AddAppointment extends React.Component {
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Descripción</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder="Ingrese descripción"
+                        <Input
+                            value={this.state.description}
+                            right placeholder="Ingrese descripción"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => parameters.patientData = value}
+                            onChangeText={(text) => this.setState({ description: text })}
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
@@ -170,8 +259,8 @@ export default class AddAppointment extends React.Component {
                         <Text>{"\n"}{"\n"}</Text>
                         <Button
                             shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => appointments()}>
-                            Hacer cita
+                            onPress={() => pre_edit(this.state.description)}>
+                            Editar cita
                     </Button>
                     </Block>
                 </Block>

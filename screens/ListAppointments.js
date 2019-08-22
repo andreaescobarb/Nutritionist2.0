@@ -43,26 +43,32 @@ export default class ListAppointments extends React.Component {
       listappointments: currentAppointments.filter(appointment => appointment.id !== appointmentId),
     });
 
-console.log(appointmentId);
-axios.delete('http://192.168.1.5:1337/appointments', {
-    data: { id: appointmentId }
-   }).then(response => {
-    if (response.status === 'error') {
+    console.log(appointmentId);
+    axios.delete('http://192.168.1.5:1337/appointments', {
+      data: { id: appointmentId }
+    }).then(response => {
+      if (response.status === 'error') {
         this.setState({
-            appointments: currentappointments,
+          appointments: currentappointments,
         });
       } else {
       }
-  })
-};
+    })
+  };
+
+  handleEdit = (navigation, appointment) => {
+    navigation.navigate('EditAppointment', { appointmentId: appointment })
+  };
+
   renderAppointments = listappointments => {
+    const { navigation } = this.props;
     return listappointments.map(listappointment => {
       return (
         <Card title={listappointment.date}>
           <Text style={{ marginBottom: 5 }}>Hora: {listappointment.time}</Text>
           <Text style={{ marginBottom: 5 }}>Paciente: {listappointment.patientName}</Text>
-          <Text style={{ marginBottom: 5 }}>Información: {listappointment.patientName}</Text>
-          <Button style={styles.button} > Editar</Button>
+          <Text style={{ marginBottom: 5 }}>Información: {listappointment.patientData}</Text>
+          <Button style={styles.button} onPress={() => this.handleEdit(navigation, listappointment.id)}> Editar</Button>
           <Button style={styles.button} onPress={() => this.handleDelete(listappointment.id)}> Eliminar</Button>
 
         </Card>
@@ -102,7 +108,7 @@ axios.delete('http://192.168.1.5:1337/appointments', {
         });*/
         this.setState({ appointment: responseJson });
         //this.setState({ tagMap: tagMap });
-        responseJson.forEach(function(item) {
+        responseJson.forEach(function (item) {
           //tagMap[item.id] = item.tag.map(function(tag) {return tag.name + " "});
         });
         this.setState({ listappointments: responseJson });
