@@ -9,14 +9,15 @@ import ModalDropdown from 'react-native-modal-dropdown';
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
-let test = [];
-let isDisabled = true;
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth(); //Current Month
 let year = new Date().getFullYear(); //Current Year
 let mindate = new Date(year, month, day);
 let maxdate = new Date(year, month, day + 14);
 let btncont = "Escoger fecha";
+
+let hours = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM",
+    "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"];
 
 let parameters = {
     date: '',
@@ -25,7 +26,6 @@ let parameters = {
     patientName: '',
     patientData: ''
 };
-
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
@@ -45,29 +45,6 @@ async function getUser() {
     }
 }
 
-async function getAvailableHours() {
-    try {
-        const response = await axios.get('http://192.168.1.5:1337/appointments', {
-            params: {
-                date: parameters.date
-            }
-        });
-        const naHours = [];
-        for (var i = 0; i < response.data.length; i++) {
-            naHours.push(response.data[i].time);
-        }
-        console.log("N/A Hours=====>" + JSON.stringify(naHours) + "<=====N/A Hours");
-        let hours = ["8:00 am", "9:00 am", "10:00 am", "11:00 am",
-            "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm"];
-        let avHours = hours.filter(x => !naHours.includes(x));
-        console.log("Available Hours=====>" + JSON.stringify(avHours) + "<=====Available Hours");
-        test = avHours;
-        //return avHours;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 let appointments = async () => {
     const user = await getUser();
     parameters.patientId = user.id;
@@ -84,7 +61,6 @@ let appointments = async () => {
                 'Se ha creado la cita'
             )
             btncont = "Escoger fecha";
-            isDisabled = true;
             const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
         }
     }).catch(function (error) {
@@ -98,7 +74,7 @@ export default class AddAppointment extends React.Component {
         this.state = {
             appointments: [],
             isDateTimePickerVisible: false,
-            available_hours: []
+            hour: ""
         }
     }
     showDateTimePicker = () => {
@@ -113,11 +89,6 @@ export default class AddAppointment extends React.Component {
         formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
         parameters.date = formattedDate;
         btncont = formattedDate;
-        getAvailableHours();
-        this.setState({ available_hours: test })
-        console.log("state: " + JSON.stringify(this.state.available_hours));
-        isDisabled = false;
-        /*
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
@@ -129,7 +100,6 @@ export default class AddAppointment extends React.Component {
         parameters.time = strTime;
         console.log(formattedDate)
         console.log("A date has been picked: ", date);
-        */
         this.hideDateTimePicker();
     };
 
@@ -169,10 +139,9 @@ export default class AddAppointment extends React.Component {
                         />
                     </Block>
 
-                    <Block center>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text>{"\n"}</Text>
-                        <ModalDropdown options={this.state.available_hours} onSelect={(index) => parameters.time = test[index]}
-                            textStyle={{ fontSize: 17 }} disabled={isDisabled} defaultValue={"Seleccione la hora"} />
+                        <ModalDropdown defaultValue={"Seleccione la hora"} options={hours} />
                     </Block>
 
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>

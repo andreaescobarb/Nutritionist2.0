@@ -23,7 +23,7 @@ import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
 import AddAppointmentScreen from '../screens/AddAppointment';
-import EditDelAppointment from '../screens/EditDelAppointment';
+import EditAppointmentScreen from '../screens/EditAppointment';
 import ListAppointments from '../screens/ListAppointments';
 import TagScreen from '../screens/Tags';
 import EditTagScreen from '../screens/EditTags';
@@ -185,8 +185,8 @@ const HomeStack = createStackNavigator({
       //<Header back title="Agua" navigation={navigation} />,
     })
   },
-  EditDelAppointment: {
-    screen: EditDelAppointment,
+  EditAppointment: {
+    screen: EditAppointmentScreen,
     navigationOptions: ({ navigation }) => ({
       header: null
       //<Header back title="Agua" navigation={navigation} />,
