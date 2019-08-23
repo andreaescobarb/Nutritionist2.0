@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, Block, Text, Input, theme } from 'galio-framework';
+import { Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import { AppRegistry, View, Image, TouchableOpacity, Alert } from 'react-native';
+const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
-import { Card, Icon, Button } from 'react-native-elements';
+import { Card, Button, Icon } from 'react-native-elements';
 import axios from 'axios';
-const { width } = Dimensions.get('screen');
 
 let parameters = {
     id: ''
@@ -38,7 +38,7 @@ export default class Foods extends React.Component {
         });
 
         console.log(foodId);
-        axios.delete('http://192.168.1.5:1337/foods', {
+        axios.delete('http://InsertYourIpHere:1337/foods', {
             data: { id: foodId }
         }).then(response => {
             if (response.status === 'error') {
@@ -115,7 +115,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.5:1337/foods', {
+        fetch('http://InsertYourIpHere:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -164,7 +164,8 @@ const styles = StyleSheet.create({
     },
     button: {
         marginBottom: theme.SIZES.BASE,
-        width: width - (theme.SIZES.BASE * 2),
+        backgroundColor: materialTheme.COLORS.PRIMARY
+        // width: width - (theme.SIZES.BASE * 2),
     },
     optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,

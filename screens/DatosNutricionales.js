@@ -22,7 +22,7 @@ let parameters = {
 
 let addFacts = async ()  =>{
     findFood();
-    axios.post('http://192.168.1.5:1337/nutritionfacts', 
+    axios.post('http://InsertYourIpHere:1337/nutritionfacts', 
     {
         params:{ 
             calories: parameters.calories,
@@ -48,7 +48,7 @@ let addFacts = async ()  =>{
 };
 
 let findFood = async function(navigation) {
-    axios.get('http://192.168.1.5:1337/foods', {
+    axios.get('http://InsertYourIpHere:1337/foods', {
         params:{ 
             name: parameters.foodname 
         }
