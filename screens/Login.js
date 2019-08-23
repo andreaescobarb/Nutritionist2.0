@@ -1,15 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-
-
-
 import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-
 
 
 let parameters = {
