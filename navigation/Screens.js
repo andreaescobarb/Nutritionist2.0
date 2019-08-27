@@ -31,7 +31,10 @@ import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
 import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
-import NutritionalFactsScreen from '../screens/DatosNutricionales'
+import NutritionalFactsScreen from '../screens/DatosNutricionales';
+
+//Las siguientes pantallas estrictamente hechas para que el usuario pueda visualizarlas desde su cuenta
+import FoodsUser from '../screens/FoodsUser'
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -387,12 +390,6 @@ const AppStack = createDrawerNavigator(
 
 const UserStack = createDrawerNavigator(
   {
-    // Onboarding: {
-    //   screen: OnboardingScreen,
-    //   navigationOptions: {
-    //     drawerLabel: () => { },
-    //   },
-    // },
     Prefile: {
       screen: PerfileScreen,
       navigationOptions: (navOpt) => ({
@@ -425,11 +422,11 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
-    Foods: {
-      screen: FoodsScreen,
+    FoodsUser: {
+      screen: FoodsUser,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Foods" title="Foods" />
+          <Drawer focused={focused} screen="FoodsUser" title="Foods" />
         ),
       }),
     },
