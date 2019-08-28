@@ -35,11 +35,11 @@ import NutritionalFactsScreen from '../screens/DatosNutricionales';
 
 //Las siguientes pantallas estrictamente hechas para que el usuario pueda visualizarlas desde su cuenta
 import FoodsUser from '../screens/FoodsUser'
+import TagsUser from '../screens/TagsUser';
 
 import Menu from './Menu';
 import Header from '../components/Header';
 import { Drawer } from '../components/';
-import TagsScreen from '../screens/Tags';
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -366,7 +366,6 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-
     ListTags: {
       screen: ListTagScreen,
       navigationOptions: (navOpt) => ({
@@ -375,7 +374,6 @@ const AppStack = createDrawerNavigator(
         ),
       })
     },
-
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({
@@ -447,6 +445,15 @@ const UserStack = createDrawerNavigator(
         )
       })
     },*/
+    // TagsUser: {
+    //   screen: TagsUser,
+    //   navigationOptions: (navOpt) => ({
+    //     drawerLabel: ({ focused }) => (
+    //       <Drawer focused={focused} screen="TagsUser" title="Agregar tag" />
+    //     ),
+    //   })
+    // },
+
     ListTags: {
       screen: ListTagScreen,
       navigationOptions: (navOpt) => ({
@@ -455,7 +462,6 @@ const UserStack = createDrawerNavigator(
         ),
       })
     },
-
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({
