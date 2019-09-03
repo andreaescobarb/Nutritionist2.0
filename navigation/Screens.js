@@ -445,15 +445,15 @@ const UserStack = createDrawerNavigator(
         )
       })
     },*/
-    // TagsUser: {
-    //   screen: TagsUser,
-    //   navigationOptions: (navOpt) => ({
-    //     drawerLabel: ({ focused }) => (
-    //       <Drawer focused={focused} screen="TagsUser" title="Agregar tag" />
-    //     ),
-    //   })
-    // },
-
+     TagsUser: {
+       screen: TagsUser,
+       navigationOptions: (navOpt) => ({
+         drawerLabel: ({ focused }) => (
+           <Drawer focused={focused} screen="TagsUser" title="Agregar tag" />
+         ),
+       })
+     },
+/*
     ListTags: {
       screen: ListTagScreen,
       navigationOptions: (navOpt) => ({
@@ -461,7 +461,7 @@ const UserStack = createDrawerNavigator(
           <Drawer focused={focused} screen="ListTag" title="List Tags" />
         ),
       })
-    },
+    },*/
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({

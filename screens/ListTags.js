@@ -94,7 +94,7 @@ handleEdit = (tagId) => {
   }
 
   componentDidMount() {
-    fetch("http://192.168.100.15:1337/tags", {
+    fetch("http://InsertYourIpHere:1337/tags", {
       method: "GET",
       headers: {
         Accept: "application/json"

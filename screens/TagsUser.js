@@ -12,11 +12,60 @@ import {
     responsiveWidth,
     responsiveFontSize
 } from "react-native-responsive-dimensions";
-import { AppRegistry, View, Image, TouchableOpacity } from "react-native";
+import { AppRegistry, View, Image, TouchableOpacity, AsyncStorage, Alert } from "react-native";
 const { width } = Dimensions.get("screen");
 import { materialTheme } from "../constants";
 import Tags from "react-native-tags";
 import { Card } from "react-native-elements";
+
+let parameters = {
+    tagId: '',
+    userId: ''
+}
+
+async function getUser() {
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    //console.log(loggedUser.id);
+    try {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
+            params: {
+                id: loggedUser.id
+            }
+        });
+        const userData = response.data[0];
+        // console.log(userData.name);
+        return userData;
+    } catch (error) {
+
+    }
+}
+
+let addTagtoUser = async (tag) => {
+    parameters.tagId = tag;
+    getUser().then((x) => {
+        parameters.userId = x.id;
+        console.log(parameters);
+        axios.post('http://InsertYourIpHere:1337/userstags', parameters).then(async function (response) {
+            let data = response.data;
+            if (!data.created) {
+                Alert.alert(
+                    'Ocurrio un error al agregar el tag'
+                )
+            } else {
+                Alert.alert(
+                    'Tag agregado a perfil'
+                )
+                //const value = await AsyncStorage.setItem('foodTag', JSON.stringify(foodTags));
+                //navigation.navigation('foods')
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
 
 export default class TagsUser extends React.Component {
     state = {
@@ -39,7 +88,8 @@ export default class TagsUser extends React.Component {
             return (
                 <Card title={listtag.name}>
                     <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-                    <Button style={styles.button} > Agregar</Button>.
+                    <Button style={styles.button}
+                        onPress={() => addTagtoUser(listtag.id)}>Agregar tag a mi perfil</Button>
                 </Card>
             );
         });

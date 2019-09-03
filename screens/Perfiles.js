@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Picker } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
+import Tags from "react-native-tags";
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
 
@@ -53,13 +53,18 @@ export default class Perfil extends React.Component {
             ageValdate: true,
             weight: '',
             weightValdate: true,
+            tags: [],
+            tagMap: {}
         };
 
     }
 
     componentDidMount = async () => {
-        const data = await getUser();
-        this.setState(data);
+        getUser().then((data) => {
+            this.setState(data);
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     validate = (value, type) => {
@@ -119,8 +124,8 @@ export default class Perfil extends React.Component {
                             color={materialTheme.COLORS.ICON}
                             //onChangeText={(value) => this.validate(parameters.name = value, 'name')}
                             onChangeText={(text) => this.setState({ name: text })}
-                        //onChangeText={(text)=>this.validate(text,'name')}
-                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
+                            //onChangeText={(text)=>this.validate(text,'name')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
                         />
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -174,7 +179,6 @@ export default class Perfil extends React.Component {
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
-
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Altura</Text>
                     </Block>
@@ -188,13 +192,33 @@ export default class Perfil extends React.Component {
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Tags</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
 
-
+                    </Block>
                 </Block>
             </KeyboardAvoidingView>
 
         )
 
+    }
+
+    renderTags = (tags) => {
+        return tags.map((tag) => {
+            return (
+                <Block flex>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Block center>
+                            <Tags readonly
+                                initialTags={this.state.tagMap[tag.id]}
+                            />
+                        </Block>
+                    </Block>
+                </Block>
+            )
+        })
     }
 
     renderButton = () => {
@@ -217,8 +241,8 @@ export default class Perfil extends React.Component {
                 <ScrollView
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
-
                     {this.renderForm()}
+                    {this.renderTags(this.state.tags)}
                     {this.renderButton()}
                 </ScrollView>
             </Block>
