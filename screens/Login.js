@@ -1,15 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-
-
-
-import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView , AsyncStorage} from 'react-native';
+import { StyleSheet, Alert, Dimensions, ScrollView, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-
 
 
 let parameters = {
@@ -18,65 +14,71 @@ let parameters = {
     role: '1'
 };
 
-let login = async function(navigation) {
+let login = async function (navigation) {
     axios.get('http://InsertYourIpHere:1337/users', {
-        params:{ 
+        params: {
             username: parameters.username,
             password: parameters.password,
             role: parameters.role
         }
-    }, { 
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(async function(response) {
-        let user = response.data[0];
-        if (!user) {
-            Alert.alert(
-                'Usuario no encontrado, favor registrarse.'
-            )
-        } else {
-            const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-            navigation.navigate('Perfiles')
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
+    }, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(async function (response) {
+            let user = response.data[0];
+            if (!user) {
+                Alert.alert(
+                    'Usuario no encontrado, favor registrarse.',
+                ),
+                    navigation.navigate('SignUp')
+            } else if (user.role == "1") {
+                const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                navigation.navigate('User')
+            }
+            else {
+                const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                navigation.navigate('App')
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
 };
+
 export default class Login extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            name:'',
-            nameValdate:true,
-            password:'',
+        this.state = {
+            name: '',
+            nameValdate: true,
+            password: '',
             passwordValdate: true,
         }
     }
-    validate(text,type){
-        uservalidation=/^[a-zA-Z0-9@._-]+$/
-        passwordvalidation=/^[a-zA-Z0-9]+$/
-        if(type=='username'){
-            if(uservalidation.test(text)){
+    validate(text, type) {
+        uservalidation = /^[a-zA-Z0-9@._-]+$/
+        passwordvalidation = /^[a-zA-Z0-9]+$/
+        if (type == 'username') {
+            if (uservalidation.test(text)) {
                 this.setState({
-                    nameValdate:true,
+                    nameValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    nameValdate:false,
+                    nameValdate: false,
                 })
                 console.warn("invalid text")
             }
-        }else if(type=='password'){
-            if(passwordvalidation.test(text)){
+        } else if (type == 'password') {
+            if (passwordvalidation.test(text)) {
                 this.setState({
-                    passwordValdate:true,
+                    passwordValdate: true,
                 })
                 console.warn("text is correct")
-            }else{
+            } else {
                 this.setState({
-                    passwordValdate:false,
+                    passwordValdate: false,
                 })
                 console.warn("invalid text")
             }
@@ -93,23 +95,23 @@ export default class Login extends React.Component {
                     <Input right placeholder="Username"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.nameValdate?styles.error:null]}
-                        onChangeText={(value) => parameters.username =value}   
-                        /*onChangeText={(text)=>this.validate(text,'username')}*/
-/>
+                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
+                        onChangeText={(value) => parameters.username = value}
+                    /*onChangeText={(text)=>this.validate(text,'username')}*/
+                    />
                 </Block>
 
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                    <Text  style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
+                    <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>Ingrese Contraseña</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Contraseña"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         password={true}
-                        onChangeText={(value) => parameters.password =value}
-                        /*onChangeText={(text)=>this.validate(text,'password')}*/                        
-                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },!this.state.passwordValdate?styles.error:null]}
+                        onChangeText={(value) => parameters.password = value}
+                        /*onChangeText={(text)=>this.validate(text,'password')}*/
+                        style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.passwordValdate ? styles.error : null]}
                     />
                 </Block>
             </Block>
@@ -123,8 +125,8 @@ export default class Login extends React.Component {
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button 
-                            shadowless style={[styles.button, styles.shadow]} 
+                        <Button
+                            shadowless style={[styles.button, styles.shadow]}
                             onPress={() => login(navigation)}>
                             Ingresar
                         </Button>
@@ -214,11 +216,11 @@ const styles = StyleSheet.create({
     rows: {
         height: theme.SIZES.BASE * 2,
     },
-    Text:{
+    Text: {
         fontSize: responsiveFontSize(2)
-      },
-      error:{
-          borderWidth:2,
-          borderColor:'red'
-      }
-    })
+    },
+    error: {
+        borderWidth: 2,
+        borderColor: 'red'
+    }
+})

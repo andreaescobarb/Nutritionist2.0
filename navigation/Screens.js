@@ -18,7 +18,7 @@ import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
 import AddFoodScreen from '../screens/AddFood';
-import AddGoalScreen from '../screens/AddMetas';
+import AddMetas from '../screens/AddMetas';
 import nutriProfileScreen from '../screens/nutriProfile';
 import EditFoodScreen from '../screens/EditFood';
 import DeleteFoodScreen from '../screens/DeleteFood';
@@ -31,12 +31,15 @@ import DeleteTagScreen from '../screens/DeleteTags';
 import ListTagScreen from '../screens/ListTags';
 import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
-import NutritionalFactsScreen from '../screens/DatosNutricionales'
+import NutritionalFactsScreen from '../screens/DatosNutricionales';
+
+//Las siguientes pantallas estrictamente hechas para que el usuario pueda visualizarlas desde su cuenta
+import FoodsUser from '../screens/FoodsUser'
+import TagsUser from '../screens/TagsUser';
 
 import Menu from './Menu';
 import Header from '../components/Header';
 import { Drawer } from '../components/';
-import TagsScreen from '../screens/Tags';
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -109,6 +112,19 @@ const SignUpStack = createStackNavigator({
     transitionConfig,
   }
 )
+
+const MainStack = createStackNavigator({
+  Onboarding: {
+    screen: OnboardingScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
+}, {
+    cardStyle: { backgroundColor: '#EEEEEE', },
+    transitionConfig,
+  })
+
 /* const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
@@ -262,12 +278,6 @@ const HomeStack = createStackNavigator({
 
 const AppStack = createDrawerNavigator(
   {
-    Onboarding: {
-      screen: OnboardingScreen,
-      navigationOptions: {
-        drawerLabel: () => { },
-      },
-    },
     Prefile: {
       screen: PerfileScreen,
       navigationOptions: (navOpt) => ({
@@ -324,14 +334,6 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    AddGoal: {
-      screen: AddGoalScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="AddGoal " title="Crear Meta" />
-        ),
-      }),
-    },
     EditFood: {
       screen: EditFoodScreen,
       navigationOptions: (navOpt) => ({
@@ -348,14 +350,14 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-    /*DeleteFood: {
-      screen: DeleteFoodScreen,
+    AddMetas: {
+      screen: AddMetas,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="DeleteFood" title="Eliminar Comida" />
-        )
-      })
-    },*/
+          <Drawer focused={focused} screen="AddMetas " title="Crear Meta" />
+        ),
+      }),
+    },
     Tags: {
       screen: TagScreen,
       navigationOptions: (navOpt) => ({
@@ -364,7 +366,6 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
-
     ListTags: {
       screen: ListTagScreen,
       navigationOptions: (navOpt) => ({
@@ -373,11 +374,6 @@ const AppStack = createDrawerNavigator(
         ),
       })
     },
-
-
-
-
-
     Settings: {
       screen: SettingsScreen,
       navigationOptions: (navOpt) => ({
@@ -389,15 +385,110 @@ const AppStack = createDrawerNavigator(
   },
 );
 
+
+const UserStack = createDrawerNavigator(
+  {
+    Prefile: {
+      screen: PerfileScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Perfiles" title="Perfil" />
+        ),
+      }),
+    },
+    nutriProfile: {
+      screen: nutriProfileScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="nutriProfile" title="About" />
+        ),
+      }),
+    },
+    Components: {
+      screen: ComponentsStack,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Components" title="Diario" />
+        ),
+      }),
+    },
+    AddAppointment: {
+      screen: AddAppointmentScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="AddAppointment" title="Crear Cita" />
+        ),
+      }),
+    },
+    FoodsUser: {
+      screen: FoodsUser,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="FoodsUser" title="Foods" />
+        ),
+      }),
+    },
+
+    AddMetas: {
+      screen: AddMetas,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="AddMetas " title="Crear Meta" />
+        ),
+      }),
+    },
+    /*DeleteFood: {
+      screen: DeleteFoodScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="DeleteFood" title="Eliminar Comida" />
+        )
+      })
+    },*/
+     TagsUser: {
+       screen: TagsUser,
+       navigationOptions: (navOpt) => ({
+         drawerLabel: ({ focused }) => (
+           <Drawer focused={focused} screen="TagsUser" title="Agregar tag" />
+         ),
+       })
+     },
+/*
+    ListTags: {
+      screen: ListTagScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListTag" title="List Tags" />
+        ),
+      })
+    },*/
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Settings" title="Settings" />
+        ),
+      }),
+    }
+  },
+);
+
+
+
+
+
+
 export default createStackNavigator(
   {
+    Main: MainStack,
     App: AppStack,
     Home: HomeStack,
     Login: LoginStack,
-    SignUp: SignUpStack
+    SignUp: SignUpStack,
+    User: UserStack
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Main',
   }
 );
 

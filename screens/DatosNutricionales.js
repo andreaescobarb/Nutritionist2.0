@@ -65,6 +65,7 @@ let addFacts = async () => {
 
 let findFood = function() {
     console.log("Bye");
+let findFood = async function(navigation) {
     axios.get('http://InsertYourIpHere:1337/foods', {
         params:{ 
             name: parameters.foodname 
@@ -76,12 +77,16 @@ let findFood = function() {
     }).then(function(response) {
         let food = response.data[0];
         console.log(food+" beep");
+    }).then(async function(response) {
+        let food = response.data[0];
         if (!food) {
             Alert.alert(
                 'Comida no encontrada, ingrese una comida válida.'
             )
         } else {
             parameters.foodId = food.id;
+            const value = await AsyncStorage.setItem('food', JSON.stringify(food));
+            foodId = value.id;
         }
     }).catch(function(error) {
         console.log(error);

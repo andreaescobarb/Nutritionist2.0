@@ -28,44 +28,12 @@ export default class Foods extends React.Component {
         )
     }
 
-
-    handleDelete = (foodId) => {
-        const currentFoods = this.state.foods;
-
-        // Remove deleted item from state.
-        this.setState({
-            foods: currentFoods.filter(food => food.id !== foodId),
-        });
-
-        console.log(foodId);
-        axios.delete('http://InsertYourIpHere:1337/foods', {
-            data: { id: foodId }
-        }).then(response => {
-            if (response.status === 'error') {
-                this.setState({
-                    foods: currentFoods,
-                });
-            } else {
-            }
-        })
-    };
-
-    handleEdit = (navigation, food) => {
-        //navigation.navigate('EditFood')
-        navigation.navigate('EditFood', { foodId: food })
-
-    };
-
     handleNutritionalFacts = (navigation, food) => {
         //navigation.navigate('EditFood')
         Alert.alert(
             food.nutritionalFacts
         )
 
-    };
-
-    handleTagstoFoods = (navigation, food) => {
-        navigation.navigate('TagstoFoods', { foodId: food })
     };
 
     renderFoods = (foods) => {
@@ -82,19 +50,10 @@ export default class Foods extends React.Component {
                     <Tags readonly
                         initialTags={this.state.tagMap[food.id]}
                     />
-                    <View style={{ flex: 1, flexDirection: "row" }}>
-                        <Button icon={{ name: "pencil", type: "material-community", color: "white", size: 16 }} title="Editar Comida" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleEdit(navigation, food.id)} />
-                        <Button icon={{ name: "delete", type: "material-community", color: "white", size: 16 }} title="Eliminar Comida" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleDelete(food.id)} />
-                    </View>
-                    <View style={{ flex: 1, flexDirection: "row" }}>
-
-                        <Button icon={{ name: "tag", type: "material-community", color: "white", size: 16 }} title="Agregar Tags" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleTagstoFoods(navigation, food.id)} />
-                        <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleNutritionalFacts(navigation, food)} />
-                    </View>
+                    {/* <View style={{ flex: 1, flexDirection: "row" }}> */}
+                    <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" buttonStyle={[styles.button, styles.shadow]}
+                        onPress={() => this.handleNutritionalFacts(navigation, food)} />
+                    {/* </View> */}
 
                 </Card>
             )
@@ -107,7 +66,6 @@ export default class Foods extends React.Component {
                 <ScrollView
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
-
                     {this.renderForm()}
                 </ScrollView>
             </Block>

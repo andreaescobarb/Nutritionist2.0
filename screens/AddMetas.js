@@ -15,11 +15,13 @@ let parameters = {
 };
 //h
 async function getUser() {
+
+/*async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://InsertYourIpHere:1337/users', {
+        const response = await axios.get('http://192.168.100.15:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -32,22 +34,22 @@ async function getUser() {
     } catch (error) {
 
     }
-}
+}*/
 
-let addGoals = async ()  =>{
-    axios.patch('http://InsertYourIpHere:1337/users', parameters).then(async function(response) {
+/*let addGoals = async ()  =>{
+    axios.patch('http://192.168.100.15:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
-                'Nueva comida creada...'
+                'Nueva meta creada...'
             )
             const value = await AsyncStorage.setItem('user',JSON.stringify(users));
-            navigation.navigation('login')
+            //navigation.navigation('login')
         
     }).catch(function(error) {
         console.log(error);
     });
 };
-
+*/
 
 export default class AddFood extends React.Component{
     constructor(props){
@@ -56,9 +58,7 @@ export default class AddFood extends React.Component{
             goal:'',
         }
     }
-    state = {
-        imagePicked: null,
-      };
+
 
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
@@ -91,8 +91,6 @@ export default class AddFood extends React.Component{
     } 
 
     renderForm=()=>{
-        const {navigation}= this.props;
-        let { imagePicked } = this.state;
         return(
             <KeyboardAvoidingView>
             <Block flex style ={styles.group}>
@@ -113,14 +111,7 @@ export default class AddFood extends React.Component{
          </KeyboardAvoidingView>
         )
     }
-    componentDidMount() {
-        this.getPermissionAsync();
-      }
     
-      
-    
-
-
     renderButton = () =>{
         const { navigation } = this.props;
         return(
@@ -226,3 +217,4 @@ const styles = StyleSheet.create({
     }
 
 })
+}
