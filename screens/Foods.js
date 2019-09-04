@@ -5,7 +5,7 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 import { AppRegistry, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { materialTheme } from '../constants';
 import Tags from "react-native-tags";
-import { Card, Icon, Button } from 'react-native-elements';
+import { Card, Icon } from 'react-native-elements';
 import axios from 'axios';
 const { width } = Dimensions.get('screen');
 
@@ -38,7 +38,7 @@ export default class Foods extends React.Component {
         });
 
         console.log(foodId);
-        axios.delete('http://192.168.1.5:1337/foods', {
+        axios.delete('http://InsertYourIpHere:1337/foods', {
             data: { id: foodId }
         }).then(response => {
             if (response.status === 'error') {
@@ -115,7 +115,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.5:1337/foods', {
+        fetch('http://InsertYourIpHere:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

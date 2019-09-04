@@ -19,7 +19,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.129:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -35,7 +35,7 @@ async function getUser() {
 }
 
 let addGoals = async ()  =>{
-    axios.patch('http://192.168.1.129:1337/users', parameters).then(async function(response) {
+    axios.patch('http://InsertYourIpHere:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva comida creada...'
@@ -103,7 +103,7 @@ export default class AddFood extends React.Component{
                     <Input right placeholder="Ingrese su Meta" 
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.name =value}
+                        onChangeText={(value) => parameters.goal =value}
 //                        onChangeText={(text) => this.validate(text,"name")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />

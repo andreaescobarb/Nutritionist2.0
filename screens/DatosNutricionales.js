@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Dimensions, Alert } from "react-native";
+import { StyleSheet, Switch, Platform, TouchableOpacity, ScrollView, Image, View, Dimensions, Alert, AsyncStorage } from "react-native";
 import { Block, Text, theme, Icon, Input, Button } from "galio-framework";
 import materialTheme from '../constants/Theme';
 
@@ -20,35 +20,52 @@ let parameters = {
     foodname: ''
 };
 
-let addFacts = async ()  =>{
+let params = {
+    id: '',
+    calories: '',
+    carbs: '',
+    proteins: '',
+    fat: '',
+    sugar: '',
+    sodium: '',
+    transFat: '',
+    fiber: ''
+}
+
+let addFacts = async () => {
+    console.log("Hi");
     findFood();
-    axios.post('http://192.168.1.5:1337/nutritionfacts', 
-    {
-        params:{ 
-            calories: parameters.calories,
-            carbs: parameters.carbs,
-            protein: parameters.protein,
-            fats: parameters.fats,
-            sugars: parameters.sugars,
-            sodium: parameters.sodium,
-            transfat: parameters.satFat,
-            fiber: parameters.fibre,
-            foodId: parameters.foodId 
-        }
-    }
-    ).then(async function(response) {
+    params.id = parameters.foodId;
+    params.calories = parameters.calories;
+    params.carbs = parameters.carbs;
+    params.proteins = parameters.protein;
+    params.fat = parameters.fats;
+    params.sugar = parameters.sugars;
+    params.sodium = parameters.sodium;
+    params.transFat = parameters.satFat;
+    params.fiber = parameters.fibre;
+    console.log(params);
+    axios.patch('http://InsertYourIpHere:1337/foods',params).then((response) => {
         let data = response.data;
+        //console.log(data)
+        if (!data.updated) {
             Alert.alert(
-                'Nuevos datos creados...'
+                'Ocurrio un error al editar comida'
             )
-    
-    }).catch(function(error) {
+        } else {
+            Alert.alert(
+                'Comida editada exitosamente'
+            )
+        }
+    }).catch(function (error) {
         console.log(error);
     });
 };
 
-let findFood = async function(navigation) {
-    axios.get('http://192.168.1.5:1337/foods', {
+
+let findFood = function() {
+    console.log("Bye");
+    axios.get('http://InsertYourIpHere:1337/foods', {
         params:{ 
             name: parameters.foodname 
         }
@@ -56,15 +73,15 @@ let findFood = async function(navigation) {
         headers: {
             'Accept': 'application/json'
         }
-    }).then(async function(response) {
+    }).then(function(response) {
         let food = response.data[0];
+        console.log(food+" beep");
         if (!food) {
             Alert.alert(
                 'Comida no encontrada, ingrese una comida válida.'
             )
         } else {
-            const value = await AsyncStorage.setItem('food', JSON.stringify(food));
-            foodId = value.id;
+            parameters.foodId = food.id;
         }
     }).catch(function(error) {
         console.log(error);
@@ -177,6 +194,9 @@ export default class DatosNutricionales extends React.Component {
                         onChangeText={(value) => parameters.fibre = value} s
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
+                </Block>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Text style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre de Comida</Text>
                 </Block>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Input right placeholder="Ingresar la comida"

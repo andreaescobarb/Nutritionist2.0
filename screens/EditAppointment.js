@@ -31,7 +31,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.5:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -49,7 +49,7 @@ let appointments = async () => {
     const user = await getUser();
     parameters.patientId = user.id;
     parameters.patientName = user.name + " " + user.lastname;
-    axios.post('http://192.168.1.5:1337/appointments', parameters).then(async function (response) {
+    axios.post('http://InsertYourIpHere:1337/appointments', parameters).then(async function (response) {
         console.log(parameters)
         let data = response.data;
         if (!data.created) {
