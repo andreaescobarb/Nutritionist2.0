@@ -45,7 +45,7 @@ let addFacts = async () => {
     params.transFat = parameters.satFat;
     params.fiber = parameters.fibre;
     console.log(params);
-    axios.patch('http://InsertYourIpHere:1337/foods',params).then((response) => {
+    axios.patch('http://192.168.1.5:1337/foods', params).then((response) => {
         let data = response.data;
         //console.log(data)
         if (!data.updated) {
@@ -63,34 +63,34 @@ let addFacts = async () => {
 };
 
 
-let findFood = function() {
+let findFood = function () {
     console.log("Bye");
-let findFood = async function(navigation) {
-    axios.get('http://InsertYourIpHere:1337/foods', {
-        params:{ 
-            name: parameters.foodname 
+    //let findFood = async function(navigation) {
+    axios.get('http://192.168.1.5:1337/foods', {
+        params: {
+            name: parameters.foodname
         }
-    }, { 
+    }, {
         headers: {
             'Accept': 'application/json'
         }
-    }).then(function(response) {
-        let food = response.data[0];
-        console.log(food+" beep");
-    }).then(async function(response) {
-        let food = response.data[0];
-        if (!food) {
-            Alert.alert(
-                'Comida no encontrada, ingrese una comida válida.'
-            )
-        } else {
-            parameters.foodId = food.id;
-            const value = await AsyncStorage.setItem('food', JSON.stringify(food));
-            foodId = value.id;
-        }
-    }).catch(function(error) {
-        console.log(error);
-    });
+        }).then(function (response) {
+            let food = response.data[0];
+            console.log(food + " beep");
+        }).then(async function (response) {
+            let food = response.data[0];
+            if (!food) {
+                Alert.alert(
+                    'Comida no encontrada, ingrese una comida válida.'
+                )
+            } else {
+                parameters.foodId = food.id;
+                const value = await AsyncStorage.setItem('food', JSON.stringify(food));
+                foodId = value.id;
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
 };
 
 export default class DatosNutricionales extends React.Component {
@@ -224,7 +224,7 @@ export default class DatosNutricionales extends React.Component {
                     <Block center>
                         <Button
                             shadowless style={[styles.button, styles.shadow]}
-                            onPress={() =>addFacts(navigation)}>
+                            onPress={() => addFacts(navigation)}>
                             Guardar
                     </Button>
                     </Block>

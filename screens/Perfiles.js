@@ -26,7 +26,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://InsertYourIpHere:1337/users', {
+        const response = await axios.get('http://192.168.1.5:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -61,7 +61,13 @@ export default class Perfil extends React.Component {
 
     componentDidMount = async () => {
         getUser().then((data) => {
+            let tagMap = {};
+            data.tags.forEach(function (item) {
+                tagMap[item.id] = item.tags.map(function (tag) { return tag.name + " " });
+            });
+            console.log(data.tags);
             this.setState(data);
+            this.setState({ tagMap: tagMap });
         }).catch(function (error) {
             console.log(error);
         });
@@ -206,6 +212,7 @@ export default class Perfil extends React.Component {
     }
 
     renderTags = (tags) => {
+        console.log(this.state);
         return tags.map((tag) => {
             return (
                 <Block flex>

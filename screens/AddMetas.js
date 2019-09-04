@@ -13,8 +13,9 @@ let parameters = {
     id: '',
     goal: ''
 };
+
 //h
-async function getUser() {
+//async function getUser() {
 
 /*async function getUser() {
     const value = await AsyncStorage.getItem('user');
@@ -51,7 +52,7 @@ async function getUser() {
 };
 */
 
-export default class AddFood extends React.Component{
+export default class AddMeta extends React.Component{
     constructor(props){
         super(props);
         this.state={
@@ -217,4 +218,3 @@ const styles = StyleSheet.create({
     }
 
 })
-}
