@@ -17,6 +17,7 @@ import StepsScreen from '../screens/Steps';
 import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
+import InicioScreen from '../screens/Inicio';
 import AddFoodScreen from '../screens/AddFood';
 import AddMetas from '../screens/AddMetas';
 import nutriProfileScreen from '../screens/nutriProfile';
@@ -267,7 +268,13 @@ const HomeStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       header: <Header title="Perfil" navigation={navigation} />
     })
-  }
+  },
+  Inicio: {
+    screen: InicioScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header title="Inicio" navigation={navigation} />
+    })
+  },
 },
   {
     cardStyle: {
@@ -276,6 +283,7 @@ const HomeStack = createStackNavigator({
     transitionConfig,
   });
 
+  
 const AppStack = createDrawerNavigator(
   {
     Prefile: {
@@ -283,6 +291,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Perfiles" title="Perfil" />
+        ),
+      }),
+    },
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Inicio" />
         ),
       }),
     },
@@ -396,6 +412,14 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Perfil" />
+        ),
+      }),
+    },
     nutriProfile: {
       screen: nutriProfileScreen,
       navigationOptions: (navOpt) => ({
@@ -472,7 +496,6 @@ const UserStack = createDrawerNavigator(
     }
   },
 );
-
 
 
 
