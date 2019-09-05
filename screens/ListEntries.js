@@ -23,7 +23,7 @@ export default class ListEntries extends React.Component {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
-                {this.renderFoods(this.state.listEntries)}
+                {this.renderEntries(this.state.listEntries)}
             </Block>
         )
     }
