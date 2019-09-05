@@ -38,7 +38,7 @@ export default class Foods extends React.Component {
         });
 
         console.log(foodId);
-        axios.delete('http://192.168.1.5:1337/foods', {
+        axios.delete('http://192.168.1.134:1337/foods', {
             data: { id: foodId }
         }).then(response => {
             if (response.status === 'error') {
@@ -75,9 +75,8 @@ export default class Foods extends React.Component {
             return (
                 <Card
                     title={food.name}
-                    image={{ uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fbuying-healthy-foods-ft-blog0617.jpg' }}>
+                    image={{ uri: food.image }}>
                     <Text style={{ marginBottom: 5 }}>
-                        {food.description}
                     </Text>
                     <Tags readonly
                         initialTags={this.state.tagMap[food.id]}
@@ -115,7 +114,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.5:1337/foods', {
+        fetch('http://192.168.1.134:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

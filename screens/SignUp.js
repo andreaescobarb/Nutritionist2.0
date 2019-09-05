@@ -18,7 +18,8 @@ let parameters = {
 
 
 let signUp = async (navigation) => {
-    axios.get('http://192.168.1.5:1337/users', {
+    console.log("Hello");
+    axios.get('http://192.168.1.134:1337/users', {
         params: {
             username: parameters.username
         }
@@ -27,11 +28,12 @@ let signUp = async (navigation) => {
                 'Accept': 'application/json'
             }
         }).then(async function (response) {
-            let user = response.data[0];
-            if (!user) {
-                axios.post('http://192.168.1.5:1337/users', parameters).then(async function (response) {
-                    let data = response.data;
-                    if (!data.created) {
+            let data = response.data[0];
+            if (!data) {
+                console.log("I'm here!");
+                axios.post('http://192.168.1.134:1337/users', parameters).then(async function (response) {
+                    let user = response.data;
+                    if (!user.created) {
                         Alert.alert(
                             'Error al crear usuario'
                         )
@@ -40,10 +42,11 @@ let signUp = async (navigation) => {
                             'Usuario creado exitosamente'
                         )
                     }
+                        const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                        navigation.navigate('User')
                 }).catch(function (error) {
                     console.log(error);
                 });
-                navigation.navigate('User')
             } else {
                 Alert.alert(
                     'El usuario ya existe'

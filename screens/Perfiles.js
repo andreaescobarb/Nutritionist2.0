@@ -26,7 +26,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.5:1337/users', {
+        const response = await axios.get('http://192.168.1.134:1337/users', {
             params: {
                 id: loggedUser.id
             }

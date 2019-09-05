@@ -45,7 +45,7 @@ let addFacts = async () => {
     params.transFat = parameters.satFat;
     params.fiber = parameters.fibre;
     console.log(params);
-    axios.patch('http://192.168.1.5:1337/foods', params).then((response) => {
+    axios.patch('http://192.168.1.134:1337/foods', params).then((response) => {
         let data = response.data;
         //console.log(data)
         if (!data.updated) {
@@ -66,7 +66,7 @@ let addFacts = async () => {
 let findFood = function () {
     console.log("Bye");
     //let findFood = async function(navigation) {
-    axios.get('http://192.168.1.5:1337/foods', {
+    axios.get('http://192.168.1.134:1337/foods', {
         params: {
             name: parameters.foodname
         }
