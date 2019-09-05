@@ -70,12 +70,13 @@ export default class Foods extends React.Component {
 
     renderFoods = (foods) => {
         const { navigation } = this.props;
-
+        var currentFood;
         return foods.map((food) => {
+            currentFood = JSON.stringify(food);
             return (
                 <Card
                     title={food.name}
-                    image={{ uri: food.image }}>
+                    image source={require(food.image)} />
                     <Text style={{ marginBottom: 5 }}>
                     </Text>
                     <Tags readonly
