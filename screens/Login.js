@@ -38,7 +38,7 @@ let login = async function (navigation) {
             }
             else {
                 const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                navigation.navigate('App')
+                navigation.navigate('Inicio')
             }
         }).catch(function (error) {
             console.log(error);

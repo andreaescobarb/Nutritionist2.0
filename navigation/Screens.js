@@ -12,11 +12,13 @@ import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
 import FoodsScreen from '../screens/Foods';
+import ListAppointmentsUserScreen from '../screens/ListAppointmentsUser';
 import WaterScreen from '../screens/Water';
 import StepsScreen from '../screens/Steps';
 import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
+import InicioScreen from '../screens/Inicio';
 import AddFoodScreen from '../screens/AddFood';
 import AddMetas from '../screens/AddMetas';
 import nutriProfileScreen from '../screens/nutriProfile';
@@ -267,7 +269,13 @@ const HomeStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       header: <Header title="Perfil" navigation={navigation} />
     })
-  }
+  },
+  Inicio: {
+    screen: InicioScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header title="Inicio" navigation={navigation} />
+    })
+  },
 },
   {
     cardStyle: {
@@ -276,6 +284,7 @@ const HomeStack = createStackNavigator({
     transitionConfig,
   });
 
+  
 const AppStack = createDrawerNavigator(
   {
     Prefile: {
@@ -283,6 +292,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Perfiles" title="Perfil" />
+        ),
+      }),
+    },
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Inicio" />
         ),
       }),
     },
@@ -326,6 +343,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    
     AddFood: {
       screen: AddFoodScreen,
       navigationOptions: (navOpt) => ({
@@ -396,6 +414,14 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Perfil" />
+        ),
+      }),
+    },
     nutriProfile: {
       screen: nutriProfileScreen,
       navigationOptions: (navOpt) => ({
@@ -417,6 +443,14 @@ const UserStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="AddAppointment" title="Crear Cita" />
+        ),
+      }),
+    },
+    AddAppointmentsUser: {
+      screen: ListAppointmentsUserScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Citas Paciente" title="Citas Paciente" />
         ),
       }),
     },
@@ -472,7 +506,6 @@ const UserStack = createDrawerNavigator(
     }
   },
 );
-
 
 
 
