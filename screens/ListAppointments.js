@@ -44,7 +44,7 @@ export default class ListAppointments extends React.Component {
     });
 
     console.log(appointmentId);
-    axios.delete('http://192.168.1.134:1337/appointments', {
+    axios.delete('http://InsertYourIpHere:1337/appointments', {
       data: { id: appointmentId }
     }).then(response => {
       if (response.status === 'error') {
@@ -90,7 +90,7 @@ export default class ListAppointments extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.1.134:1337/appointments", {
+    fetch("http://InsertYourIpHere:1337/appointments", {
       method: "GET",
       headers: {
         Accept: "application/json"

@@ -54,7 +54,7 @@ let AddEntries = async () => {
 };
 
 let LoadEntries = async () => {
-    axios.get(`https://nutrionist-server.herokuapp.com/entries`).then(response => {
+    axios.get(`https://InsertYourIpHere/entries`).then(response => {
         let data = response.data;
         this.setState({ entries });
     }).catch(function (error) {

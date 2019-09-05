@@ -270,12 +270,6 @@ const HomeStack = createStackNavigator({
       header: <Header title="Perfil" navigation={navigation} />
     })
   },
-  Inicio: {
-    screen: InicioScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Inicio" navigation={navigation} />
-    })
-  },
 },
   {
     cardStyle: {
@@ -406,19 +400,19 @@ const AppStack = createDrawerNavigator(
 
 const UserStack = createDrawerNavigator(
   {
-    Prefile: {
-      screen: PerfileScreen,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Perfiles" title="Perfil" />
-        ),
-      }),
-    },
     Inicio: {
       screen: InicioScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Inicio" title="Perfil" />
+          <Drawer focused={focused} screen="Inicio" title="Inicio" />
+        ),
+      }),
+    },
+    Prefile: {
+      screen: PerfileScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Perfiles" title="Editar Perfil" />
         ),
       }),
     },

@@ -15,7 +15,7 @@ let parameters = {
 };
 
 let login = async function (navigation) {
-    axios.get('http://192.168.1.134:1337/users', {
+    axios.get('http://InsertYourIpHere:1337/users', {
         params: {
             username: parameters.username,
             password: parameters.password,

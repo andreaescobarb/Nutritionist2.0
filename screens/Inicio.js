@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import { View, ImageBackground, Alert, StyleSheet, Image, StatusBar, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Picker } from 'react-native';
+import { View, ImageBackground, Alert, StyleSheet, Image, StatusBar, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage} from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
 import Tags from "react-native-tags";
 const { height, width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 let parameters = {
     name: '',
@@ -28,7 +28,7 @@ async function getUser() {
 
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.5:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }

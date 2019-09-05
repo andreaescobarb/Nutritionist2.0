@@ -18,7 +18,7 @@ let parameters = {
 
 async function getFood(foodId) {
     try {
-        const response = await axios.get('http://192.168.1.134:1337/foods', {
+        const response = await axios.get('http://InsertYourIpHere:1337/foods', {
             params: {
                 id: foodId
             }
@@ -39,7 +39,7 @@ function pre_edit(name, description) {
 }
 
 let editFood = async () => {
-    axios.patch('http://192.168.1.134:1337/foods', parameters).then((response) => {
+    axios.patch('http://InsertYourIpHere:1337/foods', parameters).then((response) => {
         let data = response.data;
         //console.log(data)
         if (!data.updated) {
