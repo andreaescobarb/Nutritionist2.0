@@ -13,9 +13,9 @@ let parameters = {
     id: ''
 };
 
-export default class Foods extends React.Component {
+export default class ListUsers extends React.Component {
     state = {
-        foods: [],
+        listUsers: [],
         tagMap: {}
     };
 
@@ -23,81 +23,54 @@ export default class Foods extends React.Component {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
-                {this.renderFoods(this.state.foods)}
+                {this.renderFoods(this.state.listUsers)}
             </Block>
         )
     }
 
 
-    handleDelete = (foodId) => {
-        const currentFoods = this.state.foods;
+    handleDelete = (userId) => {
+        const currentUsers = this.state.listUsers;
 
         // Remove deleted item from state.
         this.setState({
-            foods: currentFoods.filter(food => food.id !== foodId),
+            listUsers: currentUsers.filter(user => user.id !== userId),
         });
 
-        console.log(foodId);
-        axios.delete('http://InsertYourIpHere:1337/foods', {
-            data: { id: foodId }
+        console.log(userId);
+        axios.delete('http://InsertYourIpHere:1337/users', {
+            data: { id: userId }
         }).then(response => {
             if (response.status === 'error') {
                 this.setState({
-                    foods: currentFoods,
+                    users: currentUsers,
                 });
             } else {
             }
         })
     };
 
-    handleEdit = (navigation, food) => {
-        //navigation.navigate('EditFood')
-        navigation.navigate('EditFood', { foodId: food })
 
-    };
 
-    handleNutritionalFacts = (navigation, food) => {
-        //navigation.navigate('EditFood')
-        Alert.alert(
-            food.nutritionalFacts
-        )
 
-    };
 
-    handleTagstoFoods = (navigation, food) => {
-        navigation.navigate('TagstoFoods', { foodId: food })
-    };
-
-    renderFoods = (foods) => {
+    renderEntries = listUsers => {
         const { navigation } = this.props;
-        var currentFood;
-        return foods.map((food) => {
-            currentFood = JSON.stringify(food);
-            return (
-                <Card
-                    title={food.name}
-                    image source={require(food.image)} />
-                    <Text style={{ marginBottom: 5 }}>
-                    </Text>
-                    <Tags readonly
-                        initialTags={this.state.tagMap[food.id]}
-                    />
-                    <View style={{ flex: 1, flexDirection: "row" }}>
-                        <Button icon={{ name: "pencil", type: "material-community", color: "white", size: 16 }} title="Editar Comida" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleEdit(navigation, food.id)} />
-                        <Button icon={{ name: "delete", type: "material-community", color: "white", size: 16 }} title="Eliminar Comida" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleDelete(food.id)} />
-                    </View>
-                    <View style={{ flex: 1, flexDirection: "row" }}>
 
-                        <Button icon={{ name: "tag", type: "material-community", color: "white", size: 16 }} title="Agregar Tags" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleTagstoFoods(navigation, food.id)} />
-                        <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleNutritionalFacts(navigation, food)} />
-                    </View>
+        return listUsers.map((listuser) => {
+            return (
+                <Card title={listuser.username}>
+                <Text style={{ marginBottom: 5 }}>Nombre: {listuser.name}</Text>
+                <Text style={{ marginBottom: 5 }}>Apellido: {listuser.lastname}</Text>
+                <Text style={{ marginBottom: 5 }}>Edad: {listuser.age}</Text>
+                <Text style={{ marginBottom: 5 }}>Género: {listuser.gender}</Text>
+                <Text style={{ marginBottom: 5 }}>Rol: {listuser.role}</Text>
+                <Button style={styles.button} onPress={() => this.handleDelete(listuser.id)}> Eliminar</Button>
 
                 </Card>
-            )}}
+            )
+        })
+    }
 
     render() {
         return (
@@ -113,7 +86,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://InsertYourIpHere:1337/foods', {
+        fetch('http://InsertYourIpHere:1337/users', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -121,19 +94,14 @@ export default class Foods extends React.Component {
         }).then((response) => response.json())
             .then((responseJson) => {
 
-                let tagMap = {};
 
                 if (!responseJson) {
                     responseJson = [];
                 }
 
-                responseJson.forEach(function (item) {
-                    tagMap[item.id] = item.tags.map(function (tag) { return tag.name + " " });
-                });
+                this.setState({ user: responseJson });
 
-
-                this.setState({ foods: responseJson });
-                this.setState({ tagMap: tagMap });
+                this.setState({ listUsers: responseJson });
             })
             .catch((error) => {
                 console.error(error);
