@@ -54,7 +54,7 @@ let editFood = async () => {
     }).catch(function (error) {
         console.log(error);
     });
-};
+}; 
 
 export default class EditFood extends React.Component {
     constructor(props) {
