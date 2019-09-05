@@ -12,13 +12,19 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import { AppRegistry, View, Image, TouchableOpacity } from "react-native";
+import { AppRegistry, AsyncStorage, View, Image, TouchableOpacity } from "react-native";
 const { width } = Dimensions.get("screen");
 import { materialTheme } from "../constants";
 import Tags from "react-native-tags";
 import { Card } from "react-native-elements";
 
-export default class ListAppointments extends React.Component {
+async function getUser() {
+  const value = await AsyncStorage.getItem('user');
+  const loggedUser = JSON.parse(value);
+  console.log("user" + loggedUser.id)
+  return loggedUser.id
+}
+export default class ListAppointmentsUser extends React.Component {
   state = {
     listappointments: [],
     appointmentMap: {}
@@ -90,7 +96,9 @@ export default class ListAppointments extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.1.5:1337/appointments", {
+    const id = getUser();
+    console.log("http://192.168.1.5:1337/appointments?patientId=" +id);
+    fetch("http://192.168.1.5:1337/appointments?patientId=" +id, {
       method: "GET",
       headers: {
         Accept: "application/json"

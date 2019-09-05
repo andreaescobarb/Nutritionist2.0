@@ -12,6 +12,7 @@ import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
 import FoodsScreen from '../screens/Foods';
+import ListAppointmentsUserScreen from '../screens/ListAppointmentsUser';
 import WaterScreen from '../screens/Water';
 import StepsScreen from '../screens/Steps';
 import WeightScreen from '../screens/Weight';
@@ -342,6 +343,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    
     AddFood: {
       screen: AddFoodScreen,
       navigationOptions: (navOpt) => ({
@@ -441,6 +443,14 @@ const UserStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="AddAppointment" title="Crear Cita" />
+        ),
+      }),
+    },
+    AddAppointmentsUser: {
+      screen: ListAppointmentsUserScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Citas Paciente" title="Citas Paciente" />
         ),
       }),
     },
