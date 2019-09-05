@@ -12,13 +12,20 @@ import { entries } from './Components';
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
-    parameters.userId = loggedUser.id;
-}
+    //console.log(loggedUser.id);
+    try {
+        const response = await axios.get('http://192.168.43.33:1337/users', {
+            params: {
+                id: loggedUser.id
+            }
+        });
+        const userData = response.data[0];
+        // console.log(userData.name);
 
-function check() {
-    getUser();
-    console.log(parameters);
-    AddEntries();
+        return userData;
+    } catch (error) {
+
+    }
 }
 
 //let identification = '';
@@ -36,7 +43,10 @@ let parameters = {
 };
 
 let AddEntries = async () => {
-    axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+    const user = await getUser();
+    parameters.userId = user.id;
+    console.log(parameters);
+    axios.post('http://192.168.43.33:1337/entries', parameters).then(async function (response) {
         let data = response.data;
         if (!data.created) {
             Alert.alert(
@@ -54,7 +64,7 @@ let AddEntries = async () => {
 };
 
 let LoadEntries = async () => {
-    axios.get(`https://nutrionist-server.herokuapp.com/entries`).then(response => {
+    axios.get(`http://192.168.43.33:1337/entries`).then(response => {
         let data = response.data;
         this.setState({ entries });
     }).catch(function (error) {
@@ -133,7 +143,7 @@ export default class Diario extends React.Component {
                     <Block center>
                         <Button
                             shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => check()}>
+                            onPress={() => AddEntries()}>
                             Guardar Datos
                     </Button>
                     </Block>

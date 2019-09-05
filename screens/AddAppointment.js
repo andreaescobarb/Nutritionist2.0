@@ -31,7 +31,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.5:1337/users', {
+        const response = await axios.get('http://192.168.43.33:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -47,7 +47,7 @@ async function getUser() {
 
 async function getAvailableHours() {
     try {
-        const response = await axios.get('http://192.168.1.5:1337/appointments', {
+        const response = await axios.get('http://192.168.43.33:1337/appointments', {
             params: {
                 date: parameters.date
             }
@@ -72,7 +72,7 @@ let appointments = async () => {
     const user = await getUser();
     parameters.patientId = user.id;
     parameters.patientName = user.name + " " + user.lastname;
-    axios.post('http://192.168.1.5:1337/appointments', parameters).then(async function (response) {
+    axios.post('http://192.168.43.33:1337/appointments', parameters).then(async function (response) {
         console.log(parameters)
         let data = response.data;
         if (!data.created) {
@@ -80,9 +80,11 @@ let appointments = async () => {
                 'Error al crear la cita'
             )
         } else {
-            Alert.alert(
-                'Se ha creado la cita'
-            )
+            Alert.alert('Se ha creado la cita')
+
+            const clean = new AddAppointment();
+            clean.clean();
+
             btncont = "Escoger fecha";
             isDisabled = true;
             const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
@@ -98,9 +100,15 @@ export default class AddAppointment extends React.Component {
         this.state = {
             appointments: [],
             isDateTimePickerVisible: false,
-            available_hours: []
+            available_hours: [],
+            key: '1'
         }
     }
+
+    clean = () => {
+        this.setState({ key: -this.state.key });
+    };
+
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };
