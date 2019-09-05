@@ -13,7 +13,7 @@ let parameters = {
 };
 
 let AddTags = async () => {
-  axios.post('http://192.168.1.5:1337/tags', parameters).then(async function (response) {
+  axios.post('http://InsertYourIpHere:1337/tags', parameters).then(async function (response) {
     let data = response.data;
     if (!data.created) {
       Alert.alert(
