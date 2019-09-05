@@ -34,10 +34,12 @@ import ListTagScreen from '../screens/ListTags';
 import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
 import NutritionalFactsScreen from '../screens/DatosNutricionales';
+import ListUsers from '../screens/ListUsers';
 
 //Las siguientes pantallas estrictamente hechas para que el usuario pueda visualizarlas desde su cuenta
 import FoodsUser from '../screens/FoodsUser'
 import TagsUser from '../screens/TagsUser';
+import ListEntries from '../screens/ListEntries';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -305,6 +307,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    
     Components: {
       screen: ComponentsStack,
       navigationOptions: (navOpt) => ({
@@ -313,6 +316,15 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    ListUsers: {
+      screen: ListUsers,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListUsers" title="Mostrar Usuarios" />
+        ),
+      }),
+    },
+
     AddAppointment: {
       screen: AddAppointmentScreen,
       navigationOptions: (navOpt) => ({
@@ -456,7 +468,14 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
-
+    ListEntries: {
+      screen: ListEntries,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListEntries" title="Mostrar Diario" />
+        ),
+      }),
+    },
     AddMetas: {
       screen: AddMetas,
       navigationOptions: (navOpt) => ({

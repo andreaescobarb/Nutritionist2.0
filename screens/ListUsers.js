@@ -38,7 +38,7 @@ export default class ListUsers extends React.Component {
         });
 
         console.log(userId);
-        axios.delete('http://InsertYourIpHere:1337/users', {
+        axios.delete('http://192.168.100.15:1337/users', {
             data: { id: userId }
         }).then(response => {
             if (response.status === 'error') {
@@ -86,7 +86,7 @@ export default class ListUsers extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://InsertYourIpHere:1337/users', {
+        fetch('http://192.168.100.15:1337/users', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

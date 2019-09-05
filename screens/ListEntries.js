@@ -38,7 +38,7 @@ export default class ListEntries extends React.Component {
         });
 
         console.log(entryId);
-        axios.delete('http://InsertYourIpHere:1337/entries', {
+        axios.delete('http://192.168.100.15:1337/entries', {
             data: { id: entryId }
         }).then(response => {
             if (response.status === 'error') {
@@ -85,7 +85,7 @@ export default class ListEntries extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://InsertYourIpHere:1337/entries', {
+        fetch('http://192.168.100.15:1337/entries', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
