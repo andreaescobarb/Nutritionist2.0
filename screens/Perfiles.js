@@ -14,7 +14,7 @@ let parameters = {
     username: '',
     password: '',
     lastname: '',
-    gender: 'male',
+    gender: '',
     age: '0',
     weight: '',
     height: ''
@@ -24,6 +24,8 @@ let parameters = {
 async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
+    parameters.id = loggedUser.id;
+
     //console.log(loggedUser.id);
     try {
         const response = await axios.get('http://192.168.43.33:1337/users', {
@@ -39,6 +41,46 @@ async function getUser() {
 
     }
 }
+async function pre_edit(name, lastname, gender, age, weight, height) {
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    if (name == '') {
+        parameters.name = loggedUser.name;
+    } else {
+        parameters.name = name;
+    }
+    if (lastname == '') {
+        parameters.lastname = loggedUser.lastname;
+    } else {
+        parameters.lastname = lastname;
+    }
+    parameters.gender = gender;
+    parameters.username = loggedUser.username;
+    parameters.password = loggedUser.password;
+    parameters.age = age;
+    parameters.weight = weight;
+    parameters.height = height;
+    console.log("Updated data: " + parameters)
+    editUser();
+}
+
+let editUser = async () => {
+    axios.patch('http://192.168.100.15:1337/users', parameters).then((response) => {
+        let data = response.data;
+        console.log(data)
+        if (!data.updated) {
+            Alert.alert(
+                'Ocurrio un error al editar Usuario'
+            )
+        } else {
+            Alert.alert(
+                'Usuario editado exitosamente'
+            )
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+};
 
 export default class Perfil extends React.Component {
 
@@ -49,6 +91,7 @@ export default class Perfil extends React.Component {
             nameValdate: true,
             lastname: '',
             lastnameValdate: true,
+            gender: '',
             age: '',
             ageValdate: true,
             weight: '',
@@ -120,7 +163,7 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input value={this.state.name} right placeholder="Nombre"
-                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
                             //onChangeText={(value) => this.validate(parameters.name = value, 'name')}
                             onChangeText={(text) => this.setState({ name: text })}
@@ -133,9 +176,9 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input value={this.state.lastname} right placeholder="Apellido"
-                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => parameters.lastname = value}
+                            onChangeText={(text) => this.setState({ lastname: text })}
                         //onChangeText={(text)=>this.validate(text,'lastname')}
                         // style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
                         />
@@ -146,10 +189,10 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Picker
-                            selectedValue={parameters.gender}
-                            onValueChange={(itemValue, itemIndex) => parameters.gender = itemValue}>
-                            <Picker.Item label="Femenino" value="male" />
-                            <Picker.Item label="Masculino" value="female" />
+                            selectedValue={this.state.gender}
+                            onValueChange={(itemValue, itemIndex) => this.setState({ gender: itemValue })}>
+                            <Picker.Item label="Femenino" value="female" />
+                            <Picker.Item label="Masculino" value="male" />
                         </Picker>
                     </Block>
 
@@ -158,10 +201,9 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input right placeholder="Edad"
-                            keyboardType="numeric"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => parameters.age = value}
+                            onChangeText={(text) => this.setState({ age: text })}
                             //onChangeText={(text)=>this.validate(text,'age')}
                             style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.ageValdate ? styles.error : null]}
                         />
@@ -172,10 +214,9 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input right placeholder="Peso"
-                            keyboardType="numeric"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => parameters.weight = value}
+                            onChangeText={(text) => this.setState({ weight: text })}
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
@@ -184,10 +225,9 @@ export default class Perfil extends React.Component {
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Input right placeholder="Altura"
-                            keyboardType="numeric"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
                             color={materialTheme.COLORS.ICON}
-                            onChangeText={(value) => parameters.height = value}
+                            onChangeText={(text) => this.setState({ height: text })}
                             //value= {parameters.height} 
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
@@ -226,8 +266,8 @@ export default class Perfil extends React.Component {
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Text>{"\n"}</Text>
-                        <Button shadowless style={[styles.button, styles.shadow]}>
+                        <Button shadowless style={[styles.button, styles.shadow]}
+                            onPress={() => pre_edit(this.state.name, this.state.lastname, this.state.gender, this.state.age, this.state.weight, this.state.height)}>
                             Actualizar Perfil
                     </Button>
                     </Block>

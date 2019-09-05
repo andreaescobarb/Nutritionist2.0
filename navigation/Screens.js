@@ -12,11 +12,13 @@ import SettingsScreen from '../screens/Settings';
 import SignUpScreen from '../screens/SignUp';
 import LoginScreen from '../screens/Login';
 import FoodsScreen from '../screens/Foods';
+import ListAppointmentsUserScreen from '../screens/ListAppointmentsUser';
 import WaterScreen from '../screens/Water';
 import StepsScreen from '../screens/Steps';
 import WeightScreen from '../screens/Weight';
 import Hours_SleepScreen from '../screens/Hours_Sleep';
 import PerfileScreen from '../screens/Perfiles';
+import InicioScreen from '../screens/Inicio';
 import AddFoodScreen from '../screens/AddFood';
 import AddMetas from '../screens/AddMetas';
 import nutriProfileScreen from '../screens/nutriProfile';
@@ -32,10 +34,12 @@ import ListTagScreen from '../screens/ListTags';
 import TagstoFoods from '../screens/TagstoFoods';
 import Diario from '../screens/Diario';
 import NutritionalFactsScreen from '../screens/DatosNutricionales';
+import ListUsers from '../screens/ListUsers';
 
 //Las siguientes pantallas estrictamente hechas para que el usuario pueda visualizarlas desde su cuenta
 import FoodsUser from '../screens/FoodsUser'
 import TagsUser from '../screens/TagsUser';
+import ListEntries from '../screens/ListEntries';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -267,7 +271,7 @@ const HomeStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       header: <Header title="Perfil" navigation={navigation} />
     })
-  }
+  },
 },
   {
     cardStyle: {
@@ -276,6 +280,7 @@ const HomeStack = createStackNavigator({
     transitionConfig,
   });
 
+  
 const AppStack = createDrawerNavigator(
   {
     Prefile: {
@@ -283,6 +288,14 @@ const AppStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="Perfiles" title="Perfil" />
+        ),
+      }),
+    },
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Inicio" />
         ),
       }),
     },
@@ -294,6 +307,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    
     Components: {
       screen: ComponentsStack,
       navigationOptions: (navOpt) => ({
@@ -302,6 +316,15 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    ListUsers: {
+      screen: ListUsers,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListUsers" title="Mostrar Usuarios" />
+        ),
+      }),
+    },
+
     AddAppointment: {
       screen: AddAppointmentScreen,
       navigationOptions: (navOpt) => ({
@@ -326,6 +349,7 @@ const AppStack = createDrawerNavigator(
         ),
       }),
     },
+    
     AddFood: {
       screen: AddFoodScreen,
       navigationOptions: (navOpt) => ({
@@ -388,11 +412,19 @@ const AppStack = createDrawerNavigator(
 
 const UserStack = createDrawerNavigator(
   {
+    Inicio: {
+      screen: InicioScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Inicio" title="Inicio" />
+        ),
+      }),
+    },
     Prefile: {
       screen: PerfileScreen,
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
-          <Drawer focused={focused} screen="Perfiles" title="Perfil" />
+          <Drawer focused={focused} screen="Perfiles" title="Editar Perfil" />
         ),
       }),
     },
@@ -420,6 +452,14 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
+    AddAppointmentsUser: {
+      screen: ListAppointmentsUserScreen,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Citas Paciente" title="Citas Paciente" />
+        ),
+      }),
+    },
     FoodsUser: {
       screen: FoodsUser,
       navigationOptions: (navOpt) => ({
@@ -428,7 +468,14 @@ const UserStack = createDrawerNavigator(
         ),
       }),
     },
-
+    ListEntries: {
+      screen: ListEntries,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="ListEntries" title="Mostrar Diario" />
+        ),
+      }),
+    },
     AddMetas: {
       screen: AddMetas,
       navigationOptions: (navOpt) => ({
@@ -472,7 +519,6 @@ const UserStack = createDrawerNavigator(
     }
   },
 );
-
 
 
 

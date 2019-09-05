@@ -64,7 +64,11 @@ let AddEntries = async () => {
 };
 
 let LoadEntries = async () => {
+<<<<<<< HEAD
     axios.get(`http://192.168.43.33:1337/entries`).then(response => {
+=======
+    axios.get(`https://192.168.100.15/entries`).then(response => {
+>>>>>>> 86aaf41df95e94f7044ce98f80228766c3bf73b2
         let data = response.data;
         this.setState({ entries });
     }).catch(function (error) {

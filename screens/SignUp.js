@@ -40,10 +40,11 @@ let signUp = async (navigation) => {
                             'Usuario creado exitosamente'
                         )
                     }
+                        const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                        navigation.navigate('User')
                 }).catch(function (error) {
                     console.log(error);
                 });
-                navigation.navigate('User')
             } else {
                 Alert.alert(
                     'El usuario ya existe'

@@ -130,11 +130,19 @@ export default class AddFood extends React.Component{
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.nutritionalFacts =value}
+//                        onChangeText={(text) => this.validate(text,"description")}   }
+                    />
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Ingrese URL de la imágen:" 
+                        color={materialTheme.COLORS.ICON}
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.image =value}
 //                        onChangeText={(text) => this.validate(text,"description")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.factsValdate?styles.error:null]}
                     />
                 </Block>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                {/*<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Button shadowless style={[styles.button, styles.shadow]} 
                     onPress={this._pickImage}>
                         Selecciona una imagen
@@ -142,7 +150,7 @@ export default class AddFood extends React.Component{
                     
                     {imagePicked &&
                     <Image source={{ uri: imagePicked }} style={{ width: 200, height: 200 }} />}
-                </View>
+                </View>*/}
             </Block>
          </KeyboardAvoidingView>
         )

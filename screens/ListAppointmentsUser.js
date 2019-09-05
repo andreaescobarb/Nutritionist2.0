@@ -12,68 +12,70 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import { AppRegistry, View, Image, TouchableOpacity } from "react-native";
+import { AppRegistry, AsyncStorage, View, Image, TouchableOpacity } from "react-native";
 const { width } = Dimensions.get("screen");
 import { materialTheme } from "../constants";
 import Tags from "react-native-tags";
 import { Card } from "react-native-elements";
 
-export default class ListTags extends React.Component {
+async function getUser() {
+  const value = await AsyncStorage.getItem('user');
+  const loggedUser = JSON.parse(value);
+  console.log("user" + loggedUser.id)
+  return loggedUser.id
+}
+export default class ListAppointmentsUser extends React.Component {
   state = {
-    listtags: [],
-    tagMap: {},
-    tagId: ''
+    listappointments: [],
+    appointmentMap: {}
   };
 
   renderForm = () => {
     const { navigation } = this.props;
     return (
       <Block flex style={styles.group}>
-        {this.renderTags(this.state.listtags)}
+        {this.renderAppointments(this.state.listappointments)}
       </Block>
     );
   };
 
-  handleDelete = (tagId) => {
+  handleDelete = (appointmentId) => {
 
     // state, before delete anything
-    const currentTags = this.state.listtags;
+    const currentAppointments = this.state.listappointments;
 
     // Remove deleted item from state.
     this.setState({
-      listtags: currentTags.filter(tag => tag.id !== tagId),
+      listappointments: currentAppointments.filter(appointment => appointment.id !== appointmentId),
     });
 
-console.log(tagId);
-axios.delete('http://192.168.43.33:1337/tags', {
-    data: { id: tagId }
-   }).then(response => {
-    if (response.status === 'error') {
+    console.log(appointmentId);
+    axios.delete('http://192.168.100.15:1337/appointments', {
+      data: { id: appointmentId }
+    }).then(response => {
+      if (response.status === 'error') {
         this.setState({
-          tags: currentTags,
+          appointments: currentappointments,
         });
       } else {
       }
-  })
-};
+    })
+  };
 
-handleEdit = (tagId) => {
+  handleEdit = (navigation, appointment) => {
+    navigation.navigate('EditAppointment', { appointmentId: appointment })
+  };
 
-  // state, before delete anything
-  const currentTags = this.state.listtags;
-  const { navigation } = this.props;
- 
-
-  navigation.navigate('EditTag');
-};
-
-  renderTags = listtags => {
-    return listtags.map(listtag => {
+  renderAppointments = listappointments => {
+    const { navigation } = this.props;
+    return listappointments.map(listappointment => {
       return (
-        <Card title={listtag.name}>
-          <Text style={{ marginBottom: 5 }}>{listtag.description}</Text>
-          <Button style={styles.button} onPress={() => this.handleEdit(listtag.id)}> Editar</Button>
-          <Button style={styles.button} onPress={() => this.handleDelete(listtag.id)}> Eliminar</Button>
+        <Card title={listappointment.date}>
+          <Text style={{ marginBottom: 5 }}>Hora: {listappointment.time}</Text>
+          <Text style={{ marginBottom: 5 }}>Paciente: {listappointment.patientName}</Text>
+          <Text style={{ marginBottom: 5 }}>Información: {listappointment.patientData}</Text>
+          <Button style={styles.button} onPress={() => this.handleEdit(navigation, listappointment.id)}> Editar</Button>
+          <Button style={styles.button} onPress={() => this.handleDelete(listappointment.id)}> Eliminar</Button>
 
         </Card>
       );
@@ -94,7 +96,9 @@ handleEdit = (tagId) => {
   }
 
   componentDidMount() {
-    fetch("http://192.168.43.33:1337/tags", {
+    const id = getUser();
+    console.log("http://192.168.100.15:1337/appointments?patientId=" +id);
+    fetch("http://192.168.100.15:1337/appointments?patientId=" +id, {
       method: "GET",
       headers: {
         Accept: "application/json"
@@ -110,12 +114,12 @@ handleEdit = (tagId) => {
           tagMap[item.id] = item.tags.map(function(tag) {
             return tag.name + " "});
         });*/
-      this.setState({ tags: responseJson });
+        this.setState({ appointment: responseJson });
         //this.setState({ tagMap: tagMap });
-        responseJson.forEach(function(item) {
+        responseJson.forEach(function (item) {
           //tagMap[item.id] = item.tag.map(function(tag) {return tag.name + " "});
         });
-        this.setState({ listtags: responseJson });
+        this.setState({ listappointments: responseJson });
         //this.setState({ tagMap: tagMap });
       })
       .catch(error => {
