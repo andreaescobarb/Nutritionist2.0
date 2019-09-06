@@ -18,12 +18,7 @@ import { materialTheme } from "../constants";
 import Tags from "react-native-tags";
 import { Card } from "react-native-elements";
 
-async function getUser() {
-  const value = await AsyncStorage.getItem('user');
-  const loggedUser = JSON.parse(value);
-  console.log("user" + loggedUser.id)
-  return loggedUser.id
-}
+
 export default class ListAppointmentsUser extends React.Component {
   state = {
     listappointments: [],
