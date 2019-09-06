@@ -23,7 +23,7 @@ export default class ListUsers extends React.Component {
         const { navigation } = this.props;
         return (
             <Block flex style={styles.group}>
-                {this.renderFoods(this.state.listUsers)}
+                {this.renderUsers(this.state.listUsers)}
             </Block>
         )
     }
@@ -54,7 +54,7 @@ export default class ListUsers extends React.Component {
 
 
 
-    renderEntries = listUsers => {
+    renderUsers = listUsers => {
         const { navigation } = this.props;
 
         return listUsers.map((listuser) => {
