@@ -28,7 +28,7 @@ async function getUser() {
 
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.100.15:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -65,7 +65,7 @@ async function pre_edit(name, lastname, gender, age, weight, height) {
 }
 
 let editUser = async () => {
-    axios.patch('http://192.168.100.15:1337/users', parameters).then((response) => {
+    axios.patch('http://InsertYourIpHere:1337/users', parameters).then((response) => {
         let data = response.data;
         console.log(data)
         if (!data.updated) {

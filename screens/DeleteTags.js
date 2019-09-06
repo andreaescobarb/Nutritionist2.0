@@ -89,7 +89,7 @@ export default class DeleteTag extends React.Component {
   }
 
   deleteTag() {
-    fetch("http://192.168.100.15:1337/tags", {
+    fetch("http://InsertYourIpHere:1337/tags", {
       method: "DELETE",
       headers: {
         Accept: "application/json"
