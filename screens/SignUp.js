@@ -18,7 +18,7 @@ let parameters = {
 
 
 let signUp = async (navigation) => {
-    axios.get('http://InsertYourIpHere:1337/users', {
+    axios.get('http://192.168.100.15:1337/users', {
         params: {
             username: parameters.username
         }
@@ -29,7 +29,7 @@ let signUp = async (navigation) => {
         }).then(async function (response) {
             let user = response.data[0];
             if (!user) {
-                axios.post('http://InsertYourIpHere:1337/users', parameters).then(async function (response) {
+                axios.post('http://192.168.100.15:1337/users', parameters).then(async function (response) {
                     let data = response.data;
                     if (!data.created) {
                         Alert.alert(
@@ -40,8 +40,7 @@ let signUp = async (navigation) => {
                             'Usuario creado exitosamente'
                         )
                     }
-                        const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                        navigation.navigate('User')
+                        navigation.navigate('Login')
                 }).catch(function (error) {
                     console.log(error);
                 });

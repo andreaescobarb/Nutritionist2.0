@@ -73,7 +73,7 @@ export default class Foods extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://InsertYourIpHere:1337/foods', {
+        fetch('http://192.168.100.15:1337/foods', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

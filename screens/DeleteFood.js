@@ -76,7 +76,7 @@ export default class AddFood extends React.Component {
     }
 
     deleteFood() {
-        fetch('http://InsertYourIpHere:1337/foods', {
+        fetch('http://192.168.100.15:1337/foods', {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',

@@ -15,7 +15,7 @@ let parameters = {
 };
 
 let login = async function (navigation) {
-    axios.get('http://InsertYourIpHere:1337/users', {
+    axios.get('http://192.168.100.15:1337/users', {
         params: {
             username: parameters.username,
             password: parameters.password,
@@ -38,7 +38,7 @@ let login = async function (navigation) {
             }
             else {
                 const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                navigation.navigate('Inicio')
+                navigation.navigate('App')
             }
         }).catch(function (error) {
             console.log(error);
