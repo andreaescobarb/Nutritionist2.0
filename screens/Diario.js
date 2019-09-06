@@ -14,7 +14,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.43.33:1337/users', {
+        const response = await axios.get('http://192.168.1.5:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -46,7 +46,7 @@ let AddEntries = async () => {
     const user = await getUser();
     parameters.userId = user.id;
     console.log(parameters);
-    axios.post('http://192.168.43.33:1337/entries', parameters).then(async function (response) {
+    axios.post('http://192.168.1.5:1337/entries', parameters).then(async function (response) {
         let data = response.data;
         if (!data.created) {
             Alert.alert(
@@ -64,11 +64,7 @@ let AddEntries = async () => {
 };
 
 let LoadEntries = async () => {
-<<<<<<< HEAD
-    axios.get(`http://192.168.43.33:1337/entries`).then(response => {
-=======
-    axios.get(`https://192.168.100.15/entries`).then(response => {
->>>>>>> 86aaf41df95e94f7044ce98f80228766c3bf73b2
+    axios.get(`http://192.168.1.5:1337/entries`).then(response => {
         let data = response.data;
         this.setState({ entries });
     }).catch(function (error) {

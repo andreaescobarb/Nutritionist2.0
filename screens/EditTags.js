@@ -23,11 +23,7 @@ let parameters = {
 
 let addTag = async () => {
   axios
-<<<<<<< HEAD
-    .post("http://192.168.43.33:1337/tags", parameters)
-=======
-    .post("http://192.168.100.15:1337/tags", parameters)
->>>>>>> 86aaf41df95e94f7044ce98f80228766c3bf73b2
+    .post("http://192.168.1.5:1337/tags", parameters)
     .then(async function(response) {
       let data = response.data;
       if (data.created) {

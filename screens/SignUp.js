@@ -18,7 +18,7 @@ let parameters = {
 
 
 let signUp = async (navigation) => {
-    axios.get('http://192.168.43.33:1337/users', {
+    axios.get('http://192.168.1.5:1337/users', {
         params: {
             username: parameters.username
         }
@@ -29,7 +29,7 @@ let signUp = async (navigation) => {
         }).then(async function (response) {
             let user = response.data[0];
             if (!user) {
-                axios.post('http://192.168.43.33:1337/users', parameters).then(async function (response) {
+                axios.post('http://192.168.1.5:1337/users', parameters).then(async function (response) {
                     let data = response.data;
                     if (!data.created) {
                         Alert.alert(

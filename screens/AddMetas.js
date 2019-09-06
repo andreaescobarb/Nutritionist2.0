@@ -22,7 +22,7 @@ let parameters = {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.100.15:1337/users', {
+        const response = await axios.get('http://192.168.1.5:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -38,7 +38,7 @@ let parameters = {
 }*/
 
 /*let addGoals = async ()  =>{
-    axios.patch('http://192.168.100.15:1337/users', parameters).then(async function(response) {
+    axios.patch('http://192.168.1.5:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva meta creada...'

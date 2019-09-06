@@ -7,7 +7,7 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 import Tags from "react-native-tags";
 const { height, width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
+//import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 let parameters = {
     name: '',
@@ -28,7 +28,7 @@ async function getUser() {
 
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.100.15:1337/users', {
+        const response = await axios.get('http://192.168.1.5:1337/users', {
             params: {
                 id: loggedUser.id
             }
