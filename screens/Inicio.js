@@ -7,7 +7,7 @@ import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-nat
 import Tags from "react-native-tags";
 const { height, width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
+//import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 let parameters = {
     name: '',

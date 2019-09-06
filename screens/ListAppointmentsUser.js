@@ -95,8 +95,11 @@ export default class ListAppointmentsUser extends React.Component {
     );
   }
 
-  componentDidMount() {
-    const id = getUser();
+  async componentDidMount() {
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    console.log("user" + loggedUser.id);
+    const id = loggedUser.id;
     console.log("http://192.168.100.15:1337/appointments?patientId=" +id);
     fetch("http://192.168.100.15:1337/appointments?patientId=" +id, {
       method: "GET",

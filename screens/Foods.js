@@ -38,7 +38,7 @@ export default class Foods extends React.Component {
         });
 
         console.log(foodId);
-        axios.delete('http://192.168.1.5:1337/foods', {
+        axios.delete('http://192.168.100.15:1337/foods', {
             data: { id: foodId }
         }).then(response => {
             if (response.status === 'error') {
