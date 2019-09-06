@@ -31,7 +31,7 @@ function _add(food, tag) {
 
 let addTagtoFood = async () => {
   console.log(parameters);
-  axios.post('http://192.168.100.15:1337/foodTags', parameters).then(async function (response) {
+  axios.post('http://InsertYourIpHere:1337/foodTags', parameters).then(async function (response) {
     let data = response.data;
     if (!data.created) {
       Alert.alert(
@@ -93,7 +93,7 @@ export default class ListTags extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.100.15:1337/tags", {
+    fetch("http://InsertYourIpHere:1337/tags", {
       method: "GET",
       headers: {
         Accept: "application/json"

@@ -70,8 +70,8 @@ export default class ListEntries extends React.Component {
     const loggedUser = JSON.parse(value);
     console.log("user" + loggedUser.id);
     const id = loggedUser.id;
-    console.log("http://192.168.100.15:1337/entries?userId=" + id);
-    fetch("http://192.168.100.15:1337/entries?userId=" + id, {
+    console.log("http://InsertYourIpHere:1337/entries?userId=" + id);
+    fetch("http://InsertYourIpHere:1337/entries?userId=" + id, {
       method: "GET",
       headers: {
         Accept: "application/json"
