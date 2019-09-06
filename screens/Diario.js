@@ -38,7 +38,7 @@ async function pre_edit(hours_of_sleep, steps, water, weight) {
 }
 
 let addEntries = async ()  =>{
-    axios.post('http://192.168.1.5:1337/entries', parameters).then(async function(response) {
+    axios.post('http://InsertYourIpHere:1337/entries', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Datos del día almacenados'

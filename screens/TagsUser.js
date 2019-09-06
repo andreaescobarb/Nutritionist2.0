@@ -28,7 +28,7 @@ async function getUser() {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.1.5:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -46,7 +46,7 @@ let addTagtoUser = async (tag) => {
     getUser().then((x) => {
         parameters.userId = x.id;
         console.log(parameters);
-        axios.post('http://192.168.1.5:1337/userstags', parameters).then(async function (response) {
+        axios.post('http://InsertYourIpHere:1337/userstags', parameters).then(async function (response) {
             let data = response.data;
             if (!data.created) {
                 Alert.alert(
@@ -109,7 +109,7 @@ export default class TagsUser extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://192.168.1.5:1337/tags", {
+        fetch("http://InsertYourIpHere:1337/tags", {
             method: "GET",
             headers: {
                 Accept: "application/json"
