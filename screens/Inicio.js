@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { View, ImageBackground, Alert, StyleSheet, Image, StatusBar, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage} from 'react-native';
+import { View, ImageBackground, Alert, StyleSheet, Image, StatusBar, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 
@@ -64,13 +64,7 @@ export default class Inicio extends React.Component {
 
     componentDidMount = async () => {
         getUser().then((data) => {
-            let tagMap = {};
-            data.tags.forEach(function (item) {
-                tagMap[item.id] = item.tags.map(function (tag) { return tag.name + " " });
-            });
-            console.log(data.tags);
             this.setState(data);
-            this.setState({ tagMap: tagMap });
         }).catch(function (error) {
             console.log(error);
         });
@@ -123,55 +117,43 @@ export default class Inicio extends React.Component {
 
         return (
 
-        <Block flex style={styles.container}>
-        <StatusBar barStyle="light-content" />
-            <Block flex center>
-            <ImageBackground
-                source={require('../assets/images/avocado.png')}
-                style={{ height: height, width: width }}
-                imageStyle= {{opacity:0.5}}>
-                
-                <Block><Text h2 style={{fontWeight: 'bold', color:'purple'}}>Bienvenido, {this.state.username} {"\n"}{"\n"}</Text></Block>
-                <Block><Text h3 style={{fontWeight: 'bold'}}>
-                    Datos Personales:{"\n"}{"\n"}
-                    </Text></Block>
-                <Text h4 style={{fontWeight: 'bold', color:'white'}}>
-                    Nombre: {this.state.name} {this.state.lastname}{"\n"}{"\n"}
+            <Block flex style={styles.container}>
+                <StatusBar barStyle="light-content" />
+                <Block flex center>
+                    <ImageBackground
+                        source={require('../assets/images/avocado.png')}
+                        style={{ height: height, width: width }}
+                        imageStyle={{ opacity: 0.5 }}>
 
-                    Edad: {this.state.age}{"\n"}{"\n"}
+                        <Block><Text h2 style={{ fontWeight: 'bold', color: 'purple' }}>Bienvenido, {this.state.username} {"\n"}{"\n"}</Text></Block>
+                        <Block><Text h3 style={{ fontWeight: 'bold' }}>
+                            Datos Personales:{"\n"}{"\n"}
+                        </Text></Block>
+                        <Text h4 style={{ fontWeight: 'bold', color: 'white' }}>
+                            Nombre: {this.state.name} {this.state.lastname}{"\n"}{"\n"}
 
-                    Genero: {this.state.gender}{"\n"}{"\n"}
+                            Edad: {this.state.age}{"\n"}{"\n"}
 
-                    Peso: {this.state.weight}{"\n"}{"\n"}
+                            Genero: {this.state.gender}{"\n"}{"\n"}
 
-                    Altura: {this.state.height} {"\n"}{"\n"}
-                </Text>
-                
-                
-            </ImageBackground>
-          </Block>
-        </Block>
-          
+                            Peso: {this.state.weight}{"\n"}{"\n"}
 
-
-            
-
+                            Altura: {this.state.height} {"\n"}{"\n"}
+                        </Text>
+                    </ImageBackground>
+                </Block>
+            </Block>
         )
-
     }
 
-    renderTags = (tags) => {
-        console.log(this.state);
-        return tags.map((tag) => {
+    renderTags = () => {
+        return this.state.tags.map((tag) => {
             return (
-                <Block flex>
-                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Block center>
-                            <Tags readonly
-                                initialTags={this.state.tagMap[tag.id]}
-                            />
-                        </Block>
-                    </Block>
+                <Block flex center style={styles.tagscontainer}>
+                    <StatusBar barStyle="light-content" />
+                    <Tags readonly
+                        initialTags={[tag.name]}
+                    />
                 </Block>
             )
         })
@@ -193,24 +175,29 @@ export default class Inicio extends React.Component {
 
 
 const styles = StyleSheet.create({
+    tagscontainer: {
+        backgroundColor: theme.COLORS.TWITTER,
+        height: 50,
+        width: responsiveWidth(100)
+    },
     container: {
         backgroundColor: theme.COLORS.TWITTER,
         height: responsiveHeight(90),
-      },
-      padded: {
+    },
+    padded: {
         paddingHorizontal: 3,
         position: 'relative',
         bottom: 2,
-      },
-      button: {
+    },
+    button: {
         width: width - theme.SIZES.BASE * 4,
         height: theme.SIZES.BASE * 3,
         shadowRadius: 0,
         shadowOpacity: 0,
-      },
-      Text: {
+    },
+    Text: {
         fontSize: responsiveFontSize(2)
-      },
+    },
     components: {
 
     },
