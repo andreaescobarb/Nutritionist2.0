@@ -17,7 +17,7 @@ let parameters = {
 };
 
 let addFood = async ()  =>{
-    axios.post('http://192.168.100.15:1337/foods', parameters).then(async function(response) {
+    axios.post('http://InsertYourIpHere:1337/foods', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva comida creada...'
@@ -132,6 +132,9 @@ export default class AddFood extends React.Component{
                         onChangeText={(value) => parameters.nutritionalFacts =value}
 //                        onChangeText={(text) => this.validate(text,"description")}   }
                     />
+                </Block>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>URL de imágen</Text>
                 </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese URL de la imágen:" 

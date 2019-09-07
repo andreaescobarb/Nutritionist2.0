@@ -11,7 +11,8 @@ import { materialTheme } from '../constants';
 
 let parameters = {
     id: '',
-    goal: ''
+    goal: '',
+    userId:''
 };
 
 //h
@@ -22,7 +23,7 @@ let parameters = {
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
     try {
-        const response = await axios.get('http://192.168.100.15:1337/users', {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
             params: {
                 id: loggedUser.id
             }
@@ -37,8 +38,11 @@ let parameters = {
     }
 }*/
 
-/*let addGoals = async ()  =>{
-    axios.patch('http://192.168.100.15:1337/users', parameters).then(async function(response) {
+let addGoals = async ()  =>{
+    const user = await getUser();
+    parameters.userId = user.id;
+    console.log(parameters);
+    axios.patch('http://InsertYourIpHere:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(
                 'Nueva meta creada...'
@@ -50,16 +54,40 @@ let parameters = {
         console.log(error);
     });
 };
-*/
+
+
+async function getUser() {
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    //console.log(loggedUser.id);
+    try {
+        const response = await axios.get('http://InsertYourIpHere:1337/users', {
+            params: {
+                id: loggedUser.id
+            }
+        });
+        const userData = response.data[0];
+        // console.log(userData.name);
+
+        return userData;
+    } catch (error) {
+
+    }
+}
 
 export default class AddMeta extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            type:'',
             goal:'',
+            userId:''
         }
     }
 
+
+
+    
 
     validate(text,type){
         namevalidation=/^[a-zA-Z]+$/
@@ -98,8 +126,20 @@ export default class AddMeta extends React.Component{
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
                 </Block>
+                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Ingrese su Meta (0 para bajar de peso, 1 para tomar más agua, 2 para dormir más horas...)</Text>
+                </Block>
                 <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Input right placeholder="Ingrese su Meta" 
+                        color={materialTheme.COLORS.ICON}
+                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
+                        onChangeText={(value) => parameters.type =value}
+//                        onChangeText={(text) => this.validate(text,"name")}   
+                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
+                    />
+                </Block>
+                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
+                    <Input right placeholder="Ingrese el valor deseado" 
                         color={materialTheme.COLORS.ICON}
                         placeholderTextColor= {materialTheme.COLORS.DEFAULT}
                         onChangeText={(value) => parameters.goal =value}

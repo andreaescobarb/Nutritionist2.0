@@ -50,7 +50,7 @@ export default class ListAppointmentsUser extends React.Component {
     });
 
     console.log(appointmentId);
-    axios.delete('http://192.168.100.15:1337/appointments', {
+    axios.delete('http://InsertYourIpHere:1337/appointments', {
       data: { id: appointmentId }
     }).then(response => {
       if (response.status === 'error') {
@@ -97,8 +97,8 @@ export default class ListAppointmentsUser extends React.Component {
 
   componentDidMount() {
     const id = getUser();
-    console.log("http://192.168.100.15:1337/appointments?patientId=" +id);
-    fetch("http://192.168.100.15:1337/appointments?patientId=" +id, {
+    console.log("http://InsertYourIpHere:1337/appointments?patientId=" +id);
+    fetch("http://InsertYourIpHere:1337/appointments?patientId=" +id, {
       method: "GET",
       headers: {
         Accept: "application/json"
