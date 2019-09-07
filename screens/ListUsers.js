@@ -66,7 +66,6 @@ export default class ListUsers extends React.Component {
                 <Text style={{ marginBottom: 5 }}>Género: {listuser.gender}</Text>
                 <Text style={{ marginBottom: 5 }}>Rol: {listuser.role}</Text>
                 <Button style={styles.button} onPress={() => this.handleDelete(listuser.id)}> Eliminar</Button>
-
                 </Card>
             )
         })

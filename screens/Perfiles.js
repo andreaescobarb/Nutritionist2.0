@@ -104,13 +104,7 @@ export default class Perfil extends React.Component {
 
     componentDidMount = async () => {
         getUser().then((data) => {
-            let tagMap = {};
-            data.tags.forEach(function (item) {
-                tagMap[item.id] = item.tags.map(function (tag) { return tag.name + " " });
-            });
-            console.log(data.tags);
             this.setState(data);
-            this.setState({ tagMap: tagMap });
         }).catch(function (error) {
             console.log(error);
         });
@@ -165,10 +159,10 @@ export default class Perfil extends React.Component {
             <KeyboardAvoidingView>
                 <Block flex style={styles.group}>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Text  h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre</Text>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Nombre</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input value = {this.state.name} right placeholder="Nombre"
+                        <Input value={this.state.name} right placeholder="Nombre"
                             placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
                             //onChangeText={(value) => this.validate(parameters.name = value, 'name')}
@@ -181,7 +175,7 @@ export default class Perfil extends React.Component {
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Apellido</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input value = {this.state.lastname} right placeholder="Apellido"
+                        <Input value={this.state.lastname} right placeholder="Apellido"
                             placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
                             onChangeText={(text) => this.setState({ lastname: text })}
@@ -251,15 +245,14 @@ export default class Perfil extends React.Component {
 
     }
 
-    renderTags = (tags) => {
-        console.log(this.state);
-        return tags.map((tag) => {
+    renderTags = () => {
+        return this.state.tags.map((tag) => {
             return (
                 <Block flex>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Block center>
                             <Tags readonly
-                                initialTags={this.state.tagMap[tag.id]}
+                                initialTags={[tag.name]}
                             />
                         </Block>
                     </Block>
@@ -290,7 +283,7 @@ export default class Perfil extends React.Component {
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
                     {this.renderForm()}
-                    {this.renderTags(this.state.tags)}
+                    {this.renderTags()}
                     {this.renderButton()}
                 </ScrollView>
             </Block>

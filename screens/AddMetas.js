@@ -38,10 +38,7 @@ let parameters = {
     }
 }*/
 
-let addGoals = async ()  =>{
-    const user = await getUser();
-    parameters.userId = user.id;
-    console.log(parameters);
+/*let addGoals = async ()  =>{
     axios.patch('http://InsertYourIpHere:1337/users', parameters).then(async function(response) {
         let data = response.data;
             Alert.alert(

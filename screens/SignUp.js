@@ -40,8 +40,7 @@ let signUp = async (navigation) => {
                             'Usuario creado exitosamente'
                         )
                     }
-                        const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                        navigation.navigate('User')
+                        navigation.navigate('Login')
                 }).catch(function (error) {
                     console.log(error);
                 });

@@ -80,9 +80,11 @@ let appointments = async () => {
                 'Error al crear la cita'
             )
         } else {
-            Alert.alert(
-                'Se ha creado la cita'
-            )
+            Alert.alert('Se ha creado la cita')
+
+            const clean = new AddAppointment();
+            clean.clean();
+
             btncont = "Escoger fecha";
             isDisabled = true;
             const value = await AsyncStorage.setItem('appointments', JSON.stringify(appointments));
@@ -98,9 +100,15 @@ export default class AddAppointment extends React.Component {
         this.state = {
             appointments: [],
             isDateTimePickerVisible: false,
-            available_hours: []
+            available_hours: [],
+            key: '1'
         }
     }
+
+    clean = () => {
+        this.setState({ key: -this.state.key });
+    };
+
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };

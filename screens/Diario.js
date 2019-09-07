@@ -1,108 +1,101 @@
 import React from 'react';
 import axios from 'axios';
 
-import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Alert } from 'react-native';
+import { Alert, StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Picker } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
-//import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import Tags from "react-native-tags";
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
-import { entries } from './Components';
-
-async function getUser() {
-    const value = await AsyncStorage.getItem('user');
-    const loggedUser = JSON.parse(value);
-    parameters.userId = loggedUser.id;
-}
-
-function check() {
-    getUser();
-    console.log(parameters);
-    AddEntries();
-}
-
-//let identification = '';
 let day = new Date().getDate(); //Current Date
 let month = new Date().getMonth() + 1; //Current Month
 let year = new Date().getFullYear(); //Current Year
-
+let date = day + '/' + month + '/' + year;
 let parameters = {
-    userId: '',
-    date: day + '/' + month + '/' + year,
-    water: '',
+    date,
+    hours_of_sleep: '',
     steps: '',
-    weight: '',
-    hours_of_sleep: ''
+    userId: '',
+    water: '',
+    weight: ''
 };
 
-let AddEntries = async () => {
-    axios.post('https://nutrionist-server.herokuapp.com/entries', parameters).then(async function (response) {
+
+async function pre_edit(hours_of_sleep, steps, water, weight) {
+    console.log("Updated data: " + hours_of_sleep);
+
+    const value = await AsyncStorage.getItem('user');
+    const loggedUser = JSON.parse(value);
+    
+    console.log("Updated data: " + loggedUser.id)
+    parameters.hours_of_sleep = hours_of_sleep;
+    parameters.steps = steps;
+    parameters.water = water;
+    parameters.weight = weight;
+    parameters.userId = loggedUser.id;
+    console.log("Updated data: " + parameters);
+    addEntries();
+}
+
+let addEntries = async ()  =>{
+    axios.post('http://InsertYourIpHere:1337/entries', parameters).then(async function(response) {
         let data = response.data;
-        if (!data.created) {
             Alert.alert(
-                'Ocurrio un error al guardar el diario'
-            )
-        } else {
-            Alert.alert(
-                'Diario guardado exitosamente'
-            )
-            const value = await AsyncStorage.setItem('entries', JSON.stringify(entries));
-        }
-    }).catch(function (error) {
+                'Datos del día almacenados'
+            )        
+    }).catch(function(error) {
         console.log(error);
     });
 };
 
-let LoadEntries = async () => {
-    axios.get(`https://InsertYourIpHere/entries`).then(response => {
-        let data = response.data;
-        this.setState({ entries });
-    }).catch(function (error) {
-        console.log(error);
-    });
-};
+export default class Entries extends React.Component {
 
-export default class Diario extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          date,
+          hours_of_sleep: '',
+          steps: '',
+          userId: '',
+          water: '',
+          weight: ''
+        };
+
+    }
+
+    
     renderForm = () => {
         const { navigation } = this.props;
+
         return (
             <KeyboardAvoidingView>
                 <Block flex style={styles.group}>
-                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Horas de Sueño</Text>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h5 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Fecha: {this.state.date}</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder={"Horas de Sueño"}
+                        <Text  h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Horas de Sueño</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Ingrese cuantas horas durmió"
+                            placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
-                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.hours_of_sleep = value}
-                        //                        onChangeText={(text) => this.validate(text,"name")}   
-                        //style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.nameValdate ? styles.error : null]}
-                        />
-                    </Block>
-
-                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Peso</Text>
-                    </Block>
-                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder="Peso"
-                            color={materialTheme.COLORS.ICON}
-                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.weight = value}
-                        //                        onChangeText={(text) => this.validate(text,"lastname")}   
-                        //style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
+                            //onChangeText={(value) => this.validate(parameters.name = value, 'name')}
+                            onChangeText={(text) => this.setState({ hours_of_sleep: text })}
+                            //onChangeText={(text)=>this.validate(text,'name')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }]}
                         />
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Pasos</Text>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Steps</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder="Pasos"
+                        <Input right placeholder="Ingrese la cantidad aproximada de pasos que dio"
+                            placeholderTextColor={materialTheme.COLORS.INPUT}
                             color={materialTheme.COLORS.ICON}
-                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.steps = value}
-                        //                        onChangeText={(text) => this.validate(text,"username")}   
-                        //style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.usernameValdate ? styles.error : null]}
+                            onChangeText={(text) => this.setState({ steps: text })}
+                        //onChangeText={(text)=>this.validate(text,'lastname')}
+                        // style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.lastnameValdate ? styles.error : null]}
                         />
                     </Block>
 
@@ -110,31 +103,40 @@ export default class Diario extends React.Component {
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Agua</Text>
                     </Block>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-                        <Input right placeholder="Agua"
-                            color={materialTheme.COLORS.ICON}
+                        <Input right placeholder="Ingrese la cantidad de agua que bebió en Litros"
                             placeholderTextColor={materialTheme.COLORS.DEFAULT}
-                            onChangeText={(value) => parameters.water = value}
-                        //                        onChangeText={(text) => this.validate(text,"password")}   
-                        //style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }, !this.state.passwordValdate ? styles.error : null]}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(text) => this.setState({ water: text })}
+                            //onChangeText={(text)=>this.validate(text,'age')}
+                            style={[{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT },]}
+                        />
+                    </Block>
+
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Peso</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Ingrese su peso de hoy, en Libras"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(text) => this.setState({ weight: text })}
+                            style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
                 </Block>
             </KeyboardAvoidingView>
-
         )
 
     }
 
     renderButton = () => {
-        const { navigation } = this.props;
         return (
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button
-                            shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => check()}>
-                            Guardar Datos
+                        <Button shadowless style={[styles.button, styles.shadow]}
+                            onPress={() => pre_edit(this.state.hours_of_sleep, this.state.steps, this.state.water, this.state.weight)}>
+                            Guardar
                     </Button>
                     </Block>
                 </Block>
@@ -149,7 +151,6 @@ export default class Diario extends React.Component {
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
                     {this.renderForm()}
-                    <Text>{'\n'}</Text>
                     {this.renderButton()}
                 </ScrollView>
             </Block>
@@ -183,7 +184,6 @@ const styles = StyleSheet.create({
     },
     optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,
-        color: '#4A4A4A',
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: -0.29,
@@ -227,5 +227,4 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'red'
     }
-
 })
