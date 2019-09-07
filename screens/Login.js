@@ -27,18 +27,23 @@ let login = async function (navigation) {
             }
         }).then(async function (response) {
             let user = response.data[0];
-            if (!user) {
-                Alert.alert(
-                    'Usuario no encontrado, favor registrarse.',
-                ),
-                    navigation.navigate('SignUp')
-            } else if (user.role == "1") {
-                const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                navigation.navigate('User')
+            if(parameters.password == user.password){
+                if (!user) {
+                    Alert.alert(
+                        'Usuario no encontrado, favor registrarse.',
+                    ),
+                        navigation.navigate('SignUp')
+                } else if (user.role == "1") {
+                    const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                    navigation.navigate('User')
+                }
+                else {
+                    const value = await AsyncStorage.setItem('user', JSON.stringify(user));
+                    navigation.navigate('App')
+                }
             }
-            else {
-                const value = await AsyncStorage.setItem('user', JSON.stringify(user));
-                navigation.navigate('App')
+            else{
+                Alert.alert('Contraseña incorrecta!')
             }
         }).catch(function (error) {
             console.log(error);

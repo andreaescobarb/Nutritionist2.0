@@ -10,15 +10,9 @@ import { materialTheme } from '../constants';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 let parameters = {
-<<<<<<< HEAD
-    id: '',
-    goal: '',
-    userId:''
-=======
     type: "",
     goal: "",
     userId: ""
->>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
 };
 
 async function getUser() {
@@ -53,29 +47,6 @@ let addGoal = async (parameters) => {
         console.log(error);
     });
 };
-<<<<<<< HEAD
-
-
-async function getUser() {
-    const value = await AsyncStorage.getItem('user');
-    const loggedUser = JSON.parse(value);
-    //console.log(loggedUser.id);
-    try {
-        const response = await axios.get('http://InsertYourIpHere:1337/users', {
-            params: {
-                id: loggedUser.id
-            }
-        });
-        const userData = response.data[0];
-        // console.log(userData.name);
-
-        return userData;
-    } catch (error) {
-
-    }
-}
-=======
->>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
 
 async function pre_add(goal) {
     const user = await getUser();
@@ -88,28 +59,14 @@ async function pre_add(goal) {
 export default class AddMeta extends React.Component {
     constructor(props) {
         super(props);
-<<<<<<< HEAD
-        this.state={
-            type:'',
-            goal:'',
-            userId:''
-=======
         this.state = {
             tipo: '',
             valor: ''
->>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
         }
     }
 
 
-<<<<<<< HEAD
-
-    
-
-    validate(text,type){
-=======
     /*validate(text,type){
->>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
         namevalidation=/^[a-zA-Z]+$/
         descriptionvalidation=/^[a-zA-Z]+$/
         if(type=='name'){
@@ -142,32 +99,6 @@ export default class AddMeta extends React.Component {
     renderForm = () => {
         return (
             <KeyboardAvoidingView>
-<<<<<<< HEAD
-            <Block flex style ={styles.group}>
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
-                </Block>
-                <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Ingrese su Meta (0 para bajar de peso, 1 para tomar más agua, 2 para dormir más horas...)</Text>
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese su Meta" 
-                        color={materialTheme.COLORS.ICON}
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.type =value}
-//                        onChangeText={(text) => this.validate(text,"name")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
-                    />
-                </Block>
-                <Block style={{paddingHorizontal: theme.SIZES.BASE}}>
-                    <Input right placeholder="Ingrese el valor deseado" 
-                        color={materialTheme.COLORS.ICON}
-                        placeholderTextColor= {materialTheme.COLORS.DEFAULT}
-                        onChangeText={(value) => parameters.goal =value}
-//                        onChangeText={(text) => this.validate(text,"name")}   
-                        style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
-                    />
-=======
                 <Block flex style={styles.group}>
                     <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                         <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Tipo</Text>
@@ -190,7 +121,6 @@ export default class AddMeta extends React.Component {
                             style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                         />
                     </Block>
->>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
                 </Block>
             </KeyboardAvoidingView>
         )

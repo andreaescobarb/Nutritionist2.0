@@ -58,9 +58,13 @@ export default class Foods extends React.Component {
 
     handleNutritionalFacts = (navigation, food) => {
         //navigation.navigate('EditFood')
-        Alert.alert(
-            food.nutritionalFacts
-        )
+        navigation.navigate('DatosNutricionales', { foodId: food })
+
+    };
+
+    viewNutritionalFacts = (navigation, food) => {
+        //navigation.navigate('EditFood')
+        navigation.navigate('ViewDatosNutricionales', { foodId: food })
 
     };
 
@@ -93,7 +97,11 @@ export default class Foods extends React.Component {
                         <Button icon={{ name: "tag", type: "material-community", color: "white", size: 16 }} title="Agregar Tags" containerStyle={{ width: "50%", marginRight: "2%" }} buttonStyle={[styles.button, styles.shadow]}
                             onPress={() => this.handleTagstoFoods(navigation, food.id)} />
                         <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
-                            onPress={() => this.handleNutritionalFacts(navigation, food)} />
+                            onPress={() => this.handleNutritionalFacts(navigation, food.id)} />
+                    </View>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                            <Button icon={{ name: "food-apple", type: "material-community", color: "white", size: 16 }} title="Datos Nutricionales" containerStyle={{ width: "50%" }} buttonStyle={[styles.button, styles.shadow]}
+                            onPress={() => this.viewNutritionalFacts(navigation, food.id)} />
                     </View>
 
                 </Card>

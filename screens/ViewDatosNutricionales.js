@@ -27,7 +27,14 @@ async function getFood(foodId) {
         });
         const foodData = response.data[0];
         //console.log(foodData);
-        return foodData;
+        parameters.calories = foodData.calories;
+        parameters.carbs = foodData.carbs;
+        parameters.proteins = foodData.proteins;
+        parameters.fat = foodData.fat;
+        parameters.sugar = foodData.sugar;
+        parameters.sodium = foodData.sodium;
+        parameters.transfat = foodData.transfat;
+        parameters.fiber = foodData.fiber;
     } catch (error) {
 
     }
@@ -42,7 +49,7 @@ function pre_edit(id, calories, carbs, proteins, fat, sugar, sodium, transFat, f
     parameters.sodium = sodium;
     parameters.transfat = transFat;
     parameters.fiber = fiber;
-    //console.log("Updated data: " + parameters)
+    console.log("Updated data: " + parameters)
     addFacts();
 }
 
@@ -85,9 +92,9 @@ export default class DatosNutricionales extends React.Component {
     }
 
     componentDidMount = async () => {
-        //console.log("componentDidMount received id: " + parameters.id)
+        console.log("componentDidMount received id: " + parameters.id)
         const data = await getFood(parameters.id);
-        //console.log(data);
+        console.log(data);
         this.setState(data);
         //console.log(this.state.name);
     }
@@ -95,8 +102,9 @@ export default class DatosNutricionales extends React.Component {
     renderForm = () => {
         const { navigation } = this.props;
         const foodId = navigation.getParam('foodId', 'NO-ID');
-        //console.log("Id received from navigation: " + foodId);
+        console.log("Id received from navigation: " + foodId);
         parameters.id = foodId;
+        getFood(parameters.id);
         return (
             <Block flex style={styles.group}>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -111,7 +119,7 @@ export default class DatosNutricionales extends React.Component {
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
-                        onChangeText={(value) => this.setState({ calories: value })}
+                        onChangeText={(value) => this.validate(parameters.calories = value, 'calories')}
                     />
                 </Block>
 
@@ -123,7 +131,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ carbs: value })} s
+                        onChangeText={(value) => this.validate(parameters.carbs = value, 'carbs')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -136,7 +144,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ proteins: value })} s
+                        onChangeText={(value) => this.validate(parameters.proteins = value, 'proteins')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -149,7 +157,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ fat: value })} s
+                        onChangeText={(value) => this.validate(parameters.fat = value, 'fat')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -162,7 +170,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ sugar: value })} s
+                        onChangeText={(value) => this.validate(parameters.sugar = value, 'sugar')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -175,7 +183,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ sodium: value })} s
+                        onChangeText={(value) => this.validate(parameters.sodium = value, 'sodium')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -187,7 +195,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ transFat: value })} s
+                        onChangeText={(value) => this.validate(parameters.transfat = value, 'transfat')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -200,7 +208,7 @@ export default class DatosNutricionales extends React.Component {
                         keyboardType="numeric"
                         placeholderTextColor={materialTheme.COLORS.DEFAULT}
                         color={materialTheme.COLORS.ICON}
-                        onChangeText={(value) => this.setState({ fiber: value })} s
+                        onChangeText={(value) => this.validate(parameters.fiber = value, 'fiber')}
                         style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
                     />
                 </Block>
@@ -215,11 +223,6 @@ export default class DatosNutricionales extends React.Component {
             <Block flex>
                 <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
                     <Block center>
-                        <Button
-                            shadowless style={[styles.button, styles.shadow]}
-                            onPress={() => pre_edit(this.state.calories, this.state.carbs, this.state.proteins, this.state.fat, this.state.sugar, this.state.sodium, this.state.transFat, this.state.fiber)}>
-                            Guardar
-                    </Button>
                     </Block>
                 </Block>
             </Block>
