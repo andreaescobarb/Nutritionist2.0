@@ -40,6 +40,7 @@ import ListUsers from '../screens/ListUsers';
 import FoodsUser from '../screens/FoodsUser'
 import TagsUser from '../screens/TagsUser';
 import ListEntries from '../screens/ListEntries';
+import Progress from '../screens/Progress';
 
 import Menu from './Menu';
 import Header from '../components/Header';
@@ -473,6 +474,14 @@ const UserStack = createDrawerNavigator(
       navigationOptions: (navOpt) => ({
         drawerLabel: ({ focused }) => (
           <Drawer focused={focused} screen="ListEntries" title="Mostrar Diario" />
+        ),
+      }),
+    },
+    Progress: {
+      screen: Progress,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({ focused }) => (
+          <Drawer focused={focused} screen="Progress" title="Progreso" />
         ),
       }),
     },
