@@ -2,23 +2,26 @@ import React from 'react';
 import axios from 'axios';
 
 import { Image, View } from 'react-native';
-import { ImagePicker, Permissions, Constants} from 'expo';
+import { ImagePicker, Permissions, Constants } from 'expo';
 import { StyleSheet, Dimensions, ScrollView, Platform, KeyboardAvoidingView, AsyncStorage, Alert } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
-
 const { width } = Dimensions.get('screen');
 import { materialTheme } from '../constants';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 let parameters = {
+<<<<<<< HEAD
     id: '',
     goal: '',
     userId:''
+=======
+    type: "",
+    goal: "",
+    userId: ""
+>>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
 };
 
-//h
-//async function getUser() {
-
-/*async function getUser() {
+async function getUser() {
     const value = await AsyncStorage.getItem('user');
     const loggedUser = JSON.parse(value);
     //console.log(loggedUser.id);
@@ -29,28 +32,28 @@ let parameters = {
             }
         });
         const userData = response.data[0];
-        // console.log(userData.name);
-        parameters.id = userData.id;
-        parameters.goal = userData.goal;
         return userData;
     } catch (error) {
 
     }
-}*/
+}
 
-/*let addGoals = async ()  =>{
-    axios.patch('http://InsertYourIpHere:1337/users', parameters).then(async function(response) {
+let addGoal = async (parameters) => {
+    console.log(parameters)
+    axios.post('http://InsertYourIpHere:1337/goals', parameters).then(async function (response) {
         let data = response.data;
+        if (!data.created) {
             Alert.alert(
-                'Nueva meta creada...'
+                'Error al crear la meta'
             )
-            const value = await AsyncStorage.setItem('user',JSON.stringify(users));
-            //navigation.navigation('login')
-        
-    }).catch(function(error) {
+        } else {
+            Alert.alert('Se ha creado la meta')
+        }
+    }).catch(function (error) {
         console.log(error);
     });
 };
+<<<<<<< HEAD
 
 
 async function getUser() {
@@ -71,22 +74,42 @@ async function getUser() {
 
     }
 }
+=======
+>>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
 
-export default class AddMeta extends React.Component{
-    constructor(props){
+async function pre_add(goal) {
+    const user = await getUser();
+    parameters.userId = user.id;
+    parameters.type = goal.tipo;
+    parameters.goal = goal.valor;
+    addGoal(parameters);
+}
+
+export default class AddMeta extends React.Component {
+    constructor(props) {
         super(props);
+<<<<<<< HEAD
         this.state={
             type:'',
             goal:'',
             userId:''
+=======
+        this.state = {
+            tipo: '',
+            valor: ''
+>>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
         }
     }
 
 
+<<<<<<< HEAD
 
     
 
     validate(text,type){
+=======
+    /*validate(text,type){
+>>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
         namevalidation=/^[a-zA-Z]+$/
         descriptionvalidation=/^[a-zA-Z]+$/
         if(type=='name'){
@@ -114,11 +137,12 @@ export default class AddMeta extends React.Component{
                 console.warn("invalid text")
             }
         }
-    } 
+    }*/
 
-    renderForm=()=>{
-        return(
+    renderForm = () => {
+        return (
             <KeyboardAvoidingView>
+<<<<<<< HEAD
             <Block flex style ={styles.group}>
                 <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
                     <Text h7 style ={{marginBottom: theme.SIZES.BASE/2}}>Nombre</Text>
@@ -143,41 +167,64 @@ export default class AddMeta extends React.Component{
 //                        onChangeText={(text) => this.validate(text,"name")}   
                         style={[{boderRadius: 3, borderColor: materialTheme.COLORS.INPUT},!this.state.nameValdate?styles.error:null]}
                     />
+=======
+                <Block flex style={styles.group}>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Tipo</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <ModalDropdown options={['Agua', 'Pasos', 'Peso', 'Horas de Sueño']}
+                            onSelect={(index) => this.setState({ tipo: index })}
+                            textStyle={{ fontSize: 17 }}
+                            defaultValue={"Seleccione el tipo de meta"} />
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Text>{"\n\n"}</Text>
+                        <Text h7 style={{ marginBottom: theme.SIZES.BASE / 2 }}>Valor</Text>
+                    </Block>
+                    <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                        <Input right placeholder="Ingrese valor de la meta"
+                            placeholderTextColor={materialTheme.COLORS.DEFAULT}
+                            color={materialTheme.COLORS.ICON}
+                            onChangeText={(value) => this.state.valor = value}
+                            style={{ boderRadius: 3, borderColor: materialTheme.COLORS.INPUT }}
+                        />
+                    </Block>
+>>>>>>> 9965c42ae5e9b9758c7e566ff9f50e4b31ea348d
                 </Block>
-
-            </Block>
-         </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
         )
     }
-    
-    renderButton = () =>{
+
+    renderButton = () => {
         const { navigation } = this.props;
-        return(
-        getUser(),
-        <Block flex>
-            <Block style ={{paddingHorizontal: theme.SIZES.BASE}}>
-                <Block center>
-                    <Button 
-                    shadowless style={[styles.button, styles.shadow]} 
-                    onPress={() =>addGoals(navigation)}>
-                        Crear Meta
+        return (
+            //getUser(),
+            <Block flex>
+                <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+                    <Block center>
+                        <Text>{"\n"}</Text>
+                        <Button
+                            shadowless style={[styles.button, styles.shadow]}
+                            onPress={() => pre_add(this.state)}
+                        >
+                            Crear Meta
                     </Button>
+                    </Block>
                 </Block>
             </Block>
-        </Block>
-       )
+        )
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Block flex center >
                 <ScrollView
                     style={styles.components}
                     showsVerticalScrollIndicator={false}>
-
-                        {this.renderForm()}
-                        {this.renderButton()}
-                    </ScrollView>
+                    {this.renderForm()}
+                    {this.renderButton()}
+                </ScrollView>
             </Block>
         );
     }
@@ -185,20 +232,20 @@ export default class AddMeta extends React.Component{
 
 
 const styles = StyleSheet.create({
-    components:{
+    components: {
 
     },
-    title:{
+    title: {
         paddingVertical: theme.SIZES.BASE,
-        paddingHorizontal: theme.SIZES.BASE *2,
+        paddingHorizontal: theme.SIZES.BASE * 2,
     },
-    group:{
+    group: {
         paddingTop: theme.SIZES.BASE * 3.75,
         color: 'black'
     },
-    shadow:{
-        shadowColor:'black',
-        shadowOffset:{width:0,height:2},
+    shadow: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 4,
         shadowOpacity: 0.2,
         elevation: 2,
@@ -206,52 +253,52 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: theme.SIZES.BASE,
         width: width - (theme.SIZES.BASE * 2),
-      },
-      optionsText: {
+    },
+    optionsText: {
         fontSize: theme.SIZES.BASE * 0.75,
         color: '#4A4A4A',
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: -0.29,
-      },
-      optionsButton: {
+    },
+    optionsButton: {
         width: 'auto',
         height: 34,
         paddingHorizontal: theme.SIZES.BASE,
         paddingVertical: 10,
-      },
-      input: {
+    },
+    input: {
         borderBottomWidth: 1,
-      },
+    },
 
-      inputDefault: {
+    inputDefault: {
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputTheme: {
+    },
+    inputTheme: {
         borderBottomColor: materialTheme.COLORS.PRIMARY,
-      },
-      inputInfo: {
+    },
+    inputInfo: {
         borderBottomColor: materialTheme.COLORS.INFO,
-      },
-      inputSuccess: {
+    },
+    inputSuccess: {
         borderBottomColor: materialTheme.COLORS.SUCCESS,
-      },
-      inputWarning: {
+    },
+    inputWarning: {
         borderBottomColor: materialTheme.COLORS.WARNING,
-      },
-      inputDanger: {
+    },
+    inputDanger: {
         borderBottomColor: materialTheme.COLORS.ERROR,
-      },
-     
-      rows: {
+    },
+
+    rows: {
         height: theme.SIZES.BASE * 2,
-      },
-      error:{
-        borderWidth:2,
-        borderColor:'red'
+    },
+    error: {
+        borderWidth: 2,
+        borderColor: 'red'
     }
 
 })
